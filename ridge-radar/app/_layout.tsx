@@ -1,14 +1,9 @@
-import { Slot, Stack } from "expo-router";
-import "../global.css";
-import React from "react";
+import { Stack } from 'expo-router/stack';
 
-const RooyLayout = () => {
+export default function Layout() {
   return (
     <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false}} />
-        <Slot />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
     </Stack>
-    );
-};
-
-export default RooyLayout;
+  );
+}
