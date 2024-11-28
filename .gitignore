@@ -1,8 +1,8 @@
 /.vscode
 # Node
-node_modules
 *.log
 .nvm
-package-lock.json
 
 .chache.sqlite
+package-lock.json
+ridge-radar/package-lock.json
