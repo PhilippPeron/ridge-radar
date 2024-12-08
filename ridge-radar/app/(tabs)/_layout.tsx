@@ -5,15 +5,15 @@ import BellIcon from "../../assets/icons/bell.svg";
 import SettingsIcon from "../../assets/icons/settings.svg";
 
 import tailwindConfig from "../../tailwind.config.js";
-const tailwindColors = tailwindConfig.theme.extend.colors;
+const tailwindColors = tailwindConfig?.theme?.extend?.colors;
 const iconSize = 30;
 
 export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: tailwindColors.text,
-        tabBarInactiveTintColor: tailwindColors.secondary,
+        tabBarActiveTintColor: tailwindColors?.text,
+        tabBarInactiveTintColor: tailwindColors?.secondary,
         tabBarStyle:  { position: 'absolute', height: 70, paddingBottom: 0},
         tabBarLabelPosition: "beside-icon",
         tabBarShowLabel: false,

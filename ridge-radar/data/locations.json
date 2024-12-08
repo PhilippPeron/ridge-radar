@@ -1,0 +1,19 @@
+{
+    "last_modified": "2021-09-01T00:00:00Z",
+    "format_version": 0,
+    "locations": [
+        {
+            "id": 1,
+            "display_name": "Wallberg",
+            "name": "Wallberg",
+            "country": "Germany",
+            "elevation": 1722,
+            "latitude": 47.665005,
+            "longitude": 11.797613,
+            "activities": [
+                "hiking"
+            ],
+            "description": "[User can add description]"
+        }
+    ]        
+}

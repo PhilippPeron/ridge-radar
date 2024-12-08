@@ -1,0 +1,78 @@
+{
+    "last_modified": "2021-09-01T00:00:00Z",
+    "format_version": 0,
+    "units": "metric",
+    "activities": {
+        "hiking": {
+            "icon": "hiking.svg",
+            "display_name": "Hiking",
+            "description": "Hiking in the mountains",
+            "weather": {
+                "precipitation_hour": {
+                    "hours": [9, 10, 11, 12, 13, 14, 15, 16, 17],
+                    "good": {
+                        "min": 0,
+                        "max": 0,
+                        "unit": "mm"
+                    },
+                    "acceptable": {
+                        "min": 0,
+                        "max": 5,
+                        "unit": "mm"
+                    }
+                },
+                "wind_ground_hour": {
+                    "hours": [9, 10, 11, 12, 13, 14, 15, 16, 17],
+                    "good": {
+                        "min": 0,
+                        "max": 3,
+                        "unit": "m/s"
+                    },
+                    "acceptable": {
+                        "min": 3,
+                        "max": 10,
+                        "unit": "m/s"
+                    }
+                },
+                "sun_percentage_day": {
+                    "good": {
+                        "min": 80,
+                        "max": 100,
+                        "unit": "%"
+                    },
+                    "acceptable": {
+                        "min": 30,
+                        "max": 80,
+                        "unit": "%"
+                    }
+                },
+                "cloud_cover_reference_hour": {
+                    "hours": [9, 10, 11, 12, 13, 14],
+                    "good": {
+                        "min": 80,
+                        "max": 100,
+                        "unit": "%",
+                        "and": {"cloud_cover": "good"}
+                    },
+                    "acceptable": {
+                        "min": 0,
+                        "max": 100,
+                        "unit": "%"
+                    }
+                },
+                "visibility": {
+                    "good": {
+                        "min": 10,
+                        "max": 1000,
+                        "unit": "km"
+                    },
+                    "acceptable": {
+                        "min": 2,
+                        "max": 10,
+                        "unit": "km"
+                    }
+                }
+            }
+        }
+    }
+}
