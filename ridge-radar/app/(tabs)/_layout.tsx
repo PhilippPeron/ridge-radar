@@ -25,7 +25,9 @@ export default function TabsLayout() {
           title: "Weather",
           headerShown: false,
           tabBarIcon: ({ color }) => (
-              <WeatherIcon height={iconSize+5} width={iconSize+5} fill={color} />
+            <View>
+              <WeatherIcon height={iconSize*1.2} width={iconSize*1.2} fill={color} />
+            </View>
           ),
         }}
       />
