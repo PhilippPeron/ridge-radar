@@ -70,11 +70,14 @@ export class WReportGenerator {
 }
 
 
-// Run with: npx tsc; node .\dist\create_report.js
+// Run with the launch debug config in vs code or with npx tsc; node .\dist\create_report.js
+(() => {
+    const locs = JSON.parse(fs.readFileSync('./data/examples/locations.json', 'utf-8'));
+    const acts = JSON.parse(fs.readFileSync('./data/examples/activities.json', 'utf-8'));
 
-const locs = JSON.parse(fs.readFileSync('./data/examples/locations.json', 'utf-8'));
-const acts = JSON.parse(fs.readFileSync('./data/examples/activities.json', 'utf-8'));
-
-const generator = new WReportGenerator(acts, locs);
-const report = generator.generateReport();
-console.log(report);
+    const generator = new WReportGenerator(acts, locs);
+    const report = generator.generateReport();
+    let outputPath = './data/examples/report-output.json';
+    fs.writeFileSync(outputPath, JSON.stringify(report, null, 2), 'utf-8');
+    console.log(`Report written to ${outputPath}`);
+})();
