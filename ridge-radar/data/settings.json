@@ -1,0 +1,8 @@
+{
+    "api": {
+        "url": "https://api.radar.io/v1"
+    },
+    "nDays": 7,
+    "theme": "light",
+    "featureFlags": {}
+}

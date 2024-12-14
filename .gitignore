@@ -2,6 +2,6 @@
 *.log
 .nvm
 
-.chache.sqlite
 package-lock.json
 ridge-radar/package-lock.json
+functions/.cache.sqlite

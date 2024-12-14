@@ -22,7 +22,6 @@ const field_key_map = {
     },
 };
 
-
 export class OpenMeteoAPI {
     defaultFields = {
         daily: [
@@ -46,6 +45,7 @@ export class OpenMeteoAPI {
         current: ["temperature_2m"],
     };
     extraWeatherInfo: { [key: string]: any };
+
     constructor() {
         this.extraWeatherInfo = extraWeatherInfo;
     }
