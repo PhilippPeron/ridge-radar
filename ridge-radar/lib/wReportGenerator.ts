@@ -1,6 +1,6 @@
-import { Locations, Location } from "../src/types/locations";
-import { Activities } from "../src/types/activities";
-import { OpenMeteoAPI } from "./OpenMeteoAPI";
+import { Locations, Location } from "../types/locations";
+import { Activities } from "../types/activities";
+import { OpenMeteoAPI } from "../api/openMeteoAPI";
 import * as fs from 'fs';
 
 export class WReportGenerator {
@@ -72,8 +72,8 @@ export class WReportGenerator {
 
 // Run with: npx tsc; node .\dist\create_report.js
 
-const locs = JSON.parse(fs.readFileSync('./src/data/locations.json', 'utf-8'));
-const acts = JSON.parse(fs.readFileSync('./src/data/activities.json', 'utf-8'));
+const locs = JSON.parse(fs.readFileSync('./data/examples/locations.json', 'utf-8'));
+const acts = JSON.parse(fs.readFileSync('./data/examples/activities.json', 'utf-8'));
 
 const generator = new WReportGenerator(acts, locs);
 const report = generator.generateReport();

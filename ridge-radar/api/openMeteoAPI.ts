@@ -1,4 +1,4 @@
-import { Locations, Location } from "../src/types/locations";
+import { Locations, Location } from "../types/locations";
 import { fetchWeatherApi } from "openmeteo";
 
 const extraWeatherInfo = {
