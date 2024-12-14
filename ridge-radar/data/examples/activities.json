@@ -21,7 +21,7 @@
                         "unit": "mm"
                     }
                 },
-                "wind_ground_hour": {
+                "windGround_hour": {
                     "hours": [9, 10, 11, 12, 13, 14, 15, 16, 17],
                     "good": {
                         "min": 0,
@@ -34,7 +34,7 @@
                         "unit": "m/s"
                     }
                 },
-                "sun_percentage_day": {
+                "sunPercentage_day": {
                     "good": {
                         "min": 80,
                         "max": 100,
@@ -46,7 +46,7 @@
                         "unit": "%"
                     }
                 },
-                "cloud_cover_reference_hour": {
+                "cloudCoverReference_hour": {
                     "hours": [9, 10, 11, 12, 13, 14],
                     "good": {
                         "min": 80,

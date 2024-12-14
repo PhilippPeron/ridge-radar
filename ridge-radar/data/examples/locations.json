@@ -10,10 +10,10 @@
             "elevation": 1722,
             "latitude": 47.665005,
             "longitude": 11.797613,
+            "description": "[User can add description]",
             "activities": [
                 "hiking"
-            ],
-            "description": "[User can add description]"
+            ]
         }
     ]        
 }

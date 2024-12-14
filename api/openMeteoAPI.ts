@@ -1,24 +1,5 @@
+import { Locations, Location } from "../src/types/locations";
 import { fetchWeatherApi } from "openmeteo";
-import * as fs from 'fs';
-
-// TODO: Move interfaces to types folder
-interface Locations {
-    last_modified: string;
-    format_version: number;
-    locations: Location[];
-}
-
-interface Location {
-    id: number;
-    display_name: string;
-    name: string;
-    country: string;
-    elevation: number;
-    latitude: number;
-    longitude: number;
-    activities: string[];
-    description: string;
-}
 
 const extraWeatherInfo = {
     gliding: {
@@ -28,8 +9,21 @@ const extraWeatherInfo = {
     }, // example
 };
 
-// TODO: Move to api folder
-class WeatherAPI {
+// Mapping between report fields openmeteo api fields
+const field_key_map = {
+    hourly: {
+        temperature: "temperature_2m",
+        wind_speed: "wind_speed_10m",
+        wind_direction: "wind_direction_10m",
+        precipitation: "precipitation_sum",
+        humidity: "humidity_2m",
+        pressure: "pressure_sea_level",
+        cloud_cover: "cloud_cover",
+    },
+};
+
+
+export class OpenMeteoAPI {
     defaultFields = {
         daily: [
             "temperature_2m_max",
@@ -79,7 +73,7 @@ class WeatherAPI {
             return acc;
         }, {} as { [key: number]: any });
     }
-    async getWeatherDataForLocation(location: Location) {
+    private async getWeatherDataForLocation(location: Location) {
         // params for openmeteo api
         const params = {
             latitude: location.latitude,
@@ -98,10 +92,10 @@ class WeatherAPI {
         const locationData = this.mapWeatherData(responses, params);
         return locationData;
     }
-    get models() {
+    private get models() {
         return "best_match";
     }
-    get timezone() {
+    private get timezone() {
         return "Europe/Berlin";
     }
     private addExtraFields(
@@ -123,54 +117,6 @@ class WeatherAPI {
     }
     private mapWeatherData(responses: any, params: { [key: string]: any }) {
         // Map api fields to report fields
-        return data;
+        return params;
     }
 }
-
-export class WReportGenerator {
-    constructor() {}
-
-    generateReport(
-        locations: { [key: string]: any },
-        activities: { [key: string]: any }
-    ) {
-        const weatherAPI = new WeatherAPI();
-
-        // Create WeatherAPI object
-        // Get data for each location
-    }
-
-    generateReportForLocation(location: any, activities: any) {
-        // Get data for location
-        // Check conditions for activities
-    }
-
-    generateReportDefault(location: any) {
-        // Add details for location for start page and default info
-    }
-    generateReportForActivity(location: any, activity: any) {
-        // Get data for activity
-        // Check conditions for activity
-    }
-}
-
-// TODO: Move to api folder
-// Mapping between report fields openmeteo api fields
-const field_key_map = {
-    hourly: {
-        temperature: "temperature_2m",
-        wind_speed: "wind_speed_10m",
-        wind_direction: "wind_direction_10m",
-        precipitation: "precipitation_sum",
-        humidity: "humidity_2m",
-        pressure: "pressure_sea_level",
-        cloud_cover: "cloud_cover",
-    },
-};
-
-
-const locs = JSON.parse(fs.readFileSync('../data/locations.json', 'utf-8'));
-const acts = JSON.parse(fs.readFileSync('../data/activities.json', 'utf-8'));
-
-const generator = new WReportGenerator();
-generator.generateReport(locs, acts);
