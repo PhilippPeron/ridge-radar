@@ -1,7 +1,8 @@
 import { Locations, Location } from "../types/locations";
 import { Activities } from "../types/activities";
 import { OpenMeteoAPIWrapper } from "../api/openMeteoAPIWrapper";
-import { settings } from "../data/settings.json";
+import { activityProcessor } from "./activityProcessor";
+import settings from "./settings";
 import * as fs from "fs";
 import { act } from "react";
 
@@ -12,16 +13,18 @@ export class WReportGenerator {
     wReport: any; // TODO: Create a type/interface for this
     nDays: number;
     weatherAPI: OpenMeteoAPIWrapper;
+    activityProcessor: activityProcessor;
 
     constructor(activities: Activities, locations: Locations) {
         this.activities = activities;
         this.locations = locations;
         this.nDays = settings.nDays;
-        const weatherAPI = new OpenMeteoAPIWrapper();
+        this.weatherAPI = new OpenMeteoAPIWrapper(this.locations);
+        this.activityProcessor = new activityProcessor(this.activities);
     }
 
     async generateReport() {
-        await this.weatherAPI.getWeatherData(this.locations);
+        await this.weatherAPI.getWeatherData();
         this.wReport = this.defaultReport();
         this.getReportForLocations();
         return this.wReport;
@@ -82,7 +85,7 @@ export class WReportGenerator {
         let daily = this.getDailyForDay(location, dayIndex);
         let hourly = this.getHourlyForDay(location, dayIndex);
         let iconPath = this.getIconPathForDay(daily);
-        let title = this.getTitleForDay(dayOfWeek);
+        let title = this.getTitleForDay(dayOfWeek, dayIndex);
 
         let day = {
             date: date.toISOString(),
@@ -106,7 +109,7 @@ export class WReportGenerator {
     }
 
     private getDailyForDay(location: Location, dayIndex: number) {
-        let temperature = this.weatherAPI.getDayTemperatures(
+        let temperature = this.weatherAPI.getDayTemperature(
             location,
             dayIndex
         );
@@ -120,10 +123,10 @@ export class WReportGenerator {
             dayIndex
         );
         let snowfall = this.weatherAPI.getDaySnowfall(location, dayIndex);
-        let activityWeather = this.activities.getDayWeather(location, dayIndex);
-        let activitiesGood = this.activities.getActivitiesGood(activityWeather);
+        let activityWeather = this.activityProcessor.getDayWeather(location, dayIndex);
+        let activitiesGood = this.activityProcessor.getActivitiesGood(activityWeather);
         let activitiesAcceptable =
-            this.activities.getActivitiesAcceptable(activityWeather);
+            this.activityProcessor.getActivitiesAcceptable(activityWeather);
         let daily = {
             temperature: temperature,
             sun_duration: sunDuration,
@@ -134,16 +137,25 @@ export class WReportGenerator {
             activitiesAcceptable: activitiesAcceptable,
             activityWeather: activityWeather,
         };
-        return;
+        return daily;
     }
     private getHourlyForDay(location: Location, dayIndex: number) {
-        //TODO: Implement
+        //TODO: Implement later
         return [];
     }
 
     private getIconPathForDay(daily: any) {
         //TODO: Implement
         return "";
+    }
+
+    private getTitleForDay(dayOfWeek: string, dayIndex: number) {
+        if (dayIndex === 0) {
+            return "Heute";
+        } else if (dayIndex === 1) {
+            return "Morgen";
+        }
+        return dayOfWeek;
     }
 
     private defaultReport() {

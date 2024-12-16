@@ -1,5 +1,6 @@
 import { Locations, Location } from "../types/locations";
 import { fetchWeatherApi } from "openmeteo";
+import settings from "../lib/settings";
 
 const extraWeatherInfo = {
     gliding: {
@@ -85,19 +86,18 @@ export class OpenMeteoAPI {
             models: this.models,
         };
         this.addExtraFields(params, location.activities);
-        const url = "https://api.open-meteo.com/v1/forecast";
+        const url = settings.api.forecastUrl;
         const responses = await fetchWeatherApi(url, params);
-        // Get data from openmeteo api
-        // Return data
         const locationData = this.mapWeatherData(responses, params);
         return locationData;
     }
     private get models() {
-        return "best_match";
+        return settings.api.models[0];
     }
     private get timezone() {
-        return "Europe/Berlin";
+        return settings.api.timezone;
     }
+
     private addExtraFields(
         params: { [key: string]: any },
         activities: Array<string>

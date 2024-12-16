@@ -1,9 +1,10 @@
 import { OpenMeteoAPI } from "./openMeteoAPI";
 import { Locations } from "../types/locations";
 
-class OpenMeteoAPIWrapper {
+export class OpenMeteoAPIWrapper {
     openMeteoAPI: OpenMeteoAPI;
     locations: Locations;
+    weatherData: any;
 
     constructor(locations: Locations) {
         this.locations = locations;
@@ -11,6 +12,21 @@ class OpenMeteoAPIWrapper {
     }
 
     async getWeatherData() {
-        await this.openMeteoAPI.getWeatherData(this.locations);
+        this.weatherData = await this.openMeteoAPI.getWeatherData(this.locations);
+    }
+    getDayTemperature(location, dayIndex) {
+        return ;
+    }
+    getDaySunDuration(location, dayIndex) {
+        return ;
+    }
+    getDaySunPercentage(location, dayIndex) {
+        return ;
+    }
+    getDayPrecipitation(location, dayIndex) {
+        return ;
+    }
+    getDaySnowfall(location, dayIndex) {
+        return ;
     }
 }
