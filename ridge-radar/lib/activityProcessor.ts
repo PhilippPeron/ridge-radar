@@ -1,4 +1,5 @@
 import { Activities } from "../types/activities";
+import { Location } from "../types/locations";
 
 export class activityProcessor {
     activities: Activities;
@@ -7,15 +8,15 @@ export class activityProcessor {
         this.activities = activities;
     }
 
-    getDayWeather(location, dayIndex) {
+    getDayWeather(location: Location, dayIndex: number) {
         return ;
     }
 
-    getActivitiesGood(activityWeather) {
+    getActivitiesGood(activityWeather: any) {
         return ;
     }
 
-    getActivitiesAcceptable(activityWeather) {
+    getActivitiesAcceptable(activityWeather: any) {
         return ;
     }
 }

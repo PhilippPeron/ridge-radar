@@ -169,7 +169,9 @@ export class WReportGenerator {
 }
 
 // Run with the launch debug config in vs code or with npx tsc; node .\dist\create_report.js
-(() => {
+(async () => {
+    console.time("Report Generation Time");
+
     const locs = JSON.parse(
         fs.readFileSync("./data/examples/locations.json", "utf-8")
     );
@@ -178,8 +180,11 @@ export class WReportGenerator {
     );
 
     const generator = new WReportGenerator(acts, locs);
-    const report = generator.generateReport();
+    const report = await generator.generateReport();
     let outputPath = "./data/examples/wreport-output.json";
     fs.writeFileSync(outputPath, JSON.stringify(report, null, 2), "utf-8");
     console.log(`Report written to ${outputPath}`);
+    console.log(report);
+
+    console.timeEnd("Report Generation Time");
 })();

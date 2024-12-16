@@ -1,5 +1,6 @@
 import { Tabs } from "expo-router";
 import { View, TouchableWithoutFeedbackComponent } from "react-native";
+import settings from "../../lib/settings";
 import WeatherIcon from "../../assets/icons/weather.svg";
 import BellIcon from "../../assets/icons/bell.svg";
 import SettingsIcon from "../../assets/icons/settings.svg";

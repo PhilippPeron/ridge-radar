@@ -1,5 +1,5 @@
 {
-  "last_updated": "2024-12-14T12:28:03.238Z",
+  "last_updated": "2024-12-16T22:32:02.680Z",
   "format_version": 0,
   "locations": [
     {
@@ -15,6 +15,66 @@
           "display_name": "Hiking",
           "description": "Hiking in the mountains"
         }
+      },
+      "weather": {
+        "days": [
+          {
+            "date": "2024-12-16T22:32:02.680Z",
+            "day_of_week": "Montag",
+            "hourly": [],
+            "daily": {},
+            "icon_path": "",
+            "title": "Heute"
+          },
+          {
+            "date": "2024-12-17T22:32:02.692Z",
+            "day_of_week": "Dienstag",
+            "hourly": [],
+            "daily": {},
+            "icon_path": "",
+            "title": "Morgen"
+          },
+          {
+            "date": "2024-12-18T22:32:02.692Z",
+            "day_of_week": "Mittwoch",
+            "hourly": [],
+            "daily": {},
+            "icon_path": "",
+            "title": "Mittwoch"
+          },
+          {
+            "date": "2024-12-19T22:32:02.692Z",
+            "day_of_week": "Donnerstag",
+            "hourly": [],
+            "daily": {},
+            "icon_path": "",
+            "title": "Donnerstag"
+          },
+          {
+            "date": "2024-12-20T22:32:02.693Z",
+            "day_of_week": "Freitag",
+            "hourly": [],
+            "daily": {},
+            "icon_path": "",
+            "title": "Freitag"
+          },
+          {
+            "date": "2024-12-21T22:32:02.693Z",
+            "day_of_week": "Samstag",
+            "hourly": [],
+            "daily": {},
+            "icon_path": "",
+            "title": "Samstag"
+          },
+          {
+            "date": "2024-12-22T22:32:02.693Z",
+            "day_of_week": "Sonntag",
+            "hourly": [],
+            "daily": {},
+            "icon_path": "",
+            "title": "Sonntag"
+          }
+        ]
       }
     }
   ]

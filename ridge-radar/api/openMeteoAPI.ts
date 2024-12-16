@@ -1,6 +1,8 @@
 import { Locations, Location } from "../types/locations";
 import { fetchWeatherApi } from "openmeteo";
+import { WeatherApiResponse } from '@openmeteo/sdk/weather-api-response';
 import settings from "../lib/settings";
+import * as fs from "fs";
 
 const extraWeatherInfo = {
     gliding: {
@@ -10,22 +12,10 @@ const extraWeatherInfo = {
     }, // example
 };
 
-// Mapping between report fields openmeteo api fields
-const field_key_map = {
-    hourly: {
-        temperature: "temperature_2m",
-        wind_speed: "wind_speed_10m",
-        wind_direction: "wind_direction_10m",
-        precipitation: "precipitation_sum",
-        humidity: "humidity_2m",
-        pressure: "pressure_sea_level",
-        cloud_cover: "cloud_cover",
-    },
-};
-
 export class OpenMeteoAPI {
     defaultFields = {
         daily: [
+            "weather_code",
             "temperature_2m_max",
             "temperature_2m_min",
             "sunrise",
@@ -41,6 +31,7 @@ export class OpenMeteoAPI {
             "rain",
             "snowfall",
             "snow_depth",
+            "weather_code",
             "cloud_cover",
         ],
         current: ["temperature_2m"],
@@ -115,8 +106,71 @@ export class OpenMeteoAPI {
             }
         }
     }
-    private mapWeatherData(responses: any, params: { [key: string]: any }) {
+    private mapWeatherData(responses: WeatherApiResponse[], params: { [key: string]: any }) {
         // Map api fields to report fields
-        return params;
+        // https://open-meteo.com/en/docs#current=temperature_2m&hourly=temperature_2m,rain,snowfall,snow_depth,weather_code,cloud_cover&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,sunshine_duration,precipitation_sum,rain_sum,snowfall_sum&timezone=Europe%2FBerlin&models=best_match
+        const range = (start: number, stop: number, step: number) =>
+            Array.from(
+                { length: (stop - start) / step },
+                (_, i) => start + i * step
+            );
+        const response = responses[0];
+        const utcOffsetSeconds = response.utcOffsetSeconds();
+
+        const current = response.current()!;
+        const hourly = response.hourly()!;
+        const daily = response.daily()!;
+
+        // Note: The order of weather variables in the URL query and the indices below need to match!
+        const weatherData: { [key: string]: any } = {
+            current: {
+                time: new Date(
+                    (Number(current.time()) + utcOffsetSeconds) * 1000
+                ),
+            },
+            hourly: {
+                time: range(
+                    Number(hourly.time()),
+                    Number(hourly.timeEnd()),
+                    hourly.interval()
+                ).map((t) => new Date((t + utcOffsetSeconds) * 1000)),
+            },
+            daily: {
+                time: range(
+                    Number(daily.time()),
+                    Number(daily.timeEnd()),
+                    daily.interval()
+                ).map((t) => new Date((t + utcOffsetSeconds) * 1000)),
+            },
+        };
+        const timeFrames = ["current", "hourly", "daily"] as const;
+        timeFrames.forEach((timeFrame) => {
+            params[timeFrame].forEach((variable: string, index: number) => {
+                if (timeFrame === "current") {
+                    weatherData[timeFrame][variable] = current.variables(index)!.value();
+                } else if (timeFrame === "hourly") {
+                    weatherData[timeFrame][variable] = hourly.variables(index)!.valuesArray();
+                } else if (timeFrame === "daily") {
+                    if (variable === "sunrise" || variable === "sunset") {
+                        // Sunrise and sunset are encoded as int64 timestamps
+                        // They first need to be converted to Date objects and then to strings
+                        const valuesLength = daily.variables(index)!.valuesInt64Length();
+                        weatherData[timeFrame][variable] = [];
+                        for (let i = 0; i < valuesLength; i++) {
+                            const bigIntValue = daily.variables(index)!.valuesInt64(i);
+                            const timestamp = Number(bigIntValue);
+                            const date = new Date((timestamp + utcOffsetSeconds) * 1000);
+                            weatherData[timeFrame][variable].push(date.toISOString());
+                        }
+                    } else {
+                        weatherData[timeFrame][variable] = daily.variables(index)!.valuesArray();
+                    }
+                }
+            });
+        });
+        let outputPath = "./data/examples/weatherData-output.json";
+        fs.writeFileSync(outputPath, JSON.stringify(weatherData, null, 2), "utf-8");
+        console.log(`WeatherData written to ${outputPath}`);
+        return weatherData;
     }
 }
