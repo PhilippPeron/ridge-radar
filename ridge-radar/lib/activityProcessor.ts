@@ -9,14 +9,14 @@ export class activityProcessor {
     }
 
     getDayWeather(location: Location, dayIndex: number) {
-        return ;
+        return {}; //TODO: Implement this
     }
 
     getActivitiesGood(activityWeather: any) {
-        return ;
+        return []; //TODO: Implement this
     }
 
     getActivitiesAcceptable(activityWeather: any) {
-        return ;
+        return []; //TODO: Implement this
     }
 }

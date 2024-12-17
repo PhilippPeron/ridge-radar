@@ -1,5 +1,5 @@
 {
-  "last_updated": "2024-12-16T22:32:02.680Z",
+  "last_updated": "2024-12-17T19:29:40.542Z",
   "format_version": 0,
   "locations": [
     {
@@ -19,60 +19,193 @@
       "weather": {
         "days": [
           {
-            "date": "2024-12-16T22:32:02.680Z",
-            "day_of_week": "Montag",
+            "date": "2024-12-17T19:29:40.542Z",
+            "day_of_week": "Dienstag",
             "hourly": [],
-            "daily": {},
+            "daily": {
+              "temperature": {
+                "min": -0.5500001907348633,
+                "max": 2.499999761581421,
+                "unit": "°C"
+              },
+              "sunDuration": 6.870717230902778,
+              "sunPercentage": 0.8150938096640585,
+              "precipitation": {
+                "value": 0,
+                "unit": "mm"
+              },
+              "snowfall": {
+                "value": 0,
+                "unit": "cm"
+              },
+              "activitiesGood": [],
+              "activitiesAcceptable": [],
+              "activityWeather": {}
+            },
             "icon_path": "",
             "title": "Heute"
           },
           {
-            "date": "2024-12-17T22:32:02.692Z",
-            "day_of_week": "Dienstag",
+            "date": "2024-12-18T19:29:40.555Z",
+            "day_of_week": "Mittwoch",
             "hourly": [],
-            "daily": {},
+            "daily": {
+              "temperature": {
+                "min": 0.5499999523162842,
+                "max": 4.300000190734863,
+                "unit": "°C"
+              },
+              "sunDuration": 2.506811252170139,
+              "sunPercentage": 0.2975665519176507,
+              "precipitation": {
+                "value": 0.30000001192092896,
+                "unit": "mm"
+              },
+              "snowfall": {
+                "value": 0,
+                "unit": "cm"
+              },
+              "activitiesGood": [],
+              "activitiesAcceptable": [],
+              "activityWeather": {}
+            },
             "icon_path": "",
             "title": "Morgen"
           },
           {
-            "date": "2024-12-18T22:32:02.692Z",
-            "day_of_week": "Mittwoch",
-            "hourly": [],
-            "daily": {},
-            "icon_path": "",
-            "title": "Mittwoch"
-          },
-          {
-            "date": "2024-12-19T22:32:02.692Z",
+            "date": "2024-12-19T19:29:40.555Z",
             "day_of_week": "Donnerstag",
             "hourly": [],
-            "daily": {},
+            "daily": {
+              "temperature": {
+                "min": -4.712500095367432,
+                "max": 3.6499998569488525,
+                "unit": "°C"
+              },
+              "sunDuration": 0,
+              "sunPercentage": 0,
+              "precipitation": {
+                "value": 4.99999962002039,
+                "unit": "mm"
+              },
+              "snowfall": {
+                "value": 2.869999885559082,
+                "unit": "cm"
+              },
+              "activitiesGood": [],
+              "activitiesAcceptable": [],
+              "activityWeather": {}
+            },
             "icon_path": "",
             "title": "Donnerstag"
           },
           {
-            "date": "2024-12-20T22:32:02.693Z",
+            "date": "2024-12-20T19:29:40.555Z",
             "day_of_week": "Freitag",
             "hourly": [],
-            "daily": {},
+            "daily": {
+              "temperature": {
+                "min": -8.162500381469727,
+                "max": -5.112500190734863,
+                "unit": "°C"
+              },
+              "sunDuration": 0.7802785237630209,
+              "sunPercentage": 0.09267956548762299,
+              "precipitation": {
+                "value": 0,
+                "unit": "mm"
+              },
+              "snowfall": {
+                "value": 3.010000228881836,
+                "unit": "cm"
+              },
+              "activitiesGood": [],
+              "activitiesAcceptable": [],
+              "activityWeather": {}
+            },
             "icon_path": "",
             "title": "Freitag"
           },
           {
-            "date": "2024-12-21T22:32:02.693Z",
+            "date": "2024-12-21T19:29:40.555Z",
             "day_of_week": "Samstag",
             "hourly": [],
-            "daily": {},
+            "daily": {
+              "temperature": {
+                "min": -9.662500381469727,
+                "max": -2.1625001430511475,
+                "unit": "°C"
+              },
+              "sunDuration": 6.554890950520833,
+              "sunPercentage": 0.7786037418811768,
+              "precipitation": {
+                "value": 0.30000001192092896,
+                "unit": "mm"
+              },
+              "snowfall": {
+                "value": 0.699999988079071,
+                "unit": "cm"
+              },
+              "activitiesGood": [],
+              "activitiesAcceptable": [],
+              "activityWeather": {}
+            },
             "icon_path": "",
             "title": "Samstag"
           },
           {
-            "date": "2024-12-22T22:32:02.693Z",
+            "date": "2024-12-22T19:29:40.555Z",
             "day_of_week": "Sonntag",
             "hourly": [],
-            "daily": {},
+            "daily": {
+              "temperature": {
+                "min": -7.114500045776367,
+                "max": -2.1125001907348633,
+                "unit": "°C"
+              },
+              "sunDuration": 0,
+              "sunPercentage": 0,
+              "precipitation": {
+                "value": 2.700000047683716,
+                "unit": "mm"
+              },
+              "snowfall": {
+                "value": 6.65000057220459,
+                "unit": "cm"
+              },
+              "activitiesGood": [],
+              "activitiesAcceptable": [],
+              "activityWeather": {}
+            },
             "icon_path": "",
             "title": "Sonntag"
+          },
+          {
+            "date": "2024-12-23T19:29:40.555Z",
+            "day_of_week": "Montag",
+            "hourly": [],
+            "daily": {
+              "temperature": {
+                "min": -8.864500045776367,
+                "max": -6.6645002365112305,
+                "unit": "°C"
+              },
+              "sunDuration": 0,
+              "sunPercentage": 0,
+              "precipitation": {
+                "value": 0,
+                "unit": "mm"
+              },
+              "snowfall": {
+                "value": 6.720000267028809,
+                "unit": "cm"
+              },
+              "activitiesGood": [],
+              "activitiesAcceptable": [],
+              "activityWeather": {}
+            },
+            "icon_path": "",
+            "title": "Montag"
           }
         ]
       }

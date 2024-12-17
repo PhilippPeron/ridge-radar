@@ -22,7 +22,7 @@ export class OpenMeteoAPI {
             "sunset",
             "daylight_duration",
             "sunshine_duration",
-            "precipitation_sum",
+            "showers_sum",
             "rain_sum",
             "snowfall_sum",
         ],

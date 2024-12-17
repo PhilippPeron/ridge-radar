@@ -1,5 +1,6 @@
 import { Locations, Location } from "../types/locations";
 import { Activities } from "../types/activities";
+import { dailyData } from "../types/wreport";
 import { OpenMeteoAPIWrapper } from "../api/openMeteoAPIWrapper";
 import { activityProcessor } from "./activityProcessor";
 import settings from "./settings";
@@ -19,12 +20,12 @@ export class WReportGenerator {
         this.activities = activities;
         this.locations = locations;
         this.nDays = settings.nDays;
-        this.weatherAPI = new OpenMeteoAPIWrapper(this.locations);
+        this.weatherAPI = new OpenMeteoAPIWrapper();
         this.activityProcessor = new activityProcessor(this.activities);
     }
 
     async generateReport() {
-        await this.weatherAPI.getWeatherData();
+        await this.weatherAPI.getWeatherData(this.locations);
         this.wReport = this.defaultReport();
         this.getReportForLocations();
         return this.wReport;
@@ -108,11 +109,8 @@ export class WReportGenerator {
         return date.toLocaleDateString("de-DE", { weekday: "long" });
     }
 
-    private getDailyForDay(location: Location, dayIndex: number) {
-        let temperature = this.weatherAPI.getDayTemperature(
-            location,
-            dayIndex
-        );
+    private getDailyForDay(location: Location, dayIndex: number) : dailyData {
+        let temperature = this.weatherAPI.getDayTemperature(location, dayIndex);
         let sunDuration = this.weatherAPI.getDaySunDuration(location, dayIndex);
         let sunPercentage = this.weatherAPI.getDaySunPercentage(
             location,
@@ -123,14 +121,18 @@ export class WReportGenerator {
             dayIndex
         );
         let snowfall = this.weatherAPI.getDaySnowfall(location, dayIndex);
-        let activityWeather = this.activityProcessor.getDayWeather(location, dayIndex);
-        let activitiesGood = this.activityProcessor.getActivitiesGood(activityWeather);
+        let activityWeather = this.activityProcessor.getDayWeather(
+            location,
+            dayIndex
+        );
+        let activitiesGood =
+            this.activityProcessor.getActivitiesGood(activityWeather);
         let activitiesAcceptable =
             this.activityProcessor.getActivitiesAcceptable(activityWeather);
         let daily = {
             temperature: temperature,
-            sun_duration: sunDuration,
-            sun_percentage: sunPercentage,
+            sunDuration: sunDuration,
+            sunPercentage: sunPercentage,
             precipitation: precipitation,
             snowfall: snowfall,
             activitiesGood: activitiesGood,
