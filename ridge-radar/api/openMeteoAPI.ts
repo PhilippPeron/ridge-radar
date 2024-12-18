@@ -2,7 +2,7 @@ import { Locations, Location } from "../types/locations";
 import { fetchWeatherApi } from "openmeteo";
 import { WeatherApiResponse } from '@openmeteo/sdk/weather-api-response';
 import settings from "../lib/settings";
-import * as fs from "fs";
+// import * as fs from "fs";
 
 const extraWeatherInfo = {
     gliding: {
@@ -168,9 +168,9 @@ export class OpenMeteoAPI {
                 }
             });
         });
-        let outputPath = "./data/examples/weatherData-output.json";
-        fs.writeFileSync(outputPath, JSON.stringify(weatherData, null, 2), "utf-8");
-        console.log(`WeatherData written to ${outputPath}`);
+        // let outputPath = "./data/examples/weatherData-output.json";
+        // fs.writeFileSync(outputPath, JSON.stringify(weatherData, null, 2), "utf-8");
+        // console.log(`WeatherData written to ${outputPath}`);
         return weatherData;
     }
 }

@@ -1,12 +1,25 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { FlatList, View, Text, StyleSheet } from 'react-native';
 import Background from '../../components/Background';
+import { useWeatherStore } from '../../lib/store'; // Import the Zustand store
 
 export default function Tab() {
+  const wReportGen = useWeatherStore((state) => state.wReportGen);
+
   return (
     <Background>
       <View style={styles.container}>
         <Text style={styles.text}>Tab Weather</Text>
+        <FlatList
+          data={wReportGen.wReport.locations}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <View>
+              <Text>{item.name}</Text>
+              <Text>{item.elevation}m</Text>
+            </View>
+          )}
+        />
       </View>
     </Background>
   );

@@ -1,8 +1,10 @@
 import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import * as NavigationBar from 'expo-navigation-bar';
+import { hideNavBar } from "../lib/helpers";
+import { loadData } from "../lib/loadData";
+import { useWeatherStore } from "../lib/store"; // Import the Zustand store
 import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
@@ -17,14 +19,26 @@ export default function Layout() {
         "Roboto-Thin": require("../assets/fonts/Roboto-Thin.ttf"),
     });
 
+    const setWeatherData = useWeatherStore((state) => state.setWeatherData);
+    const [dataLoaded, setDataLoaded] = useState(false);
+
     useEffect(() => {
         if (error) throw error;
         if (fontsLoaded) SplashScreen.hideAsync();
-        NavigationBar.setVisibilityAsync('visible');
-        NavigationBar.setPositionAsync("absolute");
-        NavigationBar.setBackgroundColorAsync("#ffffff01");
+        hideNavBar();
+        // Fetch data and build the wreport
+        const fetchData = async () => {
+            const wReportGen = await loadData();
+            setWeatherData(wReportGen); // Store data in Zustand
+            setDataLoaded(true); // Set data loaded to true
+        };
+        fetchData();
     }, [fontsLoaded, error]);
-    if (!fontsLoaded && !error) return null;
+
+    if (!fontsLoaded || !dataLoaded) {
+      console.log('Loading...');
+      return null;
+    }
 
     return (
         <>

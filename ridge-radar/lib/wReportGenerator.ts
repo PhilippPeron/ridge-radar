@@ -4,7 +4,7 @@ import { dailyData } from "../types/wreport";
 import { OpenMeteoAPIWrapper } from "../api/openMeteoAPIWrapper";
 import { activityProcessor } from "./activityProcessor";
 import settings from "./settings";
-import * as fs from "fs";
+// import * as fs from "fs";
 import { act } from "react";
 
 export class WReportGenerator {
@@ -28,7 +28,6 @@ export class WReportGenerator {
         await this.weatherAPI.getWeatherData(this.locations);
         this.wReport = this.defaultReport();
         this.getReportForLocations();
-        return this.wReport;
     }
 
     private getReportForLocations() {
@@ -174,19 +173,21 @@ export class WReportGenerator {
 (async () => {
     console.time("Report Generation Time");
 
-    const locs = JSON.parse(
-        fs.readFileSync("./data/examples/locations.json", "utf-8")
-    );
-    const acts = JSON.parse(
-        fs.readFileSync("./data/examples/activities.json", "utf-8")
-    );
+    const locs = require("../data/examples/locations.json");
+    // const locs = JSON.parse(
+    //     fs.readFileSync("./data/examples/locations.json", "utf-8")
+    // );
+    const acts = require("../data/examples/activities.json");
+    // const acts = JSON.parse(
+    //     fs.readFileSync("./data/examples/activities.json", "utf-8")
+    // );
 
     const generator = new WReportGenerator(acts, locs);
-    const report = await generator.generateReport();
-    let outputPath = "./data/examples/wreport-output.json";
-    fs.writeFileSync(outputPath, JSON.stringify(report, null, 2), "utf-8");
+    await generator.generateReport();
+    // let outputPath = "./data/examples/wreport-output.json";
+    // fs.writeFileSync(outputPath, JSON.stringify(generator.wReport, null, 2), "utf-8");
     console.log(`Report written to ${outputPath}`);
-    console.log(report);
+    console.log(generator.wReport);
 
     console.timeEnd("Report Generation Time");
 })();
