@@ -17,8 +17,10 @@ export default function TabsLayout() {
                 tabBarInactiveTintColor: tailwindColors?.secondary,
                 tabBarStyle: {
                     position: "absolute",
-                    height: 80,
-                    paddingBottom: 18,
+                    height: 0,
+                    paddingBottom: 0,
+                    // height: 80, // !! Uncomment to show tab bar
+                    // paddingBottom: 18, // !! Uncomment to show tab bar
                     // backgroundColor: '#ffffff00',
                 },
                 tabBarLabelPosition: "beside-icon",
@@ -29,6 +31,7 @@ export default function TabsLayout() {
                 name="index"
                 options={{
                     title: "Weather",
+                    href: null, // !! Disable to show tab
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
                         <View>

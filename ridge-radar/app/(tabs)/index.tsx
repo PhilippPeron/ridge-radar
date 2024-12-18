@@ -11,7 +11,8 @@ export default function Tab() {
 
   return (
     <Background>
-      <SafeAreaView className="flex-1 bg-transparent mb-16">
+      {/* Add mb-16 to className to add margin bottom for tab bar */}
+      <SafeAreaView className="flex-1 bg-transparent">
         <View className="flex-1 justify-center items-center px-2">
           <FlatList
             data={locIds}
