@@ -40,6 +40,19 @@
             "activities": [
                 "hiking"
             ]
+        },
+        {
+            "id": 4,
+            "display_name": "Brecherspitz",
+            "name": "Brecherspitz",
+            "country": "Germany",
+            "elevation": 1683,
+            "latitude": 47.67667,
+            "longitude": 11.87009,
+            "description": "[User can add description]",
+            "activities": [
+                "hiking"
+            ]
         }
     ]        
 }

@@ -17,8 +17,9 @@ export default function TabsLayout() {
                 tabBarInactiveTintColor: tailwindColors?.secondary,
                 tabBarStyle: {
                     position: "absolute",
-                    height: 95,
-                    paddingBottom: 25,
+                    height: 80,
+                    paddingBottom: 18,
+                    // backgroundColor: '#ffffff00',
                 },
                 tabBarLabelPosition: "beside-icon",
                 tabBarShowLabel: false,
@@ -35,22 +36,23 @@ export default function TabsLayout() {
                                 height={iconSize * 1.2}
                                 width={iconSize * 1.2}
                                 fill={color}
-                            />
+                                />
                         </View>
                     ),
                 }}
-            />
+                />
             <Tabs.Screen
                 name="notifications"
                 options={{
                     headerShown: false,
+                    href: null, // !! Disable to show tab
                     tabBarIcon: ({ color }) => (
                         <View>
                             <BellIcon
                                 height={iconSize}
                                 width={iconSize}
                                 fill={color}
-                            />
+                                />
                         </View>
                     ),
                 }}
@@ -59,13 +61,14 @@ export default function TabsLayout() {
                 name="settings"
                 options={{
                     headerShown: false,
+                    href: null, // !! Disable to show tab
                     tabBarIcon: ({ color }) => (
                         <View>
                             <SettingsIcon
                                 height={iconSize}
                                 width={iconSize}
                                 fill={color}
-                            />
+                                />
                         </View>
                     ),
                 }}

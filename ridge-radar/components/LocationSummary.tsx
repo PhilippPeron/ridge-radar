@@ -1,10 +1,5 @@
 import React from "react";
-import {
-    View,
-    Text,
-    FlatList,
-    TouchableOpacity,
-} from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useWeatherStore } from "../lib/store"; // Import the Zustand store
 import LocationSummaryDay from "./LocationSummaryDay";
 
@@ -19,7 +14,7 @@ const LocationSummary: React.FC<LocationSummaryProps> = ({ locId }) => {
 
     if (!location) {
         return (
-            <View className="bg-white">
+            <View className="bg-white rounded-full">
                 <Text>Location not found</Text>
             </View>
         );
@@ -28,21 +23,23 @@ const LocationSummary: React.FC<LocationSummaryProps> = ({ locId }) => {
     const { name, elevation, weather } = location;
 
     return (
-        <View className="bg-[#FFFFFF80] rounded-3xl px-4 py-2">
+        <View className="bg-primary/60 rounded-3xl px-4 py-2">
             <View className="flex-row justify-between items-center">
-            <Text className="text-2xl">{name}</Text>
-            <TouchableOpacity className="justify-center ml-auto rounded-full">
-                <Text className="">Edit</Text>
-            </TouchableOpacity>
+                <Text className="text-2xl">{name}</Text>
+                <TouchableOpacity className="bg-primary/40 justify-center ml-auto rounded-full w-11 items-center">
+                    <Text className="">Edit</Text>
+                </TouchableOpacity>
             </View>
             <Text className="text-base">{elevation}m</Text>
             <FlatList
-            horizontal
-            data={weather.days}
-            renderItem={({ index }) => <LocationSummaryDay dayIndex={index} locId={locId} />}
-            keyExtractor={(item, index) => index.toString()}
-            className="mt-4"
-            showsHorizontalScrollIndicator={false}
+                horizontal
+                data={weather.days}
+                renderItem={({ index }) => (
+                    <LocationSummaryDay dayIndex={index} locId={locId} />
+                )}
+                keyExtractor={(item, index) => index.toString()}
+                className="mt-4"
+                showsHorizontalScrollIndicator={false}
             />
         </View>
     );
