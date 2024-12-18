@@ -32,9 +32,9 @@ export class WReportGenerator {
 
     private getReportForLocations() {
         for (const location of this.locations.locations) {
-            const loc_id = location.id;
+            const locId = location.id;
             let locationReport = this.getReportForLocation(location);
-            this.wReport.locations[loc_id] = locationReport;
+            this.wReport.locations[locId] = locationReport;
         }
     }
 
