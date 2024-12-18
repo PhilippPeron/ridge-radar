@@ -42,10 +42,10 @@ export default function Layout() {
 
     return (
         <>
+            <StatusBar translucent />
             <Stack>
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             </Stack>
-            <StatusBar hidden />
         </>
     );
 }

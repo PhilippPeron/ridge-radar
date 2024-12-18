@@ -1,46 +1,51 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+    View,
+    Text,
+    FlatList,
+    TouchableOpacity,
+} from "react-native";
 import { useWeatherStore } from "../lib/store"; // Import the Zustand store
+import LocationSummaryDay from "./LocationSummaryDay";
 
 interface LocationSummaryProps {
-    locationId: string;
+    locId: string;
 }
 
-const LocationSummary: React.FC<LocationSummaryProps> = ({ locationId }) => {
+const LocationSummary: React.FC<LocationSummaryProps> = ({ locId }) => {
     const location = useWeatherStore(
-        (state) => state.wReportGen.wReport.locations[locationId]
+        (state) => state.wReportGen.wReport.locations[locId]
     );
 
     if (!location) {
         return (
-            <View>
+            <View className="bg-white">
                 <Text>Location not found</Text>
             </View>
         );
     }
 
     const { name, elevation, weather } = location;
-    const todayWeather = weather.days[0].daily;
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.name}>{name}</Text>
-            <Text>{elevation}m</Text>
-            <Text>
-                Temperature: {todayWeather.temperature.min}°C -{" "}
-                {todayWeather.temperature.max}°C
-            </Text>
-            <Text>
-                Precipitation: {todayWeather.precipitation.value}
-                {todayWeather.precipitation.unit}
-            </Text>
-            {/* ...additional weather details... */}
+        <View className="bg-[#FFFFFF80] rounded-3xl px-4 py-2">
+            <View className="flex-row justify-between items-center">
+            <Text className="text-2xl">{name}</Text>
+            <TouchableOpacity className="justify-center ml-auto rounded-full">
+                <Text className="">Edit</Text>
+            </TouchableOpacity>
+            </View>
+            <Text className="text-base">{elevation}m</Text>
+            <FlatList
+            horizontal
+            data={weather.days}
+            renderItem={({ index }) => <LocationSummaryDay dayIndex={index} locId={locId} />}
+            keyExtractor={(item, index) => index.toString()}
+            className="mt-4"
+            showsHorizontalScrollIndicator={false}
+            />
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    // ...styles for the component...
-});
 
 export default LocationSummary;
