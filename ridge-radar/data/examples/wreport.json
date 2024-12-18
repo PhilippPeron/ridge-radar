@@ -1,8 +1,8 @@
 {
     "last_updated": "2021-09-01T00:00:00Z",
     "format_version": 0,
-    "locations": [
-        {
+    "locations": {
+        "1": {
             "id": 1,
             "display_name": "Wallberg",
             "name": "Wallberg",
@@ -65,5 +65,5 @@
                 ]
             }
         }
-    ]
+    }
 }

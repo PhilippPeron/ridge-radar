@@ -1,8 +1,8 @@
 {
-  "last_updated": "2024-12-17T23:17:16.076Z",
+  "last_updated": "2024-12-18T14:23:53.848Z",
   "format_version": 0,
-  "locations": [
-    {
+  "locations": {
+    "1": {
       "id": 1,
       "name": "Wallberg",
       "country": "Germany",
@@ -19,17 +19,17 @@
       "weather": {
         "days": [
           {
-            "date": "2024-12-17T23:17:16.077Z",
+            "date": "2024-12-18T14:23:53.849Z",
             "day_of_week": "Mittwoch",
             "hourly": [],
             "daily": {
               "temperature": {
-                "min": -0.6000001430511475,
-                "max": 3.499999761581421,
+                "min": -0.9000000953674316,
+                "max": 4.699999809265137,
                 "unit": "°C"
               },
-              "sunDuration": 3.307101779513889,
-              "sunPercentage": 0.3925636094535466,
+              "sunDuration": 4.833124457465278,
+              "sunPercentage": 0.5737074055941723,
               "precipitation": {
                 "value": 0,
                 "unit": "mm"
@@ -46,23 +46,23 @@
             "title": "Heute"
           },
           {
-            "date": "2024-12-18T23:17:16.101Z",
+            "date": "2024-12-19T14:23:53.862Z",
             "day_of_week": "Donnerstag",
             "hourly": [],
             "daily": {
               "temperature": {
-                "min": -4.962500095367432,
-                "max": 3.549999952316284,
+                "min": -4.350000381469727,
+                "max": 5,
                 "unit": "°C"
               },
-              "sunDuration": 0.09759788513183594,
-              "sunPercentage": 0.011589874460394204,
+              "sunDuration": 0,
+              "sunPercentage": 0,
               "precipitation": {
-                "value": 2.0999999046325684,
+                "value": 2.9000000953674316,
                 "unit": "mm"
               },
               "snowfall": {
-                "value": 3.009999990463257,
+                "value": 1.75,
                 "unit": "cm"
               },
               "activitiesGood": [],
@@ -73,23 +73,23 @@
             "title": "Morgen"
           },
           {
-            "date": "2024-12-19T23:17:16.101Z",
+            "date": "2024-12-20T14:23:53.862Z",
             "day_of_week": "Freitag",
             "hourly": [],
             "daily": {
               "temperature": {
-                "min": -8.8125,
-                "max": -5.462500095367432,
+                "min": -7.5625,
+                "max": -5,
                 "unit": "°C"
               },
-              "sunDuration": 0.4165740966796875,
-              "sunPercentage": 0.04947964745649995,
+              "sunDuration": 0.44442742241753475,
+              "sunPercentage": 0.052787997037005534,
               "precipitation": {
                 "value": 0,
                 "unit": "mm"
               },
               "snowfall": {
-                "value": 1.9600002765655518,
+                "value": 3.2199995517730713,
                 "unit": "cm"
               },
               "activitiesGood": [],
@@ -100,23 +100,23 @@
             "title": "Freitag"
           },
           {
-            "date": "2024-12-20T23:17:16.101Z",
+            "date": "2024-12-21T14:23:53.862Z",
             "day_of_week": "Samstag",
             "hourly": [],
             "daily": {
               "temperature": {
-                "min": -10.262499809265137,
-                "max": -3.312500238418579,
+                "min": -10.112500190734863,
+                "max": -3.512500047683716,
                 "unit": "°C"
               },
-              "sunDuration": 3.5134402126736113,
-              "sunPercentage": 0.4173338225018236,
+              "sunDuration": 5.208104383680555,
+              "sunPercentage": 0.618629599157441,
               "precipitation": {
                 "value": 0,
                 "unit": "mm"
               },
               "snowfall": {
-                "value": 0.14000000059604645,
+                "value": 0,
                 "unit": "cm"
               },
               "activitiesGood": [],
@@ -127,23 +127,23 @@
             "title": "Samstag"
           },
           {
-            "date": "2024-12-21T23:17:16.102Z",
+            "date": "2024-12-22T14:23:53.862Z",
             "day_of_week": "Sonntag",
             "hourly": [],
             "daily": {
               "temperature": {
-                "min": -7.3125,
-                "max": -2.1125001907348633,
+                "min": -7.212500095367432,
+                "max": -2.762500286102295,
                 "unit": "°C"
               },
               "sunDuration": 0,
               "sunPercentage": 0,
               "precipitation": {
-                "value": 0.30000001192092896,
+                "value": 1.7999999523162842,
                 "unit": "mm"
               },
               "snowfall": {
-                "value": 6.160001277923584,
+                "value": 21.489999771118164,
                 "unit": "cm"
               },
               "activitiesGood": [],
@@ -154,13 +154,13 @@
             "title": "Sonntag"
           },
           {
-            "date": "2024-12-22T23:17:16.102Z",
+            "date": "2024-12-23T14:23:53.862Z",
             "day_of_week": "Montag",
             "hourly": [],
             "daily": {
               "temperature": {
-                "min": -8.864500045776367,
-                "max": -6.6645002365112305,
+                "min": -8.912500381469727,
+                "max": -6.4145002365112305,
                 "unit": "°C"
               },
               "sunDuration": 0,
@@ -170,7 +170,7 @@
                 "unit": "mm"
               },
               "snowfall": {
-                "value": 6.720000267028809,
+                "value": 22.889999389648438,
                 "unit": "cm"
               },
               "activitiesGood": [],
@@ -181,13 +181,13 @@
             "title": "Montag"
           },
           {
-            "date": "2024-12-23T23:17:16.102Z",
+            "date": "2024-12-24T14:23:53.862Z",
             "day_of_week": "Dienstag",
             "hourly": [],
             "daily": {
               "temperature": {
-                "min": -7.864500045776367,
-                "max": -6.564499855041504,
+                "min": -7.714500427246094,
+                "max": -6.314499855041504,
                 "unit": "°C"
               },
               "sunDuration": 0,
@@ -197,7 +197,7 @@
                 "unit": "mm"
               },
               "snowfall": {
-                "value": 28.630001068115234,
+                "value": 20.089996337890625,
                 "unit": "cm"
               },
               "activitiesGood": [],
@@ -210,5 +210,5 @@
         ]
       }
     }
-  ]
+  }
 }

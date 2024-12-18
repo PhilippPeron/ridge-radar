@@ -32,8 +32,9 @@ export class WReportGenerator {
 
     private getReportForLocations() {
         for (const location of this.locations.locations) {
+            const loc_id = location.id;
             let locationReport = this.getReportForLocation(location);
-            this.wReport.locations.push(locationReport);
+            this.wReport.locations[loc_id] = locationReport;
         }
     }
 
@@ -163,7 +164,7 @@ export class WReportGenerator {
         const report = {
             last_updated: new Date().toISOString(),
             format_version: 0, // TODO: Move to a constant
-            locations: [],
+            locations: {},
         };
         return report;
     }
@@ -174,19 +175,13 @@ export class WReportGenerator {
     console.time("Report Generation Time");
 
     const locs = require("../data/examples/locations.json");
-    // const locs = JSON.parse(
-    //     fs.readFileSync("./data/examples/locations.json", "utf-8")
-    // );
     const acts = require("../data/examples/activities.json");
-    // const acts = JSON.parse(
-    //     fs.readFileSync("./data/examples/activities.json", "utf-8")
-    // );
 
     const generator = new WReportGenerator(acts, locs);
     await generator.generateReport();
-    // let outputPath = "./data/examples/wreport-output.json";
+    let outputPath = "./data/examples/wreport-output.json";
     // fs.writeFileSync(outputPath, JSON.stringify(generator.wReport, null, 2), "utf-8");
-    console.log(`Report written to ${outputPath}`);
+    // console.log(`Report written to ${outputPath}`);
     console.log(generator.wReport);
 
     console.timeEnd("Report Generation Time");
