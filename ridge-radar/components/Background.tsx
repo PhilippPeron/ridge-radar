@@ -16,6 +16,7 @@ export default function Background({ children }: BackgroundProps) {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
+        width: "100%",
     } as ViewStyle,
 });
 
