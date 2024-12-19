@@ -14,7 +14,7 @@ const LocationSummary: React.FC<LocationSummaryProps> = ({ locId }) => {
 
     if (!location) {
         return (
-            <View className="bg-white rounded-full">
+            <View className="bg-black rounded-full">
                 <Text>Location not found</Text>
             </View>
         );

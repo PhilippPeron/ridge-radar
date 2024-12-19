@@ -2,24 +2,26 @@ import React from "react";
 import {
     View,
     Text,
-    TouchableWithoutFeedback,
+    Pressable,
 } from "react-native";
 import { useWeatherStore } from "../lib/store"; // Import the Zustand store
-import Logo from "../assets/icons/pencil.svg";
+import { getIcon } from "../lib/weatherIcons"; // Import the getIcon function
 
 
 const LocationSummaryDay: React.FC<{ dayIndex: number, locId: string }> = ({ dayIndex, locId }) => {
     const day = useWeatherStore((state) => state.wReportGen.wReport.locations[locId].weather.days[dayIndex]);
+    const WeatherIcon = getIcon(day.daily.weatherCode, false);
+    console.log(WeatherIcon)
     return (
-        <TouchableWithoutFeedback className="mr-4">
+        <Pressable className="mr-4">
             <View className="items-center">
                 <Text>{day.title}</Text>
-                <Logo width={80} height={80} fill={"#000"} style={{ marginVertical: -10 }} />
+                <WeatherIcon width={40} height={40}/>
                 <Text>{day.daily.temperature.max.toFixed(0)}°/{day.daily.temperature.min.toFixed(0)}°</Text>
                 <SunDurationPill sunDuration={day.daily.sunDuration} sunPercentage={day.daily.sunPercentage} />
                 <SnowRainPill snow={day.daily.snowfall.value} rain={day.daily.precipitation.value} />
             </View>
-        </TouchableWithoutFeedback>
+        </Pressable>
     );
 };
 

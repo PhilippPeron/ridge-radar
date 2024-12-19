@@ -110,6 +110,7 @@ export class WReportGenerator {
     }
 
     private getDailyForDay(location: Location, dayIndex: number) : dailyData {
+        let weatherCode = this.weatherAPI.getDayWeatherCode(location, dayIndex);
         let temperature = this.weatherAPI.getDayTemperature(location, dayIndex);
         let sunDuration = this.weatherAPI.getDaySunDuration(location, dayIndex);
         let sunPercentage = this.weatherAPI.getDaySunPercentage(
@@ -130,6 +131,7 @@ export class WReportGenerator {
         let activitiesAcceptable =
             this.activityProcessor.getActivitiesAcceptable(activityWeather);
         let daily = {
+            weatherCode: weatherCode,
             temperature: temperature,
             sunDuration: sunDuration,
             sunPercentage: sunPercentage,
@@ -179,7 +181,7 @@ export class WReportGenerator {
 
     const generator = new WReportGenerator(acts, locs);
     await generator.generateReport();
-    let outputPath = "./data/examples/wreport-output.json";
+    // let outputPath = "./data/examples/wreport-output.json";
     // fs.writeFileSync(outputPath, JSON.stringify(generator.wReport, null, 2), "utf-8");
     // console.log(`Report written to ${outputPath}`);
     console.log(generator.wReport);

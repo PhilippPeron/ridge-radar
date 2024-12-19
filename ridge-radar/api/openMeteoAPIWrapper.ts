@@ -20,6 +20,9 @@ export class OpenMeteoAPIWrapper {
         Object.assign(this.weatherData, newWeatherData);
         console.timeEnd("OpenMeteo Data Fetch Time");
     }
+    getDayWeatherCode(location: Location, dayIndex: number) {
+        return this.weatherData[location.id].daily.weather_code[dayIndex];
+    }
     getDayTemperature(location: Location, dayIndex: number) {
         return {
             min: this.weatherData[location.id].daily.temperature_2m_min[

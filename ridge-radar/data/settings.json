@@ -9,5 +9,6 @@
     "nDays": 7,
     "theme": "light",
     "featureFlags": {
-    }
+    },
+    "weatherIcons": "weatherNow"
 }

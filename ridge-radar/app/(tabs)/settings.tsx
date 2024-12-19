@@ -7,7 +7,7 @@ export default function Tab() {
     </View>
   );
 }
-
+// TODO: Add credit screen for icons
 const styles = StyleSheet.create({
   container: {
     flex: 1,
