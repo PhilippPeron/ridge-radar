@@ -26,10 +26,10 @@ const LocationSummary: React.FC<LocationSummaryProps> = ({ locId }) => {
     const { name, elevation, weather } = location;
 
     return (
-        <View className="bg-primary/40 rounded-3xl px-5 py-3">
+        <View className="bg-primary/30 rounded-3xl px-5 py-3">
             <View className="flex-row justify-between items-center">
                 <Text className="text-2xl">{name}</Text>
-                <TouchableOpacity className="bg-primary/20 justify-center ml-auto rounded-full items-center">
+                <TouchableOpacity className="bg-primary/15 justify-center ml-auto rounded-full items-center">
                     <EditIcon width={27} height={27} fill={tailwindColors?.text} />
                 </TouchableOpacity>
             </View>
@@ -41,7 +41,7 @@ const LocationSummary: React.FC<LocationSummaryProps> = ({ locId }) => {
                     <LocationSummaryDay dayIndex={index} locId={locId} />
                 )}
                 keyExtractor={(item, index) => index.toString()}
-                className="mt-4"
+                className="mt-3"
                 showsHorizontalScrollIndicator={false}
             />
         </View>

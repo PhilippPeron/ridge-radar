@@ -43,7 +43,7 @@ export default function Day() {
 
     useEffect(() => {
         if (scrollViewRef.current) {
-            scrollViewRef.current.scrollTo({ x: dayIndexInt * 76 - 150, animated: true }); // Adjust the scroll position as needed
+            scrollViewRef.current.scrollTo({ x: dayIndexInt * 90 - 155, animated: true }); // Adjust the scroll position as needed
         }
     }, [dayIndexInt]);
 
