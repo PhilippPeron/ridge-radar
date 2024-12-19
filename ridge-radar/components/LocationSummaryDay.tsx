@@ -6,16 +6,19 @@ import {
 } from "react-native";
 import { useWeatherStore } from "../lib/store"; // Import the Zustand store
 import { getIcon } from "../lib/weatherIcons"; // Import the getIcon function
+import { useRouter } from "expo-router";
 
 
-const LocationSummaryDay: React.FC<{ dayIndex: number, locId: string }> = ({ dayIndex, locId }) => {
+const LocationSummaryDay: React.FC<{ dayIndex: number, locId: string, isSelected?: boolean}> = ({ dayIndex, locId, isSelected }) => {
+    const router = useRouter();
     const day = useWeatherStore((state) => state.wReportGen.wReport.locations[locId].weather.days[dayIndex]);
     const WeatherIcon = getIcon(day.daily.weatherCode, false);
+    const isSelectedMods = isSelected ? "bg-yellow-300" : "bg-primary/5";
     return (
-        <Pressable className="mr-3 w-20">
+        <Pressable className={`mr-2 w-24 px-3 py-3 rounded-3xl ${isSelectedMods}`} onPress={() => router.push(`/day/${locId}?dayIndex=${dayIndex}`)}>
             <View className="items-center">
                 <Text>{day.title}</Text>
-                <WeatherIcon width={50} height={50}/>
+                <WeatherIcon width={50} height={60}/>
                 <Text>{day.daily.temperature.max.toFixed(0)}°/{day.daily.temperature.min.toFixed(0)}°</Text>
                 <SunDurationPill sunDuration={day.daily.sunDuration} sunPercentage={day.daily.sunPercentage} />
                 <SnowRainPill snow={day.daily.snowfall.value} rain={day.daily.precipitation.value} />

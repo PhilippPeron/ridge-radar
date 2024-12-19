@@ -13,7 +13,6 @@
             "description": "[User can add description]",
             "activities": {
                 "hiking": {
-                    "icon": "hiking.svg",
                     "display_name": "Hiking",
                     "description": "Hiking in the mountains"
                 }

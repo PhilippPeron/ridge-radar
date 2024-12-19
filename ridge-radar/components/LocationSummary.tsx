@@ -26,7 +26,7 @@ const LocationSummary: React.FC<LocationSummaryProps> = ({ locId }) => {
     const { name, elevation, weather } = location;
 
     return (
-        <View className="bg-primary/60 rounded-3xl px-5 py-3">
+        <View className="bg-primary/40 rounded-3xl px-5 py-3">
             <View className="flex-row justify-between items-center">
                 <Text className="text-2xl">{name}</Text>
                 <TouchableOpacity className="bg-primary/20 justify-center ml-auto rounded-full items-center">
