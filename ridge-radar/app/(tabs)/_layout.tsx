@@ -13,14 +13,14 @@ export default function TabsLayout() {
     return (
         <Tabs
             screenOptions={{
-                tabBarActiveTintColor: tailwindColors?.text,
+                tabBarActiveTintColor: '#4193d9',
                 tabBarInactiveTintColor: tailwindColors?.secondary,
                 tabBarStyle: {
                     position: "absolute",
-                    height: 0,
-                    paddingBottom: 0,
-                    // height: 80, // !! Uncomment to show tab bar
-                    // paddingBottom: 18, // !! Uncomment to show tab bar
+                    // height: 0,
+                    // paddingBottom: 0,
+                    height: 80, // !! Uncomment to show tab bar
+                    paddingBottom: 18, // !! Uncomment to show tab bar
                     // backgroundColor: '#ffffff00',
                 },
                 tabBarLabelPosition: "beside-icon",
@@ -31,7 +31,7 @@ export default function TabsLayout() {
                 name="index"
                 options={{
                     title: "Weather",
-                    href: null, // !! Disable to show tab
+                    // href: null, // !! Disable to show tab
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
                         <View>
@@ -39,23 +39,23 @@ export default function TabsLayout() {
                                 height={iconSize * 1.2}
                                 width={iconSize * 1.2}
                                 fill={color}
-                                />
+                            />
                         </View>
                     ),
                 }}
-                />
+            />
             <Tabs.Screen
                 name="notifications"
                 options={{
                     headerShown: false,
-                    href: null, // !! Disable to show tab
+                    // href: null, // !! Disable to show tab
                     tabBarIcon: ({ color }) => (
                         <View>
                             <BellIcon
                                 height={iconSize}
                                 width={iconSize}
                                 fill={color}
-                                />
+                            />
                         </View>
                     ),
                 }}
@@ -64,16 +64,22 @@ export default function TabsLayout() {
                 name="settings"
                 options={{
                     headerShown: false,
-                    href: null, // !! Disable to show tab
+                    // href: null, // !! Disable to show tab
                     tabBarIcon: ({ color }) => (
                         <View>
                             <SettingsIcon
                                 height={iconSize}
                                 width={iconSize}
                                 fill={color}
-                                />
+                            />
                         </View>
                     ),
+                }}
+            />
+            <Tabs.Screen
+                name="day/[locId]"
+                options={{
+                    href: null,
                 }}
             />
         </Tabs>

@@ -15,7 +15,7 @@ const LocationSummaryDay: React.FC<{ dayIndex: number, locId: string, isSelected
     const WeatherIcon = getIcon(day.daily.weatherCode, false);
     const isSelectedMods = isSelected ? "bg-yellow-300" : "bg-primary/0";
     return (
-        <Pressable className={`mr-2 w-24 px-3 py-3 rounded-3xl ${isSelectedMods}`} onPress={() => router.push(`/day/${locId}?dayIndex=${dayIndex}`)}>
+        <Pressable className={`mr-1 w-24 px-1 py-3 rounded-3xl ${isSelectedMods}`} onPress={() => router.push(`/day/${locId}?dayIndex=${dayIndex}`)}>
             <View className="items-center">
                 <Text>{day.title}</Text>
                 <WeatherIcon width={55} height={60}/>
