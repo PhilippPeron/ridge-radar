@@ -60,4 +60,22 @@ export class OpenMeteoAPIWrapper {
             unit: "cm",
         };
     }
+
+    getHourlyTimeRange(location: Location, dayIndex: number) {
+        // Find index of last hour of today
+        const times = this.weatherData[location.id].hourly.time;
+        // Find index of last hour of today by comparing string values at 8 and 9
+        const todayDate = new Date(times[0]).toDateString();
+        const lastHourIndex = times.findIndex(
+            (time) => new Date(time).toDateString() !== todayDate
+        );
+        console.log("Last Hour Index: ", lastHourIndex);
+        const startIndex = dayIndex * 24;
+        const endIndex = lastHourIndex + dayIndex * 24;
+        return {
+            startIndex: startIndex,
+            endIndex: endIndex,
+            time: times.slice(startIndex, endIndex),
+        };
+    }
 }

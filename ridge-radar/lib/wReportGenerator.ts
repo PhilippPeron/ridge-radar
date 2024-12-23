@@ -4,7 +4,7 @@ import { dailyData } from "../types/wreport";
 import { OpenMeteoAPIWrapper } from "../api/openMeteoAPIWrapper";
 import { activityProcessor } from "./activityProcessor";
 import settings from "./settings";
-// import * as fs from "fs";
+import * as fs from "fs";
 import { act } from "react";
 
 export class WReportGenerator {
@@ -109,7 +109,7 @@ export class WReportGenerator {
         return date.toLocaleDateString("de-DE", { weekday: "long" });
     }
 
-    private getDailyForDay(location: Location, dayIndex: number) : dailyData {
+    private getDailyForDay(location: Location, dayIndex: number): dailyData {
         let weatherCode = this.weatherAPI.getDayWeatherCode(location, dayIndex);
         let temperature = this.weatherAPI.getDayTemperature(location, dayIndex);
         let sunDuration = this.weatherAPI.getDaySunDuration(location, dayIndex);
@@ -144,12 +144,18 @@ export class WReportGenerator {
         return daily;
     }
     private getHourlyForDay(location: Location, dayIndex: number) {
-        //TODO: Implement later
-        return [];
+        let { startIndex, endIndex, time } = this.weatherAPI.getHourlyTimeRange(
+            location,
+            dayIndex
+        );
+        let hourly = {
+            time: time,
+        };
+        return hourly;
     }
 
     private getIconPathForDay(daily: any) {
-        //TODO: Implement
+        //TODO: Check if needed; If yes, implement
         return "";
     }
 
@@ -181,9 +187,13 @@ export class WReportGenerator {
 
     const generator = new WReportGenerator(acts, locs);
     await generator.generateReport();
-    // let outputPath = "./data/examples/wreport-output.json";
-    // fs.writeFileSync(outputPath, JSON.stringify(generator.wReport, null, 2), "utf-8");
-    // console.log(`Report written to ${outputPath}`);
+    let outputPath = "./data/examples/wreport-output.json";
+    fs.writeFileSync(
+        outputPath,
+        JSON.stringify(generator.wReport, null, 2),
+        "utf-8"
+    );
+    console.log(`Report written to ${outputPath}`);
     console.log(generator.wReport);
 
     console.timeEnd("Report Generation Time");

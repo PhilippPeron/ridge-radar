@@ -1,6 +1,6 @@
 import { Locations, Location } from "../types/locations";
 import { fetchWeatherApi } from "openmeteo";
-import { WeatherApiResponse } from '@openmeteo/sdk/weather-api-response';
+import { WeatherApiResponse } from "@openmeteo/sdk/weather-api-response";
 import settings from "../lib/settings";
 // import * as fs from "fs";
 
@@ -22,17 +22,24 @@ export class OpenMeteoAPI {
             "sunset",
             "daylight_duration",
             "sunshine_duration",
-            "showers_sum",
+            "uv_index_max",
+            "precipitation_sum",
             "rain_sum",
+            "showers_sum",
             "snowfall_sum",
+            "precipitation_hours",
+            "precipitation_probability_max",
+            "wind_speed_10m_max",
         ],
         hourly: [
             "temperature_2m",
-            "rain",
+            "precipitation_probability",
+            "precipitation",
             "snowfall",
             "snow_depth",
             "weather_code",
-            "cloud_cover",
+            "visibility",
+            "sunshine_duration",
         ],
         current: ["temperature_2m"],
     };
@@ -106,7 +113,10 @@ export class OpenMeteoAPI {
             }
         }
     }
-    private mapWeatherData(responses: WeatherApiResponse[], params: { [key: string]: any }) {
+    private mapWeatherData(
+        responses: WeatherApiResponse[],
+        params: { [key: string]: any }
+    ) {
         // Map api fields to report fields
         // https://open-meteo.com/en/docs#current=temperature_2m&hourly=temperature_2m,rain,snowfall,snow_depth,weather_code,cloud_cover&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,sunshine_duration,precipitation_sum,rain_sum,snowfall_sum&timezone=Europe%2FBerlin&models=best_match
         const range = (start: number, stop: number, step: number) =>
@@ -147,23 +157,37 @@ export class OpenMeteoAPI {
         timeFrames.forEach((timeFrame) => {
             params[timeFrame].forEach((variable: string, index: number) => {
                 if (timeFrame === "current") {
-                    weatherData[timeFrame][variable] = current.variables(index)!.value();
+                    weatherData[timeFrame][variable] = current
+                        .variables(index)!
+                        .value();
                 } else if (timeFrame === "hourly") {
-                    weatherData[timeFrame][variable] = hourly.variables(index)!.valuesArray();
+                    weatherData[timeFrame][variable] = hourly
+                        .variables(index)!
+                        .valuesArray();
                 } else if (timeFrame === "daily") {
                     if (variable === "sunrise" || variable === "sunset") {
                         // Sunrise and sunset are encoded as int64 timestamps
                         // They first need to be converted to Date objects and then to strings
-                        const valuesLength = daily.variables(index)!.valuesInt64Length();
+                        const valuesLength = daily
+                            .variables(index)!
+                            .valuesInt64Length();
                         weatherData[timeFrame][variable] = [];
                         for (let i = 0; i < valuesLength; i++) {
-                            const bigIntValue = daily.variables(index)!.valuesInt64(i);
+                            const bigIntValue = daily
+                                .variables(index)!
+                                .valuesInt64(i);
                             const timestamp = Number(bigIntValue);
-                            const date = new Date((timestamp + utcOffsetSeconds) * 1000);
-                            weatherData[timeFrame][variable].push(date.toISOString());
+                            const date = new Date(
+                                (timestamp + utcOffsetSeconds) * 1000
+                            );
+                            weatherData[timeFrame][variable].push(
+                                date.toISOString()
+                            );
                         }
                     } else {
-                        weatherData[timeFrame][variable] = daily.variables(index)!.valuesArray();
+                        weatherData[timeFrame][variable] = daily
+                            .variables(index)!
+                            .valuesArray();
                     }
                 }
             });
