@@ -1,7 +1,7 @@
 import { OpenMeteoAPI } from "./openMeteoAPI";
 import { Locations } from "../types/locations";
 import { Location } from "../types/locations";
-import { weatherData } from "../types/weatherData";
+import { weatherData, weatherDataForLocation } from "../types/weatherData";
 
 export class OpenMeteoAPIWrapper {
     openMeteoAPI: OpenMeteoAPI;
@@ -65,10 +65,32 @@ export class OpenMeteoAPIWrapper {
         const times = this.weatherData[location.id].hourly.time;
         const startIndex = dayIndex * 24;
         const endIndex = startIndex + 24;
+        console.log("startIndex", startIndex);
         return {
             startIndex: startIndex,
             endIndex: endIndex,
             time: times.slice(startIndex, endIndex),
         };
+    }
+
+    getHourlyData(location: Location, startIndex: number, endIndex: number) {
+        const nameMapping: Record<string, keyof weatherDataForLocation["hourly"]> = {
+            temperature: "temperature_2m",
+            precipitation: "precipitation",
+            precipitationProbability: "precipitation_probability",
+            snowfall: "snowfall",
+            snowDepth: "snow_depth",
+            weatherCode: "weather_code",
+            visibility: "visibility",
+            sunshineDuration: "sunshine_duration",
+        };
+        let hourlyData: { [key: string]: number[] } = {};
+        for (let key in nameMapping) {
+            const mappedKey = nameMapping[key];
+            if (key !== 'time') {
+                hourlyData[key] = this.weatherData[location.id].hourly[mappedKey].slice(startIndex, endIndex) as number[];
+            }
+        }
+        return hourlyData;
     }
 }

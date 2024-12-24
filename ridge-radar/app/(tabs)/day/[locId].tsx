@@ -7,11 +7,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useWeatherStore } from "../../../lib/store"; // Import the Zustand store
 import LocationSummaryDay from "../../../components/LocationSummaryDay";
+import DetailsHourly from "../../../components/DetailsHourly";
 
 export default function Day() {
     const { locId, dayIndex } = useLocalSearchParams<{
         locId: string;
-        dayIndex?: string;
+        dayIndex: string;
     }>();
     const dayIndexInt = parseInt(dayIndex || "0");
     const navigation = useNavigation();
@@ -19,7 +20,10 @@ export default function Day() {
     const location = useWeatherStore(
         (state) => state.wReportGen.wReport.locations[locId]
     );
-    const day = useWeatherStore((state) => state.wReportGen.wReport.locations[locId].weather.days[dayIndexInt]);
+    const day = useWeatherStore(
+        (state) =>
+            state.wReportGen.wReport.locations[locId].weather.days[dayIndexInt]
+    );
     const { name, weather } = location;
     const scrollViewRef = useRef<ScrollView>(null);
 
@@ -43,13 +47,16 @@ export default function Day() {
 
     useEffect(() => {
         if (scrollViewRef.current) {
-            scrollViewRef.current.scrollTo({ x: dayIndexInt * 90 - 155, animated: true }); // Adjust the scroll position as needed
+            scrollViewRef.current.scrollTo({
+                x: dayIndexInt * 90 - 155,
+                animated: true,
+            }); // Adjust the scroll position as needed
         }
     }, [dayIndexInt]);
 
     return (
         <Background>
-            <SafeAreaView style={{ flex: 1, marginTop: 60}}>
+            <SafeAreaView style={{ flex: 1, marginTop: 60 }}>
                 <View className="justify-center items-center px-2">
                 <ScrollView
                     ref={scrollViewRef}
@@ -65,6 +72,12 @@ export default function Day() {
                     locId: {locId}
                     dayIndex: {dayIndex}
                 </Text>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    className="mt-4"
+                >
+                        <DetailsHourly locId={locId} dayIndex={dayIndex} />
+                </ScrollView>
                 </View>
             </SafeAreaView>
         </Background>

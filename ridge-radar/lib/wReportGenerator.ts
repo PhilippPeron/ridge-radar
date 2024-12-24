@@ -4,7 +4,7 @@ import { dailyData } from "../types/wreport";
 import { OpenMeteoAPIWrapper } from "../api/openMeteoAPIWrapper";
 import { activityProcessor } from "./activityProcessor";
 import settings from "./settings";
-import * as fs from "fs";
+// import * as fs from "fs";
 import { act } from "react";
 
 export class WReportGenerator {
@@ -32,7 +32,7 @@ export class WReportGenerator {
 
     private getReportForLocations() {
         for (const location of this.locations.locations) {
-            const locId = location.id;
+            const locId: number = location.id;
             let locationReport = this.getReportForLocation(location);
             this.wReport.locations[locId] = locationReport;
         }
@@ -148,9 +148,15 @@ export class WReportGenerator {
             location,
             dayIndex
         );
-        let hourly = {
-            time: time,
+        let hourly: { [key: string ]: any} = {
+            time: time
         };
+        let hourlyData = this.weatherAPI.getHourlyData(
+            location,
+            startIndex,
+            endIndex
+        );
+        Object.assign(hourly, hourlyData);
         return hourly;
     }
 
@@ -187,13 +193,14 @@ export class WReportGenerator {
 
     const generator = new WReportGenerator(acts, locs);
     await generator.generateReport();
-    let outputPath = "./data/examples/wreport-output.json";
-    fs.writeFileSync(
-        outputPath,
-        JSON.stringify(generator.wReport, null, 2),
-        "utf-8"
-    );
-    console.log(`Report written to ${outputPath}`);
+
+    // let outputPath = "./data/examples/wreport-output.json";
+    // fs.writeFileSync(
+    //     outputPath,
+    //     JSON.stringify(generator.wReport, null, 2),
+    //     "utf-8"
+    // );
+    // console.log(`Report written to ${outputPath}`);
     console.log(generator.wReport);
 
     console.timeEnd("Report Generation Time");

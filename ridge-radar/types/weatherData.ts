@@ -4,16 +4,19 @@ export interface weatherDataForLocation {
         temperature_2m: number;
     };
     hourly: {
-        time: string[];
-        temperature_2m: { [key: string]: number };
-        rain: { [key: string]: number };
-        snowfall: { [key: string]: number };
-        snow_depth: { [key: string]: number };
-        weather_code: { [key: string]: number };
-        cloud_cover: { [key: string]: number };
+        time: Date[];
+        temperature_2m: number[];
+        precipitation_probability: number[];
+        precipitation: number[];
+        snowfall: number[];
+        snow_depth: number[];
+        weather_code: number[];
+        visibility: number[];
+        sunshine_duration: number[];
+        is_day: boolean[];
     };
     daily: {
-        time: string[];
+        time: string;
         weather_code: { [key: string]: number };
         temperature_2m_max: { [key: string]: number };
         temperature_2m_min: { [key: string]: number };
@@ -21,9 +24,14 @@ export interface weatherDataForLocation {
         sunset: string[];
         daylight_duration: { [key: string]: number };
         sunshine_duration: { [key: string]: number };
-        showers_sum: { [key: string]: number };
+        uv_index_max: { [key: string]: number };
+        precipitation_sum: { [key: string]: number };
         rain_sum: { [key: string]: number };
+        showers_sum: { [key: string]: number };
         snowfall_sum: { [key: string]: number };
+        precipitation_hours: { [key: string]: number };
+        precipitation_probability_max: { [key: string]: number };
+        wind_speed_10m_max: { [key: string]: number };
     };
 }
 

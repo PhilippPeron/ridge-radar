@@ -40,6 +40,7 @@ export class OpenMeteoAPI {
             "weather_code",
             "visibility",
             "sunshine_duration",
+            "is_day",
         ],
         current: ["temperature_2m"],
     };
@@ -86,7 +87,11 @@ export class OpenMeteoAPI {
         this.addExtraFields(params, location.activities);
         const url = settings.api.forecastUrl;
         const responses = await fetchWeatherApi(url, params);
-        const locationData = this.mapWeatherData(responses, params);
+        const locationData = this.mapWeatherData(responses, params);let outputPath = "./data/examples/weatherData-output.json";
+        
+        // fs.writeFileSync(outputPath, JSON.stringify(locationData, null, 2), "utf-8");
+        // console.log(`WeatherData for ${location.name} written to ${outputPath}`);
+
         return locationData;
     }
     private get models() {
@@ -192,9 +197,6 @@ export class OpenMeteoAPI {
                 }
             });
         });
-        // let outputPath = "./data/examples/weatherData-output.json";
-        // fs.writeFileSync(outputPath, JSON.stringify(weatherData, null, 2), "utf-8");
-        // console.log(`WeatherData written to ${outputPath}`);
         return weatherData;
     }
 }
