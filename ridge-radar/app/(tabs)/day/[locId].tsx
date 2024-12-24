@@ -20,17 +20,12 @@ export default function Day() {
     const location = useWeatherStore(
         (state) => state.wReportGen.wReport.locations[locId]
     );
-    const day = useWeatherStore(
-        (state) =>
-            state.wReportGen.wReport.locations[locId].weather.days[dayIndexInt]
-    );
-    const { name, weather } = location;
     const scrollViewRef = useRef<ScrollView>(null);
 
     useLayoutEffect(() => {
         navigation.setOptions({
             headerTransparent: true,
-            title: name,
+            title: location.name,
             headerTitleAlign: "center",
             headerLeft: () => (
                 <TouchableOpacity onPress={() => router.back()}>
@@ -64,7 +59,7 @@ export default function Day() {
                     showsHorizontalScrollIndicator={false}
                     className="mt-4"
                 >
-                    {weather.days.map((_, index: number) => (
+                    {location.weather.days.map((_, index: number) => (
                         <LocationSummaryDay key={index} dayIndex={index} locId={locId} isSelected={index === dayIndexInt} />
                     ))}
                 </ScrollView>

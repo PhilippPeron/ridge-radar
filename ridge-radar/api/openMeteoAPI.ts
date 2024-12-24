@@ -149,6 +149,7 @@ export class OpenMeteoAPI {
                     Number(hourly.timeEnd()),
                     hourly.interval()
                 ).map((t) => new Date((t + utcOffsetSeconds) * 1000)),
+                // ).map((t) => new Date((t) * 1000)),
             },
             daily: {
                 time: range(

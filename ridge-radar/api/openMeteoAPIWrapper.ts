@@ -65,7 +65,6 @@ export class OpenMeteoAPIWrapper {
         const times = this.weatherData[location.id].hourly.time;
         const startIndex = dayIndex * 24;
         const endIndex = startIndex + 24;
-        console.log("startIndex", startIndex);
         return {
             startIndex: startIndex,
             endIndex: endIndex,

@@ -1,9 +1,8 @@
 import React from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { useWeatherStore } from "../lib/store"; // Import the Zustand store
 import DetailsHourlyHour from "./DetailsHourlyHour";
 import tailwindConfig from "@/tailwind.config";
-import { ScrollView } from "react-native-gesture-handler";
 
 interface DetailsHourlyProps {
     locId: string;
@@ -23,10 +22,8 @@ const DetailsHourly: React.FC<DetailsHourlyProps> = ({ locId, dayIndex }) => {
             </View>
         );
     }
-    const currentHour = new Date().getHours();
-    console.log("currentHour", currentHour);
-    const arrayLength = dayIndex == "0" ? 24 - currentHour : 24;
-    const { name, elevation, weather } = location;
+    const currentHour = dayIndex == "0" ? new Date().getHours() : 0;
+    const hoursArray = Array.from({ length: 24 - currentHour }, (_, i) => currentHour + i);
 
     return (
         <View className="bg-primary/30 rounded-3xl px-5 pt-3 pb-1">
@@ -35,10 +32,10 @@ const DetailsHourly: React.FC<DetailsHourlyProps> = ({ locId, dayIndex }) => {
                 showsHorizontalScrollIndicator={false}
                 className="mt-2"
             >
-                {Array.from({ length: arrayLength }, (_, index) => (
+                {hoursArray.map((hour) => (
                     <DetailsHourlyHour
-                        key={index}
-                        hourIndex={index}
+                        key={hour}
+                        hourIndex={hour}
                         dayIndex={dayIndex}
                         locId={locId}
                     />

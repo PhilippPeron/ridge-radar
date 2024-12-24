@@ -53,6 +53,17 @@
             "activities": [
                 "hiking"
             ]
+        },
+        {
+            "id": 5,
+            "display_name": "Seattle",
+            "name": "Seattle",
+            "country": "USA",
+            "elevation": 56,
+            "latitude": 47.60621,
+            "longitude": -122.33207,
+            "description": "[User can add description]",
+            "activities": []
         }
     ]        
 }
