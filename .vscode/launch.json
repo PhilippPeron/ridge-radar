@@ -6,9 +6,24 @@
         "request": "launch",
         "name": "Debug wReportGenerator.ts",
         "program": "${workspaceFolder}/ridge-radar/lib/wReportGenerator.ts",
-        "runtimeArgs": ["-r", "ts-node/register"],
+        "runtimeArgs": [
+          "-r",
+          "ts-node/register"
+        ],
         "cwd": "${workspaceFolder}/ridge-radar",
-        "outFiles": ["${workspaceFolder}/ridge-radar/dist/**/*.js"]
+        "outFiles": [
+          "${workspaceFolder}/ridge-radar/dist/**/*.js"
+        ]
+      },
+      {
+        "name": "Attach to Python Functions",
+        "type": "debugpy",
+        "request": "attach",
+        "connect": {
+          "host": "localhost",
+          "port": 9091
+        },
+        "preLaunchTask": "func: host start"
       }
     ]
   }

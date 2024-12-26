@@ -1,0 +1,78 @@
+{
+    "locations": [
+        {
+            "name": "New York",
+            "latitude": 40.7128,
+            "longitude": -74.0060,
+            "timezone": "auto"
+        },
+        {
+            "name": "San Francisco",
+            "latitude": 37.7749,
+            "longitude": -122.4194,
+            "timezone": "auto"
+        }
+    ],
+    "daily_variables": [
+        "temperature_2m_max",
+        "temperature_2m_min",
+        "precipitation_sum",
+        "sunshine_duration",
+        "rain_sum",
+        "showers_sum",
+        "snowfall_sum",
+        "precipitation_hours",
+        "weather_code"
+    ],
+    "hourly_variables": [
+        "temperature_2m",
+        "cloud_cover",
+        "cloud_cover_high",
+        "cloud_cover_mid",
+        "cloud_cover_low",
+        "wind_speed_10m",
+        "wind_gusts_10m",
+        "precipitation",
+        "rain",
+        "showers",
+        "snowfall",
+        "precipitation_probability",
+        "weather_code",
+        "snow_depth",
+        "visibility",
+        "soil_moisture_0_to_1cm",
+        "sunshine_duration"
+    ],
+    "weather_models": [
+        "best_match",
+        "ecmwf_ifs025",
+        "ecmwf_aifs025",
+        "cma_grapes_global",
+        "bom_access_global",
+        "gfs_seamless",
+        "gfs_global",
+        "gfs_hrrr",
+        "ncep_nbm_conus",
+        "gfs_graphcast025",
+        "jma_seamless",
+        "icon_seamless",
+        "icon_global",
+        "icon_eu",
+        "icon_d2",
+        "gem_seamless",
+        "gem_global",
+        "gem_regional",
+        "gem_hrdps_continental",
+        "meteofrance_seamless",
+        "meteofrance_arpege_world",
+        "meteofrance_arpege_europe",
+        "meteofrance_arome_france",
+        "meteofrance_arome_france_hd",
+        "arpae_cosmo_seamless",
+        "arpae_cosmo_2i",
+        "arpae_cosmo_5m",
+        "knmi_harmonie_arome_europe",
+        "ukmo_seamless",
+        "ukmo_global_deterministic_10km"
+    ]
+}
