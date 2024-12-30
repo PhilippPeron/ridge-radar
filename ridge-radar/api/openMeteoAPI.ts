@@ -1,7 +1,7 @@
 import { Locations, Location } from "../types/locations";
 import { fetchWeatherApi } from "openmeteo";
 import { WeatherApiResponse } from "@openmeteo/sdk/weather-api-response";
-import settings from "../lib/settings";
+import { globalSettings } from "../lib/globals";
 // import * as fs from "fs";
 
 const extraWeatherInfo = {
@@ -85,7 +85,7 @@ export class OpenMeteoAPI {
             models: this.models,
         };
         this.addExtraFields(params, location.activities);
-        const url = settings.api.forecastUrl;
+        const url = globalSettings.api.forecastUrl;
         const responses = await fetchWeatherApi(url, params);
         const locationData = this.mapWeatherData(responses, params);let outputPath = "./data/examples/weatherData-output.json";
         
@@ -95,10 +95,10 @@ export class OpenMeteoAPI {
         return locationData;
     }
     private get models() {
-        return settings.api.models[0];
+        return globalSettings.api.models[0];
     }
     private get timezone() {
-        return settings.api.timezone;
+        return globalSettings.api.timezone;
     }
 
     private addExtraFields(

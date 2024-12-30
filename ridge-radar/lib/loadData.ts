@@ -1,11 +1,10 @@
 import { WReportGenerator } from "./wReportGenerator";
+import { globalActivities, globalLocations } from "./globals";
 
 export async function loadData() {
     // Fetch data and build the wreport
     console.time("Report Generation Time");
-    const locs = require("../data/examples/locations.json");
-    const acts = require("../data/examples/activities.json");
-    const wReportGen = new WReportGenerator(acts, locs);
+    const wReportGen = new WReportGenerator(globalActivities, globalLocations);
     await wReportGen.generateReport();
 
     console.timeEnd("Report Generation Time");

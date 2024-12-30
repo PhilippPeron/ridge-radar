@@ -1,56 +1,53 @@
-import DataStore from "./dataStore";
 import defaultSettings from '../data/defaultSettings.json';
 import defaultActivities from '../data/defaultActivities.json';
 import defaultLocations from '../data/defaultLocations.json';
+import { Locations } from "../types/locations";
+import { Activities } from "../types/activities";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-abstract class DataStore {
-    abstract storageKey: string;
-    abstract defaultJSON: { [key: string]: any };
-    value: { [key: string]: any };
-    constructor() {
-        this.loadFromStorage = this.loadFromStorage.bind(this);
-        this.saveToStorage = this.saveToStorage.bind(this);
-        this.setDefaultIfEmpty = this.setDefaultIfEmpty.bind(this);
-        this.value = this.loadFromStorage();
-        this.setDefaultIfEmpty();
+class DataStore {
+    alwaysLoadDefault: boolean = true; // TODO: Set to true for development, false for production
+
+    async loadFromStorage(key:string): Promise<{ [key: string]: any }> {
+        console.log("DataStore: Loading", key);
+        const value = await AsyncStorage.getItem(key);
+        return value ? JSON.parse(value) : null;
     }
 
-    async loadFromStorage(): Promise<{ [key: string]: any } | null> {
-        console.log("DataStore: getJSON", this.storageKey);
-        const value = await AsyncStorage.getItem(this.storageKey);
-        this.value = value ? JSON.parse(value) : null;
-        return this.value;
+    async loadFromStorageWithDefault(key:string, defaultValue: { [key: string]: any }): Promise<{ [key: string]: any }> {
+        const value = await this.loadFromStorage(key)
+        if (value === null || this.alwaysLoadDefault) {
+            console.log("DataStore: empty, setting default value for ", key);
+            await this.saveToStorage(key, defaultValue);
+            return this.loadFromStorage(key);
+        }
+        return value;
     }
 
-    async saveToStorage(): Promise<void> {
-        console.log("DataStore ", this.storageKey, ": saving");
-        await AsyncStorage.setItem(this.storageKey, JSON.stringify(this.value));
+    async saveToStorage(key:string, value: { [key: string]: any }): Promise<void> {
+        console.log("DataStore: saving into ", key);
+        await AsyncStorage.setItem(key, JSON.stringify(value));
         return;
     }
-
-    private async setDefaultIfEmpty(): Promise<void> {
-        if (this.value === null) {
-            console.log(
-                "DataStore ",
-                this.storageKey,
-                ": empty, setting default value"
-            );
-            this.value = this.defaultJSON;
-            await this.saveToStorage();
-        }
-    }
 }
 
-class Settings extends DataStore {
-    storageKey = "settings";
-    defaultJSON = defaultSettings;
-}
+const dataStorer = new DataStore();
 
+// Use mutable objects so we can update them asynchronously without using `await`.
+let globalSettings: { [key: string]: any } = { ...defaultSettings };
+dataStorer.loadFromStorageWithDefault("settings", defaultSettings).then((result) => {
+  Object.assign(globalSettings, result);
+});
 
-let globalSettings = new Settings();
-let globalActivities = new Activities();
-let globalLocations = new Locations();
+let globalActivities: Activities = { ...defaultActivities };
+dataStorer.loadFromStorageWithDefault("activities", defaultActivities).then((result) => {
+  Object.assign(globalActivities, result);
+});
 
-export { globalSettings, globalActivities, globalLocations, globalVariableHandler };
+let globalLocations: Locations = { ...defaultLocations };
+dataStorer.loadFromStorageWithDefault("locations", defaultLocations).then((result) => {
+  Object.assign(globalLocations, result);
+});
+
+export { globalSettings, globalActivities, globalLocations, dataStorer };

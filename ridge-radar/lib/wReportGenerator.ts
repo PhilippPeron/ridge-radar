@@ -3,7 +3,7 @@ import { Activities } from "../types/activities";
 import { dailyData } from "../types/wreport";
 import { OpenMeteoAPIWrapper } from "../api/openMeteoAPIWrapper";
 import { activityProcessor } from "./activityProcessor";
-import settings from "./settings";
+import { globalSettings } from "./globals";
 // import * as fs from "fs";
 import { act } from "react";
 
@@ -19,7 +19,7 @@ export class WReportGenerator {
     constructor(activities: Activities, locations: Locations) {
         this.activities = activities;
         this.locations = locations;
-        this.nDays = settings.nDays;
+        this.nDays = globalSettings.nDays;
         this.weatherAPI = new OpenMeteoAPIWrapper();
         this.activityProcessor = new activityProcessor(this.activities);
     }
@@ -188,8 +188,8 @@ export class WReportGenerator {
 (async () => {
     console.time("Report Generation Time");
 
-    const locs = require("../data/examples/locations.json");
-    const acts = require("../data/examples/activities.json");
+    const locs = require("../data/defaultLocations.json");
+    const acts = require("../data/defaultActivities.json");
 
     const generator = new WReportGenerator(acts, locs);
     await generator.generateReport();

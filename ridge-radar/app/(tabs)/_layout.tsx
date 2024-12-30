@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
 import { View } from "react-native";
-import settings from "../../lib/settings";
+import { globalSettings } from "../../lib/globals";
 import WeatherIcon from "../../assets/icons/weather.svg";
 import BellIcon from "../../assets/icons/bell.svg";
 import SettingsIcon from "../../assets/icons/settings.svg";

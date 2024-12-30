@@ -1,4 +1,4 @@
-import settings from "./settings";
+import { globalSettings } from "./globals";
 // WeatherNow Icons
 import CLEAR0 from "../assets/icons/weatherNow/CLEAR0.svg";
 import CLEAR1 from "../assets/icons/weatherNow/CLEAR1.svg";
@@ -16,7 +16,7 @@ import TSTORM from "../assets/icons/weatherNow/TSTORM.svg";
 import UNKNOWN0 from "../assets/icons/weatherNow/UNKNOWN0.svg";
 
 export const getIcon = (wmoCode: number, isDay: boolean) => {
-    if (settings.weatherIcons == "weatherNow") {
+    if (globalSettings.weatherIcons == "weatherNow") {
         return getWeatherNowIcon(wmoCode, isDay);
     }
     return UNKNOWN0;
