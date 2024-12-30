@@ -38,7 +38,7 @@ export default function Day() {
                 </TouchableOpacity>
             ),
         });
-    }, [navigation]);
+    }, [navigation, location.name]);
 
     useEffect(() => {
         if (scrollViewRef.current) {
