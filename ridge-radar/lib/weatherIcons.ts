@@ -15,9 +15,9 @@ import SNOW from "../assets/icons/weatherNow/SNOW.svg";
 import TSTORM from "../assets/icons/weatherNow/TSTORM.svg";
 import UNKNOWN0 from "../assets/icons/weatherNow/UNKNOWN0.svg";
 
-export const getIcon = (wmoCode: number, isDay: boolean) => {
+export const getIcon = (wmoCode: number, isNight: boolean) => {
     if (globalSettings.weatherIcons == "weatherNow") {
-        return getWeatherNowIcon(wmoCode, isDay);
+        return getWeatherNowIcon(wmoCode, isNight);
     }
     return UNKNOWN0;
 };

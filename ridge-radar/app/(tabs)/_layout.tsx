@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { View } from "react-native";
+import { View, Pressable } from "react-native";
 import { globalSettings } from "../../lib/globals";
 import WeatherIcon from "../../assets/icons/weather.svg";
 import BellIcon from "../../assets/icons/bell.svg";
@@ -25,6 +25,11 @@ export default function TabsLayout() {
                 },
                 tabBarLabelPosition: "beside-icon",
                 tabBarShowLabel: false,
+                tabBarButton: (props) => (
+                    <Pressable
+                        {...props} android_ripple={null}
+                    />
+                ),
             }}
         >
             <Tabs.Screen

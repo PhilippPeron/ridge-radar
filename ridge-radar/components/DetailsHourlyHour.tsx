@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Pressable } from "react-native";
-import { useWeatherStore } from "../lib/store"; // Import the Zustand store
+import { useWeatherStore } from "../lib/store";
 import { getIcon } from "../lib/weatherIcons"; // Import the getIcon function
 import { useRouter } from "expo-router";
 

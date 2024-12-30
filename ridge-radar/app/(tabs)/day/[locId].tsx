@@ -28,7 +28,7 @@ export default function Day() {
             title: location.name,
             headerTitleAlign: "center",
             headerLeft: () => (
-                <TouchableOpacity onPress={() => router.back()}>
+                <TouchableOpacity onPress={() => router.back()} className="w-16 h-16 justify-center">
                     <Ionicons
                         className="ml-4"
                         name="arrow-back"

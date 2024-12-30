@@ -5,13 +5,18 @@ export interface WeatherCondition {
     and?: { [key: string]: string };
 }
 
-export interface HourlyWeatherCondition extends WeatherCondition {
+export interface HourlyWeatherCondition {
     hours: number[];
+    good: WeatherCondition;
+    acceptable: WeatherCondition;
 }
 
-export interface DailyWeatherCondition extends WeatherCondition {}
+export interface DailyWeatherCondition {
+    good: WeatherCondition;
+    acceptable: WeatherCondition;
+}
 
-type WeatherConditionType = HourlyWeatherCondition | DailyWeatherCondition;
+type WeatherConditionType = HourlyWeatherCondition | DailyWeatherCondition | WeatherCondition;
 
 export interface ActivityWeather {
     [key: string]: WeatherConditionType;
