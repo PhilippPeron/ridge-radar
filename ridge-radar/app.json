@@ -5,7 +5,7 @@
     "slug": "ridge-radar",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/app/icon.png",
+    "icon": "./assets/app/icon-round.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -17,7 +17,7 @@
     "web": {
       "bundler": "metro",
       "output": "single",
-      "favicon": "./assets/app/icon.png"
+      "favicon": "./assets/app/icon-round.png"
     },
     "plugins": [
       "expo-router",
