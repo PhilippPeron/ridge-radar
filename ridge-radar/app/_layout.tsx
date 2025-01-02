@@ -1,11 +1,17 @@
 import React from "react";
 import { SplashScreen, Stack } from "expo-router";
+import {
+    DarkTheme,
+    DefaultTheme,
+    ThemeProvider,
+} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { hideNavBar } from "../lib/helpers";
 import { loadData } from "../lib/loadData";
 import { useWeatherStore } from "../lib/store"; // Import the Zustand store
+import { useColorScheme } from "react-native";
 import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
@@ -22,6 +28,7 @@ export default function Layout() {
 
     const setWeatherData = useWeatherStore((state) => state.setWeatherData);
     const [dataLoaded, setDataLoaded] = useState(false);
+    const colorScheme = useColorScheme();
 
     useEffect(() => {
         if (error) throw error;
@@ -37,16 +44,19 @@ export default function Layout() {
     }, [fontsLoaded, error]);
 
     if (!fontsLoaded || !dataLoaded) {
-      console.log('Loading...');
-      return null;
+        console.log("Loading...");
+        return null;
     }
 
     return (
-        <>
+        <ThemeProvider
+            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
             <Stack>
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="+not-found" />
             </Stack>
             <StatusBar translucent />
-        </>
+        </ThemeProvider>
     );
 }
