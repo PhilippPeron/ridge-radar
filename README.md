@@ -40,3 +40,6 @@ Idea:
 - Milky way: visible
 - Clouds: 0-20%
 
+
+## Get Started
+Build android app with: eas build -p android --profile preview
