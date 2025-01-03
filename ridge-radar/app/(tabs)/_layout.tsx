@@ -13,12 +13,21 @@ import { useColorScheme } from "react-native";
 
 export default function TabsLayout() {
     const colorScheme = useColorScheme();
-    const inactiveTintColor = colorScheme === 'dark' ? tailwindColors?.secondary.dark : tailwindColors?.secondary.DEFAULT;
-
+    const inactiveTintColor =
+        colorScheme === "dark"
+            ? tailwindColors?.secondary.dark
+            : tailwindColors?.secondary.DEFAULT;
+    const tabBarColor =
+        colorScheme === "dark"
+            ? tailwindColors?.primary.dark
+            : tailwindColors?.primary.DEFAULT;
     return (
         <Tabs
             screenOptions={{
-                tabBarActiveTintColor: '#4193d9',
+                tabBarActiveTintColor: "#4193d9",
+                tabBarBackground: () => (
+                    <View style={{ backgroundColor: tabBarColor, flex: 1 }} />
+                ),
                 tabBarInactiveTintColor: inactiveTintColor,
                 tabBarStyle: {
                     position: "absolute",
@@ -28,9 +37,7 @@ export default function TabsLayout() {
                 tabBarLabelPosition: "beside-icon",
                 tabBarShowLabel: false,
                 tabBarButton: (props) => (
-                    <Pressable
-                        {...props} android_ripple={null}
-                    />
+                    <Pressable {...props} android_ripple={null} />
                 ),
             }}
         >

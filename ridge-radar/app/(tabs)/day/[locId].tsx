@@ -69,7 +69,7 @@ export default function Day() {
                 </Text>
                 <ScrollView
                     showsVerticalScrollIndicator={false}
-                    className="mt-4"
+                    className="mt-4 w-full"
                 >
                         <DetailsHourly locId={locId} dayIndex={dayIndex} />
                 </ScrollView>
