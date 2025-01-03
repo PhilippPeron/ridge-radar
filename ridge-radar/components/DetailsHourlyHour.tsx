@@ -17,14 +17,16 @@ const DetailsHourlyHour: React.FC<{
             state.wReportGen.wReport.locations[locId].weather.days[dayIndex]
                 .hourly
     );
-    const WeatherIcon = getIcon(hourly.weatherCode[hour], false);
+    const isNight = !hourly.isDay[hour];
+    const WeatherIcon = getIcon(hourly.weatherCode[hour], isNight);
     const precipitationProbability = hourly.precipitationProbability[hour];
     const isNow = (dayIndex == "0" && arrayIndex == 0);
     return (
         <View className="items-center">
             <WeatherIcon width={25} height={25} />
-            <Text>{hourly.precipitation[hour].toFixed(1)}</Text>
-            <Text>{precipitationProbability}%</Text>
+            <Text className="text-sm m-1">{hourly.temperature[hour].toFixed(0)}°</Text>
+            <Text className="text-sm m-1">{hourly.precipitation[hour].toFixed(1)}</Text>
+            <Text className="text-sm my-1">{precipitationProbability}%</Text>
             <TimePill
                 sunDuration={hourly.sunshineDuration[hour]}
                 hour={hour}
@@ -43,15 +45,17 @@ const TimePill: React.FC<{
 }> = ({ sunDuration, hour, isNow }) => {
     const sunPercentage = sunDuration / 3600;
     const backgroundColor = `rgba(255, 255, 0, ${sunPercentage})`; // Calculate the background color based on sunPercentage
-    const timeText = isNow ? "Jetzt" : hour + ":00";
+    const hourText = isNow ? "Jetzt" : hour;
     return (
         <View
             style={{ backgroundColor }}
-            className="w-full rounded-full px-2 items-center m-1"
+            className="w-full rounded-full px-1 items-center m-1"
         >
-            <Text className="text-black w-full text-center">
-                {timeText}
-            </Text>
+            <View className="flex-row items-center">
+                <Text className="text-black text-center">
+                    {hourText}
+                </Text>
+            </View>
         </View>
     );
 };

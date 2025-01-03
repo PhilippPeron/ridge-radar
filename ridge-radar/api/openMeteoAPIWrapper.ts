@@ -82,6 +82,7 @@ export class OpenMeteoAPIWrapper {
             weatherCode: "weather_code",
             visibility: "visibility",
             sunshineDuration: "sunshine_duration",
+            isDay: "is_day",
         };
         let hourlyData: { [key: string]: number[] } = {};
         for (let key in nameMapping) {

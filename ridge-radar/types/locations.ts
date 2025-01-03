@@ -13,6 +13,7 @@ export interface Location {
     latitude: number;
     longitude: number;
     timezone: string;
+    weather_model?: string;
     activities: string[];
     description: string;
 }

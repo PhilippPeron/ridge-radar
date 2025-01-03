@@ -9,7 +9,7 @@
             "country": "Germany",
             "elevation": 524,
             "latitude": 48.13743,
-            "longitude": 51.60698,
+            "longitude": 11.57549,
             "timezone": "Europe/Berlin",
             "description": "[User can add description]",
             "activities": [
@@ -67,6 +67,7 @@
             "latitude": 47.60621,
             "longitude": -122.33207,
             "timezone": "America/Los_Angeles",
+            "weather_model": "best_match",
             "description": "[User can add description]",
             "activities": []
         }

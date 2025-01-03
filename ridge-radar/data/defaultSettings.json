@@ -4,7 +4,7 @@
         "api_version": "v1",
         "forecastUrl": "https://api.open-meteo.com/v1/forecast",
         "timezone": "Europe/Berlin",
-        "models": ["best_match"]
+        "default_model": "best_match"
     },
     "nDays": 7,
     "theme": "light",

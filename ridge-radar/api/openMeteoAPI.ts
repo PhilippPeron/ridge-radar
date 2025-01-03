@@ -84,7 +84,7 @@ export class OpenMeteoAPI {
             hourly: this.defaultFields.hourly,
             current: this.defaultFields.current,
             timezone: location.timezone,
-            models: this.models,
+            models: this.getModel(location),
         };
         this.addExtraFields(params, location.activities);
         const url = globalSettings.api.forecastUrl;
@@ -93,10 +93,10 @@ export class OpenMeteoAPI {
 
         return locationData;
     }
-    private get models() {
-        return globalSettings.api.models[0];
-    }
 
+    private getModel(location: Location) {
+        return location.weather_model || globalSettings.api.default_model;
+    }
     private addExtraFields(
         params: { [key: string]: any },
         activities: Array<string>
