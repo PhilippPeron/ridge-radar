@@ -5,28 +5,29 @@ import { getIcon } from "../lib/weatherIcons"; // Import the getIcon function
 import { useRouter } from "expo-router";
 
 const DetailsHourlyHour: React.FC<{
-    hourIndex: number;
+    arrayIndex: number;
+    hour: number;
     dayIndex: string;
     locId: string;
     isSelected?: boolean;
-}> = ({ hourIndex, dayIndex, locId, isSelected }) => {
+}> = ({ arrayIndex, hour, dayIndex, locId, isSelected }) => {
     const router = useRouter();
     const hourly = useWeatherStore(
         (state) =>
             state.wReportGen.wReport.locations[locId].weather.days[dayIndex]
                 .hourly
     );
-    const WeatherIcon = getIcon(hourly.weatherCode[hourIndex], false);
-    const precipitationProbability = hourly.precipitationProbability[hourIndex];
-    const isNow = (dayIndex == "0" && hourIndex == new Date().getHours());
+    const WeatherIcon = getIcon(hourly.weatherCode[hour], false);
+    const precipitationProbability = hourly.precipitationProbability[hour];
+    const isNow = (dayIndex == "0" && arrayIndex == 0);
     return (
         <View className="items-center">
             <WeatherIcon width={25} height={25} />
-            <Text>{hourly.precipitation[hourIndex].toFixed(1)}</Text>
+            <Text>{hourly.precipitation[hour].toFixed(1)}</Text>
             <Text>{precipitationProbability}%</Text>
             <TimePill
-                sunDuration={hourly.sunshineDuration[hourIndex]}
-                time={hourly.time[hourIndex]}
+                sunDuration={hourly.sunshineDuration[hour]}
+                hour={hour}
                 isNow={isNow}
             />
         </View>
@@ -37,12 +38,12 @@ export default DetailsHourlyHour;
 
 const TimePill: React.FC<{
     sunDuration: number;
-    time: Date;
+    hour: number;
     isNow: boolean;
-}> = ({ sunDuration, time, isNow }) => {
+}> = ({ sunDuration, hour, isNow }) => {
     const sunPercentage = sunDuration / 3600;
     const backgroundColor = `rgba(255, 255, 0, ${sunPercentage})`; // Calculate the background color based on sunPercentage
-    const timeText = isNow ? "Jetzt" : time.getHours() + ":00";
+    const timeText = isNow ? "Jetzt" : hour + ":00";
     return (
         <View
             style={{ backgroundColor }}

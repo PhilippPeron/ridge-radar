@@ -83,7 +83,7 @@ export class OpenMeteoAPI {
             daily: this.defaultFields.daily,
             hourly: this.defaultFields.hourly,
             current: this.defaultFields.current,
-            timezone: this.timezone,
+            timezone: location.timezone,
             models: this.models,
         };
         this.addExtraFields(params, location.activities);
@@ -95,9 +95,6 @@ export class OpenMeteoAPI {
     }
     private get models() {
         return globalSettings.api.models[0];
-    }
-    private get timezone() {
-        return globalSettings.api.timezone;
     }
 
     private addExtraFields(

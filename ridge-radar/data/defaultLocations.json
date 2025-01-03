@@ -10,6 +10,7 @@
             "elevation": 524,
             "latitude": 48.13743,
             "longitude": 51.60698,
+            "timezone": "Europe/Berlin",
             "description": "[User can add description]",
             "activities": [
                 "hiking"
@@ -23,6 +24,7 @@
             "elevation": 1722,
             "latitude": 47.665005,
             "longitude": 11.797613,
+            "timezone": "Europe/Berlin",
             "description": "[User can add description]",
             "activities": [
                 "hiking"
@@ -36,6 +38,7 @@
             "elevation": 759,
             "latitude": 47.7123,
             "longitude": 11.7582,
+            "timezone": "Europe/Berlin",
             "description": "[User can add description]",
             "activities": [
                 "hiking"
@@ -49,6 +52,7 @@
             "elevation": 1683,
             "latitude": 47.67667,
             "longitude": 11.87009,
+            "timezone": "Europe/Berlin",
             "description": "[User can add description]",
             "activities": [
                 "hiking"
@@ -62,6 +66,7 @@
             "elevation": 56,
             "latitude": 47.60621,
             "longitude": -122.33207,
+            "timezone": "America/Los_Angeles",
             "description": "[User can add description]",
             "activities": []
         }

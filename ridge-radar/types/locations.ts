@@ -12,6 +12,7 @@ export interface Location {
     elevation: number;
     latitude: number;
     longitude: number;
+    timezone: string;
     activities: string[];
     description: string;
 }
