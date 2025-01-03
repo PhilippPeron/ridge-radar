@@ -4,7 +4,6 @@ import { dailyData } from "../types/wreport";
 import { OpenMeteoAPIWrapper } from "../api/openMeteoAPIWrapper";
 import { activityProcessor } from "./activityProcessor";
 import { globalSettings } from "./globals";
-// import * as fs from "fs";
 import { act } from "react";
 
 export class WReportGenerator {
@@ -183,25 +182,3 @@ export class WReportGenerator {
         return report;
     }
 }
-
-// Run with the launch debug config in vs code or with npx tsc; node .\dist\create_report.js
-(async () => {
-    console.time("Report Generation Time");
-
-    const locs = require("../data/defaultLocations.json");
-    const acts = require("../data/defaultActivities.json");
-
-    const generator = new WReportGenerator(acts, locs);
-    await generator.generateReport();
-
-    // let outputPath = "./data/examples/wreport-output.json";
-    // fs.writeFileSync(
-    //     outputPath,
-    //     JSON.stringify(generator.wReport, null, 2),
-    //     "utf-8"
-    // );
-    // console.log(`Report written to ${outputPath}`);
-    console.log(generator.wReport);
-
-    console.timeEnd("Report Generation Time");
-})();

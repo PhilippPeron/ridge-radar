@@ -34,6 +34,8 @@ class DataStore {
 
 const dataStorer = new DataStore();
 
+let debugFlag = false;
+
 // Use mutable objects so we can update them asynchronously without using `await`.
 let globalSettings: { [key: string]: any } = { ...defaultSettings };
 dataStorer.loadFromStorageWithDefault("settings", defaultSettings).then((result) => {
@@ -50,4 +52,4 @@ dataStorer.loadFromStorageWithDefault("locations", defaultLocations).then((resul
   Object.assign(globalLocations, result);
 });
 
-export { globalSettings, globalActivities, globalLocations, dataStorer };
+export { globalSettings, globalActivities, globalLocations, dataStorer, debugFlag };

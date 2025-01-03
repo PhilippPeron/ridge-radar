@@ -2,7 +2,7 @@ import { Locations, Location } from "../types/locations";
 import { fetchWeatherApi } from "openmeteo";
 import { WeatherApiResponse } from "@openmeteo/sdk/weather-api-response";
 import { globalSettings } from "../lib/globals";
-// import * as fs from "fs";
+import { debugDownloadIfWeb } from "../lib/debugHelper";
 
 const extraWeatherInfo = {
     gliding: {
@@ -59,6 +59,8 @@ export class OpenMeteoAPI {
         // Wait for all weather data to be fetched
         const weatherDataArray = await Promise.all(weatherPromises);
 
+        debugDownloadIfWeb(weatherDataArray, "weatherData-output.json");
+
         return this.convertArrayToObject(weatherDataArray, locations);
     }
 
@@ -88,9 +90,6 @@ export class OpenMeteoAPI {
         const url = globalSettings.api.forecastUrl;
         const responses = await fetchWeatherApi(url, params);
         const locationData = this.mapWeatherData(responses, params);let outputPath = "./data/examples/weatherData-output.json";
-        
-        // fs.writeFileSync(outputPath, JSON.stringify(locationData, null, 2), "utf-8");
-        // console.log(`WeatherData for ${location.name} written to ${outputPath}`);
 
         return locationData;
     }
