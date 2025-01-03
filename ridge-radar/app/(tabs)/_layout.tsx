@@ -9,19 +9,21 @@ import tailwindConfig from "../../tailwind.config.js";
 const tailwindColors = tailwindConfig?.theme?.extend?.colors;
 const iconSize = 30;
 
+import { useColorScheme } from "react-native";
+
 export default function TabsLayout() {
+    const colorScheme = useColorScheme();
+    const inactiveTintColor = colorScheme === 'dark' ? tailwindColors?.secondary.dark : tailwindColors?.secondary.DEFAULT;
+
     return (
         <Tabs
             screenOptions={{
                 tabBarActiveTintColor: '#4193d9',
-                tabBarInactiveTintColor: tailwindColors?.secondary,
+                tabBarInactiveTintColor: inactiveTintColor,
                 tabBarStyle: {
                     position: "absolute",
-                    // height: 0,
-                    // paddingBottom: 0,
                     height: 80, // !! Uncomment to show tab bar
                     paddingBottom: 18, // !! Uncomment to show tab bar
-                    // backgroundColor: '#ffffff00',
                 },
                 tabBarLabelPosition: "beside-icon",
                 tabBarShowLabel: false,

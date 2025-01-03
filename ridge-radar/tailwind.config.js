@@ -7,12 +7,22 @@ module.exports = {
         "./lib/**/*.{js,jsx,ts,tsx}",
     ],
     presets: [require("nativewind/preset")],
+    darkMode: "class", // Enable dark mode
     theme: {
         extend: {
             colors: {
-                primary: "#F9FAFF",
-                secondary: "#C6C9D0",
-                text: "#131313",
+                primary: {
+                    DEFAULT: "#F9FAFF",
+                    dark: "#131313",
+                },
+                secondary: {
+                    DEFAULT: "#C6C9D0",
+                    dark: "#2C2C2C",
+                },
+                text: {
+                    DEFAULT: "#131313",
+                    dark: "#F9FAFF",
+                },
             },
             fontFamily: {
                 rblack: ["Roboto-Black", "sans-serif"],

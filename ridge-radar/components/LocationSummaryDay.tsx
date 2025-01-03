@@ -17,9 +17,9 @@ const LocationSummaryDay: React.FC<{ dayIndex: number, locId: string, isSelected
     return (
         <Pressable className={`mr-1 w-24 px-1 py-3 rounded-3xl ${isSelectedMods}`} onPress={() => router.push(`/day/${locId}?dayIndex=${dayIndex}`)}>
             <View className="items-center">
-                <Text>{day.title}</Text>
+                <Text className="dark:text-text-dark">{day.title}</Text>
                 <WeatherIcon width={55} height={60}/>
-                <Text>{day.daily.temperature.max.toFixed(0)}°/{day.daily.temperature.min.toFixed(0)}°</Text>
+                <Text className="dark:text-text-dark">{day.daily.temperature.max.toFixed(0)}°/{day.daily.temperature.min.toFixed(0)}°</Text>
                 <SunDurationPill sunDuration={day.daily.sunDuration} sunPercentage={day.daily.sunPercentage} />
                 <SnowRainPill snow={day.daily.snowfall.value} rain={day.daily.precipitation.value} />
             </View>
@@ -34,7 +34,7 @@ const SunDurationPill: React.FC<{ sunDuration: number, sunPercentage: number }> 
     const backgroundColor = `rgba(255, 255, 0, ${sunPercentage})`; // Calculate the background color based on sunPercentage
     return (
         <View style={{ backgroundColor }} className="bg- w-full rounded-full px-2 items-center m-1">
-            <Text className="text-black w-full text-center">{sunDuration.toFixed()}h</Text>
+            <Text className="w-full text-center dark:text-gray-100">{sunDuration.toFixed()}h</Text>
         </View>
     );
 }
@@ -54,7 +54,7 @@ const SnowRainPill: React.FC<{ snow: number, rain: number }> = ({ snow, rain }) 
 
     return (
         <View style={{ backgroundColor }} className="w-full rounded-full px-2 items-center my-1">
-            <Text className="text-black w-full text-center">{text}</Text>
+            <Text className="w-full text-center dark:text-gray-700">{text}</Text>
         </View>
     );
 };
