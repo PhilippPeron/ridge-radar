@@ -13,12 +13,10 @@ export class OpenMeteoAPIWrapper {
     }
 
     async getWeatherData(locations: Locations) {
-        console.time("OpenMeteo Data Fetch Time");
         const newWeatherData = await this.openMeteoAPI.getWeatherData(
             locations
         );
         Object.assign(this.weatherData, newWeatherData);
-        console.timeEnd("OpenMeteo Data Fetch Time");
     }
     getDayWeatherCode(location: Location, dayIndex: number) {
         return this.weatherData[location.id].daily.weather_code[dayIndex];
