@@ -1,10 +1,6 @@
 import React from "react";
 import { SplashScreen, Stack } from "expo-router";
-import {
-    DarkTheme,
-    DefaultTheme,
-    ThemeProvider,
-} from "@react-navigation/native";
+import { ThemeProvider, DarkTheme, DefaultTheme  } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
@@ -13,6 +9,8 @@ import { loadData } from "../lib/loadData";
 import { useWeatherStore } from "../lib/store"; // Import the Zustand store
 import { useColorScheme, Alert } from "react-native";
 import "../global.css";
+import { globalSettings } from "../lib/globals";
+import { colorScheme } from "nativewind";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,7 +26,7 @@ export default function Layout() {
 
     const setWeatherData = useWeatherStore((state) => state.setWeatherData);
     const [dataLoaded, setDataLoaded] = useState(false);
-    const colorScheme = useColorScheme();
+    const systemScheme = useColorScheme();
 
     useEffect(() => {
         if (error) throw error;
@@ -56,11 +54,22 @@ export default function Layout() {
         console.log("Loading...");
         return null;
     }
-
+    let theme: any;
+    switch (globalSettings.theme) {
+        case "dark":
+            theme = DarkTheme;
+            colorScheme.set("dark");
+            break;
+        case "system":
+            theme = systemScheme === "dark" ? DarkTheme : DefaultTheme;
+            colorScheme.set("system");
+            break;
+        default:
+            colorScheme.set("light");
+            theme = DefaultTheme;
+    }
     return (
-        <ThemeProvider
-            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-        >
+        <ThemeProvider value={theme}>
             <Stack>
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen name="+not-found" />
