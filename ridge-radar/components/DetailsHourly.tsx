@@ -26,11 +26,8 @@ const DetailsHourly: React.FC<DetailsHourlyProps> = ({ locId, dayIndex }) => {
     }
     const timezone = location.timezone;
     const utcOffset = DateTime.now().setZone(timezone).offset;
-    console.log("utcOffset", timezone, utcOffset);
     const currentHour = dayIndex == "0" ? DateTime.now().setZone(location.timezone).hour : 0;
     const hoursArray = Array.from({ length: 24 - currentHour }, (_, i) => currentHour + i);
-    console.log("current hour in ", location.name, "is", currentHour);
-    console.log("hoursArray", hoursArray);
 
     return (
         <View className="bg-primary/30 rounded-3xl px-5 pt-3 pb-1">
