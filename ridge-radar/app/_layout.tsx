@@ -11,7 +11,7 @@ import { StatusBar } from "expo-status-bar";
 import { hideNavBar } from "../lib/helpers";
 import { loadData } from "../lib/loadData";
 import { useWeatherStore } from "../lib/store"; // Import the Zustand store
-import { useColorScheme } from "react-native";
+import { useColorScheme, Alert } from "react-native";
 import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
@@ -32,16 +32,25 @@ export default function Layout() {
 
     useEffect(() => {
         if (error) throw error;
-        if (fontsLoaded) SplashScreen.hideAsync();
+        if (fontsLoaded && dataLoaded) SplashScreen.hideAsync();
         hideNavBar();
-        // Fetch data and build the wreport
+    }, [fontsLoaded, error, dataLoaded]);
+
+    useEffect(() => {
         const fetchData = async () => {
-            const wReportGen = await loadData();
-            setWeatherData(wReportGen); // Store data in Zustand
-            setDataLoaded(true); // Set data loaded to true
+            const timeout = new Promise((resolve) => setTimeout(resolve, 4000));
+            const wReportGen = await Promise.race([loadData(), timeout]);
+            if (wReportGen) {
+                setWeatherData(wReportGen);
+                setDataLoaded(true);
+                console.log("Data loaded");
+            } else {
+                console.error("Timeout - Data not loaded");
+                Alert.alert("Error", "Data timeout - Please restart the app");
+            }
         };
         fetchData();
-    }, [fontsLoaded, error]);
+    }, []);
 
     if (!fontsLoaded || !dataLoaded) {
         console.log("Loading...");

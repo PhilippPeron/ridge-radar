@@ -7,7 +7,7 @@ export default function Tab() {
     </View>
   );
 }
-// TODO: Add credit screen for icons
+// TODO: Add credit screen for icons and openmeteteo
 const styles = StyleSheet.create({
   container: {
     flex: 1,
