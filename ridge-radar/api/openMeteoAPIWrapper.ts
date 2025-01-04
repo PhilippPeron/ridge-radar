@@ -68,14 +68,9 @@ export class OpenMeteoAPIWrapper {
         return this.weatherData[location.id].daily.uv_index_max[dayIndex];
     }
     getDaySnowdepth(location: Location, dayIndex: number) {
-        // console.log(this.weatherData[location.id].hourly.snow_depth);
-        const index = 24*dayIndex+12;
-        console.log(index)
-        // console.log(this.weatherData[location.id].hourly.snow_depth)
-        console.log(String(this.weatherData[location.id].hourly.snow_depth[index]))
         return {
             value: this.weatherData[location.id].hourly.snow_depth[24*dayIndex+12],
-            unit: "cm",
+            unit: "m",
         };
     }
     getDayPrecipitationHours(location: Location, dayIndex: number) {
