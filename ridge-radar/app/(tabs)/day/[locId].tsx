@@ -21,7 +21,6 @@ export default function Day() {
     const location = useWeatherStore(
         (state) => state.wReportGen.wReport.locations[locId]
     );
-    const scrollViewRef = useRef<ScrollView>(null);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -41,21 +40,11 @@ export default function Day() {
         });
     }, [navigation, location.name]);
 
-    useEffect(() => {
-        if (scrollViewRef.current) {
-            scrollViewRef.current.scrollTo({
-                x: dayIndexInt * 90 - 155,
-                animated: true,
-            }); // Adjust the scroll position as needed
-        }
-    }, [dayIndexInt]);
-
     return (
         <Background>
             <SafeAreaView style={{ flex: 1, marginTop: 60 }}>
                 <View className="justify-center items-center px-2">
                 <ScrollView
-                    ref={scrollViewRef}
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     className="mt-4"
