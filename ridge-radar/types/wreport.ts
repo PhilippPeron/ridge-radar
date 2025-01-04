@@ -14,6 +14,19 @@ export interface dailyData {
         value: number;
         unit: string;
     };
+    sunrise: string;
+    sunset: string;
+    uvIndex: number;
+    snowdepth: {
+        value: number;
+        unit: string;
+    }
+    precipitationHours: number;
+    maxWindSpeed: {
+        value: number;
+        unit: string;
+    };
+    precipitationProbability: number;
     activitiesGood: string[];
     activitiesAcceptable: string[];
     activityWeather: {

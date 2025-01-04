@@ -58,6 +58,35 @@ export class OpenMeteoAPIWrapper {
             unit: "cm",
         };
     }
+    getDaySunrise(location: Location, dayIndex: number) {
+        return this.weatherData[location.id].daily.sunrise[dayIndex];
+    }
+    getDaySunset(location: Location, dayIndex: number) {
+        return this.weatherData[location.id].daily.sunset[dayIndex];
+    }
+    getDayUVIndex(location: Location, dayIndex: number) {
+        return this.weatherData[location.id].daily.uv_index_max[dayIndex];
+    }
+    getDaySnowdepth(location: Location, dayIndex: number) {
+        return {
+            value: this.weatherData[location.id].hourly.snow_depth[24*dayIndex+12],
+            unit: "cm",
+        };
+    }
+    getDayPrecipitationHours(location: Location, dayIndex: number) {
+        return this.weatherData[location.id].daily.precipitation_hours[dayIndex];
+    }
+    getDayMaxWindSpeed(location: Location, dayIndex: number) {
+        return {
+            value: this.weatherData[location.id].daily.wind_speed_10m_max[dayIndex],
+            unit: "km/h",
+        };
+    }
+    getDayPrecipitationProbability(location: Location, dayIndex: number) {
+        return this.weatherData[location.id].daily.precipitation_probability_max[
+            dayIndex
+        ];
+    }
 
     getHourlyTimeRange(location: Location, dayIndex: number) {
         const times = this.weatherData[location.id].hourly.time;

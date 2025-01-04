@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useWeatherStore } from "../../../lib/store"; // Import the Zustand store
 import LocationSummaryDay from "../../../components/LocationSummaryDay";
 import DetailsHourly from "../../../components/DetailsHourly";
+import DetailsGrid from "../../../components/DetailsGrid";
 
 export default function Day() {
     const { locId, dayIndex } = useLocalSearchParams<{
@@ -63,15 +64,16 @@ export default function Day() {
                         <LocationSummaryDay key={index} dayIndex={index} locId={locId} isSelected={index === dayIndexInt} />
                     ))}
                 </ScrollView>
-                <Text className="mt-0">
-                    locId: {locId}
-                    dayIndex: {dayIndex}
-                </Text>
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     className="mt-4 w-full"
                 >
+                    <View className="mb-4">
                         <DetailsHourly locId={locId} dayIndex={dayIndex} />
+                    </View>
+                    <View className="mb-4">
+                        <DetailsGrid locId={locId} dayIndex={dayIndex} />
+                    </View>
                 </ScrollView>
                 </View>
             </SafeAreaView>

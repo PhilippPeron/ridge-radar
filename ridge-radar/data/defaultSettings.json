@@ -7,7 +7,7 @@
         "default_model": "best_match"
     },
     "nDays": 7,
-    "theme": "dark",
+    "theme": "light",
     "featureFlags": {
     },
     "weatherIcons": "weatherNow"

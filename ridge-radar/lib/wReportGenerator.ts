@@ -122,6 +122,20 @@ export class WReportGenerator {
             dayIndex
         );
         let snowfall = this.weatherAPI.getDaySnowfall(location, dayIndex);
+        let sunrise = this.weatherAPI.getDaySunrise(location, dayIndex);
+        let sunset = this.weatherAPI.getDaySunset(location, dayIndex);
+        let uvIndex = this.weatherAPI.getDayUVIndex(location, dayIndex);
+        let snowdepth = this.weatherAPI.getDaySnowdepth(location, dayIndex);
+        let precipitationHours = this.weatherAPI.getDayPrecipitationHours(
+            location,
+            dayIndex
+        );
+        let maxWindSpeed = this.weatherAPI.getDayMaxWindSpeed(
+            location,
+            dayIndex
+        );
+        let precipitationProbability =
+            this.weatherAPI.getDayPrecipitationProbability(location, dayIndex);
         let activityWeather = this.activityProcessor.getDayWeather(
             location,
             dayIndex
@@ -137,6 +151,13 @@ export class WReportGenerator {
             sunPercentage: sunPercentage,
             precipitation: precipitation,
             snowfall: snowfall,
+            sunrise: sunrise,
+            sunset: sunset,
+            uvIndex: uvIndex,
+            snowdepth: snowdepth,
+            precipitationHours: precipitationHours,
+            maxWindSpeed: maxWindSpeed,
+            precipitationProbability: precipitationProbability,
             activitiesGood: activitiesGood,
             activitiesAcceptable: activitiesAcceptable,
             activityWeather: activityWeather,
@@ -148,8 +169,8 @@ export class WReportGenerator {
             location,
             dayIndex
         );
-        let hourly: { [key: string ]: any} = {
-            time: time
+        let hourly: { [key: string]: any } = {
+            time: time,
         };
         let hourlyData = this.weatherAPI.getHourlyData(
             location,

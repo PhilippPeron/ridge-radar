@@ -7,7 +7,7 @@ export default function Tab() {
     </View>
   );
 }
-// TODO: Add credit screen for icons and openmeteteo
+// TODO: Add credit screen for weather icons and openmeteteo and daily icons (Dazzle UI https://www.svgrepo.com/svg/532033/cloud)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
