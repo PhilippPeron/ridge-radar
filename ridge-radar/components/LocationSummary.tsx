@@ -34,7 +34,7 @@ const LocationSummary: React.FC<LocationSummaryProps> = ({ locId }) => {
         <Pressable className="bg-primary/30 dark:bg-primary-dark/40 rounded-3xl px-5 pt-3 pb-1" onPress={() => router.push(`/day/${locId}?dayIndex=0`)}>
             <View className="flex-row justify-between items-center">
                 <Text className="text-2xl dark:text-text-dark">{name}</Text>
-                <TouchableOpacity className="bg-text/15 dark:bg-text-dark/30 justify-center ml-auto rounded-full items-center">
+                <TouchableOpacity className="bg-primary/30 dark:bg-primary-dark/30 justify-center ml-auto rounded-full items-center">
                     <EditIcon width={27} height={27} fill={textColor} />
                 </TouchableOpacity>
             </View>

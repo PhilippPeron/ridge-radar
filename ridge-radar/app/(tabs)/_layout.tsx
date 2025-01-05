@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Tabs, Stack, Layout } from "expo-router";
 import { View, Pressable } from "react-native";
 import { globalSettings } from "../../lib/globals";
 import WeatherIcon from "../../assets/icons/weather.svg";
@@ -21,10 +21,14 @@ export default function TabsLayout() {
         colorScheme === "dark"
             ? tailwindColors?.primary.dark
             : tailwindColors?.primary.DEFAULT;
+    const activeColor =
+        colorScheme === "dark"
+            ? tailwindColors?.active.dark
+            : tailwindColors?.active.DEFAULT;
     return (
         <Tabs
             screenOptions={{
-                tabBarActiveTintColor: "#4193d9",
+                tabBarActiveTintColor: activeColor,
                 tabBarBackground: () => (
                     <View style={{ backgroundColor: tabBarColor, flex: 1 }} />
                 ),
@@ -62,7 +66,7 @@ export default function TabsLayout() {
                 name="notifications"
                 options={{
                     headerShown: false,
-                    // href: null, // !! Disable to show tab
+                    href: null, // !! Disable to show tab
                     tabBarIcon: ({ color }) => (
                         <View>
                             <BellIcon
@@ -88,12 +92,6 @@ export default function TabsLayout() {
                             />
                         </View>
                     ),
-                }}
-            />
-            <Tabs.Screen
-                name="day/[locId]"
-                options={{
-                    href: null,
                 }}
             />
         </Tabs>

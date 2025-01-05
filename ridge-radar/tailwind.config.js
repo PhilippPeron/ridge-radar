@@ -23,6 +23,10 @@ module.exports = {
                     DEFAULT: "#131313",
                     dark: "#F9FAFF",
                 },
+                active: {
+                    DEFAULT: "#4193d9",
+                    dark: "#4193d9",
+                },
             },
             fontFamily: {
                 rblack: ["Roboto-Black", "sans-serif"],

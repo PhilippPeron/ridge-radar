@@ -60,6 +60,9 @@ export default function Layout() {
         <ThemeProvider value={globalSettings.theme==="dark" ? DarkTheme : DefaultTheme}>
             <Stack>
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="modalFilter" options={{presentation: 'modal'}} />
+                <Stack.Screen name="modalSearch" options={{presentation: 'modal'}} />
+                <Stack.Screen name="modalLocEditor" options={{presentation: 'modal'}} />
                 <Stack.Screen name="+not-found" />
             </Stack>
             <StatusBar translucent />
