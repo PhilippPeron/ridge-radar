@@ -16,13 +16,13 @@ export default function Modal() {
         {
             id: number;
             name: string;
-            admin1?: string;
+            administrative_area: string;
             country: string;
+            country_code: string;
             elevation: number;
             latitude: number;
             longitude: number;
             timezone: string;
-            countryCode: string;
         }[]
     >([]);
     const router = useRouter();
@@ -40,12 +40,12 @@ export default function Modal() {
                           id: item.id,
                           name: item.name,
                           country: item.country,
+                          country_code: item.country_code,
                           elevation: item.elevation,
-                          admin1: item.admin1,
+                          administrative_area: item.admin1,
                           latitude: item.latitude,
                           longitude: item.longitude,
                           timezone: item.timezone,
-                          countryCode: item.country_code,
                       }))
                     : [];
                 setSuggestions(data);
@@ -88,8 +88,8 @@ export default function Modal() {
                                         ellipsizeMode="head"
                                     >
                                         {item.name},{" "}
-                                        {item.admin1 ? `${item.admin1}, ` : ""}
-                                        {item.countryCode} ({item.elevation}m)
+                                        {item.administrative_area ? `${item.administrative_area}, ` : ""}
+                                        {item.country_code} ({item.elevation}m)
                                     </Text>
                                 </TouchableOpacity>
                                 {/* <TouchableOpacity

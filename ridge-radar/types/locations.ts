@@ -9,11 +9,14 @@ export interface Location {
     display_name: string;
     name: string;
     country: string;
+    country_code: string;
+    administrative_area: string;
     elevation: number;
     latitude: number;
     longitude: number;
     timezone: string;
     weather_model?: string;
     activities: string[];
-    description: string;
+    tags: string[];
+    notes: string;
 }
