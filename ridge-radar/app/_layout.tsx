@@ -8,7 +8,11 @@ import { loadData } from "../lib/loadData";
 import { useWeatherStore } from "../lib/store";
 import { Alert } from "react-native";
 import "../global.css";
-import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import {
+    DarkTheme,
+    DefaultTheme,
+    ThemeProvider,
+} from "@react-navigation/native";
 import { globalSettings } from "../lib/globals";
 import { colorScheme } from "nativewind";
 
@@ -57,12 +61,35 @@ export default function Layout() {
     console.log("DONE LOADING");
 
     return (
-        <ThemeProvider value={globalSettings.theme==="dark" ? DarkTheme : DefaultTheme}>
+        <ThemeProvider
+            value={globalSettings.theme === "dark" ? DarkTheme : DefaultTheme}
+        >
             <Stack>
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="modalFilter" options={{presentation: 'modal'}} />
-                <Stack.Screen name="modalSearch" options={{presentation: 'modal'}} />
-                <Stack.Screen name="modalLocEditor" options={{presentation: 'modal'}} />
+                <Stack.Screen
+                    name="modalFilter"
+                    options={{
+                        presentation: "transparentModal",
+                        animation: "fade",
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="modalSearch"
+                    options={{
+                        presentation: "transparentModal",
+                        animation: "fade",
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="modalLocEditor"
+                    options={{
+                        presentation: "transparentModal",
+                        animation: "fade",
+                        headerShown: false,
+                    }}
+                />
                 <Stack.Screen name="+not-found" />
             </Stack>
             <StatusBar translucent />

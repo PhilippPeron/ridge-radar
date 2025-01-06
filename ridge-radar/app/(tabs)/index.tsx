@@ -49,7 +49,7 @@ export default function Tab() {
                                 stroke={activeColor}
                             />
                         </Pressable>
-                        <Pressable className="flex-row items-center bg-primary dark:bg-secondary-dark p-4 rounded-full ml-3" onPress={() => router.push("/modalFilter")}>
+                        <Pressable className="flex-row items-center bg-primary dark:bg-secondary-dark p-4 rounded-full ml-3" onPress={() => router.push("/modalSearch")}>
                             <SEARCH
                                 height={30}
                                 width={30}

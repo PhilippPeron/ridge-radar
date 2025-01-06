@@ -1,17 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { useLocalSearchParams } from "expo-router";
+import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Modal() {
-  return (
-    <View style={styles.container}>
-      <Text>Modal Filter Screen</Text>
-    </View>
-  );
+    const locId = useLocalSearchParams().locId;
+    console.log(locId);
+    return (
+        <SafeAreaView className="flex-1 bg-transparent" >
+            <View className="flex-1 justify-center items-center bg-primary rounded-3xl">
+                <Text>locId: {locId.toString()}</Text>
+            </View>
+        </SafeAreaView>
+    );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -94,6 +94,12 @@ export default function TabsLayout() {
                     ),
                 }}
             />
+            <Tabs.Screen
+                name="day/[locId]"
+                options={{
+                    href: null,
+                }}
+            />
         </Tabs>
     );
 }
