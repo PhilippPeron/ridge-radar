@@ -6,6 +6,7 @@
         "hiking": {
             "icon": "hiking.svg",
             "display_name": "Hiking",
+            "description": "Hiking in the mountains",
             "notes": "Hiking in the mountains",
             "weather": {
                 "precipitation_hour": {
