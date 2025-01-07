@@ -4,7 +4,7 @@ import { dailyData } from "../types/wreport";
 import { OpenMeteoAPIWrapper } from "../api/openMeteoAPIWrapper";
 import { activityProcessor } from "./activityProcessor";
 import { globalSettings, globalLocations, globalActivities } from "./globals";
-import { act } from "react";
+import { useWeatherStore } from "../lib/store";
 
 export class WReportGenerator {
     weatherData: any;
@@ -31,6 +31,7 @@ export class WReportGenerator {
             let locationReport = this.getReportForLocation(location);
             this.wReport.locations[locId] = locationReport;
         }
+        console.log("in report generator: ", this.wReport);
     }
 
     getReportForLocation(location: Location) {

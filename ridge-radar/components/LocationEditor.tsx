@@ -11,6 +11,7 @@ import { globalReportGenerator } from "../lib/wReportGenerator";
 import { Picker } from "@react-native-picker/picker";
 import { globalLocations, dataStorer } from "../lib/globals";
 import { Location } from "../types/locations";
+import { useWeatherStore } from "../lib/store";
 
 
 
@@ -187,6 +188,7 @@ function updateLocation(locData: Location) {
     }
     dataStorer.saveToStorage("locations", globalLocations);
     globalReportGenerator.getReportForLocations([locData]);
+    useWeatherStore.getState().setWeatherData(globalReportGenerator);
     console.log("Updated location in report")
     router.back();
 }
@@ -198,6 +200,7 @@ function deleteLocation(locId: number) {
     );
     dataStorer.saveToStorage("locations", globalLocations);
     delete globalReportGenerator.wReport.locations[locId]
+    useWeatherStore.getState().setWeatherData(this);
     console.log("Removed location")
     router.back();
 }

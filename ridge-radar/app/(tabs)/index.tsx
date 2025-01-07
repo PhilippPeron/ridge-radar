@@ -14,13 +14,10 @@ const tailwindColors = tailwindConfig?.theme?.extend?.colors;
 
 export default function Tab() {
     const wReportGen = useWeatherStore((state) => state.wReportGen);
+    console.log(wReportGen)
     const locIds: string[] = Object.keys(wReportGen.wReport.locations);
     const colorScheme = useColorScheme();
     const router = useRouter();
-    const secondaryColor =
-        colorScheme === "dark"
-            ? tailwindColors?.secondary.dark
-            : tailwindColors?.secondary.DEFAULT;
     const activeColor =
         colorScheme === "dark"
             ? tailwindColors?.active.dark
