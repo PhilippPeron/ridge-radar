@@ -92,16 +92,6 @@ export default function Modal() {
                                         {item.country_code} ({item.elevation}m)
                                     </Text>
                                 </TouchableOpacity>
-                                {/* <TouchableOpacity
-                                  className="h-10 my-1 mx-3 bg-secondary/40 rounded-2xl justify-center items-center"
-                                  onPress={() =>
-                                    console.log("Selected", item.name)
-                                  }
-                                >
-                                  <Text className="p-1 px-4 text-3xl text-center">
-                                    +
-                                  </Text>
-                                </TouchableOpacity> */}
                             </View>
                         )}
                     />

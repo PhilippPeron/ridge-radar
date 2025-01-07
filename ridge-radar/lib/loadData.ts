@@ -1,13 +1,11 @@
-import { WReportGenerator } from "./wReportGenerator";
-import { globalActivities, globalLocations } from "./globals";
+import { globalReportGenerator } from "./wReportGenerator";
 import { debugDownloadIfWeb } from "./debugHelper";
 
 export async function loadData() {
-    // Fetch data and build the wreport
-    const wReportGen = new WReportGenerator(globalActivities, globalLocations);
-    await wReportGen.generateReport();
+    // Fetch data and build the wreport;
+    await globalReportGenerator.generateReport();
 
-    debugDownloadIfWeb(wReportGen.wReport, "wreport-output.json");
+    debugDownloadIfWeb(globalReportGenerator.wReport, "wreport-output.json");
 
-    return wReportGen;
+    return globalReportGenerator;
 }

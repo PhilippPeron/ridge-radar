@@ -3,34 +3,30 @@ import { Activities } from "../types/activities";
 import { dailyData } from "../types/wreport";
 import { OpenMeteoAPIWrapper } from "../api/openMeteoAPIWrapper";
 import { activityProcessor } from "./activityProcessor";
-import { globalSettings } from "./globals";
+import { globalSettings, globalLocations, globalActivities } from "./globals";
 import { act } from "react";
 
 export class WReportGenerator {
-    activities: Activities;
-    locations: Locations;
     weatherData: any;
     wReport: any; // TODO: Create a type/interface for this
     nDays: number;
     weatherAPI: OpenMeteoAPIWrapper;
     activityProcessor: activityProcessor;
 
-    constructor(activities: Activities, locations: Locations) {
-        this.activities = activities;
-        this.locations = locations;
+    constructor() {
         this.nDays = globalSettings.nDays;
         this.weatherAPI = new OpenMeteoAPIWrapper();
-        this.activityProcessor = new activityProcessor(this.activities);
+        this.activityProcessor = new activityProcessor(globalActivities);
     }
 
     async generateReport() {
-        await this.weatherAPI.getWeatherData(this.locations);
+        await this.weatherAPI.getWeatherData(globalLocations);
         this.wReport = this.defaultReport();
         this.getReportForLocations();
     }
 
     private getReportForLocations() {
-        for (const location of this.locations.locations) {
+        for (const location of globalLocations.locations) {
             const locId: number = location.id;
             let locationReport = this.getReportForLocation(location);
             this.wReport.locations[locId] = locationReport;
@@ -56,9 +52,9 @@ export class WReportGenerator {
         let activities: any = {};
         for (const activity of location.activities) {
             activities[activity] = {
-                icon: this.activities.activities[activity].icon,
-                display_name: this.activities.activities[activity].display_name,
-                description: this.activities.activities[activity].description,
+                icon: globalActivities.activities[activity].icon,
+                display_name: globalActivities.activities[activity].display_name,
+                description: globalActivities.activities[activity].description,
             };
         }
         return activities;
@@ -204,3 +200,8 @@ export class WReportGenerator {
         return report;
     }
 }
+
+
+let globalReportGenerator: WReportGenerator = new WReportGenerator()
+
+export {globalReportGenerator};
