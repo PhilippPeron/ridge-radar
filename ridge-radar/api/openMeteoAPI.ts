@@ -50,9 +50,9 @@ export class OpenMeteoAPI {
         this.extraWeatherInfo = extraWeatherInfo;
     }
 
-    async getWeatherData(locations: Locations) {
+    async getWeatherData(locations: Location[]) {
         // Map each location to a promise of its weather data
-        const weatherPromises = locations.locations.map((location) =>
+        const weatherPromises = locations.map((location) =>
             this.getWeatherDataForLocation(location)
         );
 
@@ -66,11 +66,11 @@ export class OpenMeteoAPI {
 
     private convertArrayToObject(
         weatherDataArray: any[],
-        locations: Locations
+        locations: Location[]
     ) {
         // Convert array to object keyed by location ID
         return weatherDataArray.reduce((acc, weatherData, index) => {
-            const locationId = locations.locations[index].id;
+            const locationId = locations[index].id;
             acc[locationId] = weatherData;
             return acc;
         }, {} as { [key: number]: any });

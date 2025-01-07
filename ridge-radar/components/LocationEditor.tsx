@@ -7,7 +7,7 @@ import {
     TextInput,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { globalReportGenerator } from "../lib/wReportGenerator";
 import { Picker } from "@react-native-picker/picker";
 import { globalLocations, dataStorer } from "../lib/globals";
 import { Location } from "../types/locations";
@@ -167,7 +167,10 @@ function saveNewLocation(locData: Location) {
     console.log("Saving new location");
     globalLocations.locations.push(locData);
     dataStorer.saveToStorage("locations", globalLocations);
-    // TODO: Load data for new location in report
+    
+    globalReportGenerator.getReportForLocations([locData]);
+    console.log("Added new location to report")
+    
     router.back();
 }
 
@@ -183,7 +186,8 @@ function updateLocation(locData: Location) {
         throw new Error(`Location with id ${locData.id} not found`);
     }
     dataStorer.saveToStorage("locations", globalLocations);
-    // TODO: Reload data for location in report
+    globalReportGenerator.getReportForLocations([locData]);
+    console.log("Updated location in report")
     router.back();
 }
 
@@ -193,7 +197,8 @@ function deleteLocation(locId: number) {
         (loc) => loc.id !== locId
     );
     dataStorer.saveToStorage("locations", globalLocations);
-    // TODO: Remove location data from report
+    delete globalReportGenerator.wReport.locations[locId]
+    console.log("Removed location")
     router.back();
 }
 

@@ -12,7 +12,7 @@ export class OpenMeteoAPIWrapper {
         this.weatherData = {};
     }
 
-    async getWeatherData(locations: Locations) {
+    async getWeatherData(locations: Location[]) {
         const newWeatherData = await this.openMeteoAPI.getWeatherData(
             locations
         );

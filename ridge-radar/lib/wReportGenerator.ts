@@ -19,21 +19,21 @@ export class WReportGenerator {
         this.activityProcessor = new activityProcessor(globalActivities);
     }
 
-    async generateReport() {
-        await this.weatherAPI.getWeatherData(globalLocations);
+    async generateReport(locations: Locations) {
         this.wReport = this.defaultReport();
-        this.getReportForLocations();
+        await this.getReportForLocations(locations.locations);
     }
 
-    private getReportForLocations() {
-        for (const location of globalLocations.locations) {
+    async getReportForLocations(locations: Location[]) {
+        await this.weatherAPI.getWeatherData(locations);
+        for (const location of locations) {
             const locId: number = location.id;
             let locationReport = this.getReportForLocation(location);
             this.wReport.locations[locId] = locationReport;
         }
     }
 
-    private getReportForLocation(location: Location) {
+    getReportForLocation(location: Location) {
         let locationReport = {
             id: location.id,
             name: location.name,
