@@ -21,17 +21,22 @@ export class WReportGenerator {
 
     async generateReport(locations: Locations) {
         this.wReport = this.defaultReport();
-        await this.getReportForLocations(locations.locations);
+        const locationReports = await this.getReportForLocations(locations.locations);
+        for (const report of locationReports) {
+            this.wReport.locations[report.id] = report;
+        }
     }
 
     async getReportForLocations(locations: Location[]) {
         await this.weatherAPI.getWeatherData(locations);
+        const locationReports = [];
         for (const location of locations) {
             const locId: number = location.id;
             let locationReport = this.getReportForLocation(location);
-            this.wReport.locations[locId] = locationReport;
+            locationReports.push(locationReport);
         }
         console.log("in report generator: ", this.wReport);
+        return locationReports;
     }
 
     getReportForLocation(location: Location) {
@@ -201,8 +206,3 @@ export class WReportGenerator {
         return report;
     }
 }
-
-
-let globalReportGenerator: WReportGenerator = new WReportGenerator()
-
-export {globalReportGenerator};

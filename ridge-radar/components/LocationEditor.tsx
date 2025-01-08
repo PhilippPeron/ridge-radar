@@ -7,7 +7,6 @@ import {
     TextInput,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { globalReportGenerator } from "../lib/wReportGenerator";
 import { Picker } from "@react-native-picker/picker";
 import { globalLocations, dataStorer } from "../lib/globals";
 import { Location } from "../types/locations";
@@ -21,7 +20,65 @@ const LocationEditor: React.FC<{
 }> = ({ locDataStr, newLoc }) => {
     const router = useRouter();
     let locData: Location;
+    const wReportGen = useWeatherStore(
+        (state) => state.wReportGen
+    );
+    console.log("wReportGen: ", wReportGen);
+    const setWeatherData = useWeatherStore((state) => state.setWeatherData);
 
+
+    function saveNewLocation(locData: Location) {
+        // Save new location to store
+        console.log("Saving new location");
+        globalLocations.locations.push(locData);
+        dataStorer.saveToStorage("locations", globalLocations);
+        console.log("Added new location to report")
+        wReportGen.getReportForLocations([locData]);
+        setWeatherData({ ...wReportGen });
+        router.back();
+    }
+    
+    function updateLocation(locData: Location) {
+        // Update location in store
+        console.log("Updating location");
+        const existingLoc = globalLocations.locations.find(
+            (loc) => loc.id === locData.id
+        );
+        if (existingLoc) {
+            Object.assign(existingLoc, locData);
+        } else {
+            throw new Error(`Location with id ${locData.id} not found`);
+        }
+        dataStorer.saveToStorage("locations", globalLocations);
+        console.log("wReportGen: ", wReportGen)
+        wReportGen.getReportForLocations([locData]);
+        setWeatherData(wReportGen);
+        console.log("wReportGen: ", wReportGen)
+        console.log("Updated location in report")
+        router.back();
+    }
+    
+    function deleteLocation(locId: number) {
+        // Delete location from store
+        globalLocations.locations = globalLocations.locations.filter(
+            (loc) => loc.id !== locId
+        );
+        dataStorer.saveToStorage("locations", globalLocations);
+        delete wReportGen.wReport.locations[locId]
+        setWeatherData(wReportGen);
+        console.log("Removed location")
+        router.back();
+    }
+    
+    function findEmptyLocId() {
+        // Find an empty location id
+        const locIdList = globalLocations.locations.map((loc) => loc.id);
+        let i = 0;
+        while (locIdList.includes(i)) {
+            i++;
+        }
+        return i;
+    }
     if (newLoc) {
         const locDataParts = Array.isArray(locDataStr)
             ? JSON.parse(locDataStr[0])
@@ -163,54 +220,3 @@ const LocationEditor: React.FC<{
 
 export default LocationEditor;
 
-function saveNewLocation(locData: Location) {
-    // Save new location to store
-    console.log("Saving new location");
-    globalLocations.locations.push(locData);
-    dataStorer.saveToStorage("locations", globalLocations);
-    
-    globalReportGenerator.getReportForLocations([locData]);
-    console.log("Added new location to report")
-    
-    router.back();
-}
-
-function updateLocation(locData: Location) {
-    // Update location in store
-    console.log("Updating location");
-    const existingLoc = globalLocations.locations.find(
-        (loc) => loc.id === locData.id
-    );
-    if (existingLoc) {
-        Object.assign(existingLoc, locData);
-    } else {
-        throw new Error(`Location with id ${locData.id} not found`);
-    }
-    dataStorer.saveToStorage("locations", globalLocations);
-    globalReportGenerator.getReportForLocations([locData]);
-    useWeatherStore.getState().setWeatherData(globalReportGenerator);
-    console.log("Updated location in report")
-    router.back();
-}
-
-function deleteLocation(locId: number) {
-    // Delete location from store
-    globalLocations.locations = globalLocations.locations.filter(
-        (loc) => loc.id !== locId
-    );
-    dataStorer.saveToStorage("locations", globalLocations);
-    delete globalReportGenerator.wReport.locations[locId]
-    useWeatherStore.getState().setWeatherData(this);
-    console.log("Removed location")
-    router.back();
-}
-
-function findEmptyLocId() {
-    // Find an empty location id
-    const locIdList = globalLocations.locations.map((loc) => loc.id);
-    let i = 0;
-    while (locIdList.includes(i)) {
-        i++;
-    }
-    return i;
-}
