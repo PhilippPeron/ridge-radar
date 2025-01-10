@@ -43,6 +43,7 @@ export class WReportGenerator {
         let locationReport = {
             id: location.id,
             name: location.name,
+            display_name: location.display_name,
             country: location.country,
             elevation: location.elevation,
             latitude: location.latitude,

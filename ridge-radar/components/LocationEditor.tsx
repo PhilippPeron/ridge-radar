@@ -11,7 +11,24 @@ import { Picker } from "@react-native-picker/picker";
 import { globalLocations, dataStorer } from "../lib/globals";
 import { Location } from "../types/locations";
 import { useWeatherStore } from "../lib/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+const createEmptyLocation = (): Location => ({
+    id: 0,
+    display_name: "",
+    name: "",
+    country: "",
+    country_code: "",
+    administrative_area: "",
+    elevation: 0,
+    latitude: 0,
+    longitude: 0,
+    timezone: "",
+    weather_model: "",
+    activities: [],
+    tags: [],
+    notes: "",
+});
 
 const LocationEditor: React.FC<{
     locDataStr: string;
@@ -19,7 +36,40 @@ const LocationEditor: React.FC<{
 }> = ({ locDataStr, newLoc }) => {
     const router = useRouter();
     const locIdStr = useLocalSearchParams().locId;
-    let locData: Location;
+    const [locData, setLocData] = useState<Location>(createEmptyLocation());
+    useEffect(() => {
+        if (newLoc) {
+            const locDataParts = Array.isArray(locDataStr)
+                ? JSON.parse(locDataStr[0])
+                : JSON.parse(locDataStr);
+            setLocData({
+                id: findEmptyLocId(),
+                display_name: locDataParts.name,
+                name: locDataParts.name,
+                country: locDataParts.lat,
+                country_code: locDataParts.country_code,
+                administrative_area: locDataParts.administrative_area,
+                elevation: locDataParts.elevation,
+                latitude: locDataParts.latitude,
+                longitude: locDataParts.longitude,
+                timezone: locDataParts.timezone,
+                weather_model: "",
+                activities: [],
+                tags: [],
+                notes: "",
+            });
+        } else {
+            const locId = parseInt(
+                Array.isArray(locIdStr) ? locIdStr[0] : locIdStr,
+                10
+            );
+            const loc = globalLocations.locations.find((loc) => loc.id === locId);
+            if (!loc) {
+                throw new Error(`Location with id ${locId} not found`);
+            }
+            setLocData({ ...loc });
+        }
+    }, [locDataStr, locIdStr, newLoc]);
     const wReportGen = useWeatherStore((state) => state.wReportGen);
     const setWeatherData = useWeatherStore((state) => state.setWeatherData);
 
@@ -91,38 +141,6 @@ const LocationEditor: React.FC<{
         }
         return i;
     }
-    if (newLoc) {
-        const locDataParts = Array.isArray(locDataStr)
-            ? JSON.parse(locDataStr[0])
-            : JSON.parse(locDataStr);
-        locData = {
-            id: findEmptyLocId(),
-            display_name: locDataParts.name,
-            name: locDataParts.name,
-            country: locDataParts.lat,
-            country_code: locDataParts.country_code,
-            administrative_area: locDataParts.administrative_area,
-            elevation: locDataParts.elevation,
-            latitude: locDataParts.latitude,
-            longitude: locDataParts.longitude,
-            timezone: locDataParts.timezone,
-            weather_model: "",
-            activities: [],
-            tags: [],
-            notes: "",
-        };
-    } else {
-        const locId = parseInt(
-            Array.isArray(locIdStr) ? locIdStr[0] : locIdStr,
-            10
-        );
-        locData = globalLocations.locations.find(
-            (loc) => loc.id === locId
-        ) as Location;
-        if (!locData) {
-            throw new Error(`Location with id ${locId} not found`);
-        }
-    }
 
     return (
         <KeyboardAwareScrollView className="w-full h-full p-4">
@@ -138,7 +156,9 @@ const LocationEditor: React.FC<{
                 <TextInput
                     className="border border-gray-300 p-2 rounded"
                     value={locData.display_name}
-                    onChangeText={(val) => {}}
+                    onChangeText={(val) => {
+                        setLocData({ ...locData, display_name: val });
+                    }}
                 />
                 <Text className="mb-1 mt-2">Latitude</Text>
                 <TextInput
@@ -163,7 +183,9 @@ const LocationEditor: React.FC<{
                 <Text className="mb-1 mt-2">Weather Model</Text>
                 <Picker
                     selectedValue={locData.weather_model}
-                    onValueChange={(val) => {}}
+                    onValueChange={(val) => {
+                        setLocData({ ...locData, weather_model: val });
+                    }}
                     style={{ borderWidth: 1, borderColor: "#ccc" }}
                 >
                     <Picker.Item label="Best Match" value="best_match" />
@@ -174,7 +196,9 @@ const LocationEditor: React.FC<{
                     className="border border-gray-300 p-2 rounded"
                     placeholder="Add tags"
                     value={(locData.tags || []).join(", ")}
-                    onChangeText={(val) => {}}
+                    onChangeText={(val) => {
+                        setLocData({ ...locData, tags: val.split(", ") });
+                    }}
                 />
 
                 <Text className="mb-1 mt-2">Notes</Text>
@@ -183,7 +207,9 @@ const LocationEditor: React.FC<{
                     multiline
                     numberOfLines={4}
                     value={locData.notes}
-                    onChangeText={(val) => {}}
+                    onChangeText={(val) => {
+                        setLocData({ ...locData, notes: val });
+                    }}
                 />
 
                 <Text className="mb-1 mt-2">Activities</Text>

@@ -28,12 +28,12 @@ const LocationSummary: React.FC<LocationSummaryProps> = ({ locId }) => {
             </View>
         );
     }
-    const { name, elevation, weather } = location;
+    const { display_name, elevation, weather } = location;
     
     return (
         <Pressable className="bg-primary/30 dark:bg-primary-dark/40 rounded-3xl px-5 pt-3 pb-1" onPress={() => router.push(`/day/${locId}?dayIndex=0`)}>
             <View className="flex-row justify-between items-center">
-                <Text className="text-2xl dark:text-text-dark">{name}</Text>
+                <Text className="text-2xl dark:text-text-dark">{display_name}</Text>
                 <TouchableOpacity className="bg-primary/30 dark:bg-primary-dark/30 justify-center ml-auto rounded-full items-center" onPress={() => router.push({ pathname: "/modalLocEditor", params: { locId } })}>
                     <EditIcon width={27} height={27} fill={textColor} />
                 </TouchableOpacity>
