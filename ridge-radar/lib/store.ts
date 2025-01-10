@@ -9,7 +9,6 @@ interface WeatherState {
 export const useWeatherStore = create<WeatherState>((set) => ({
     wReportGen: null,
     setWeatherData: (wReportGen) => {
-      set({ wReportGen });
-      console.log("Setting weather data:", wReportGen);
+        set({ wReportGen });
     },
 }));

@@ -14,9 +14,7 @@ const tailwindColors = tailwindConfig?.theme?.extend?.colors;
 
 export default function Tab() {
     const wReportGen = useWeatherStore((state) => state.wReportGen);
-    console.log(wReportGen);
     const locIds: string[] = Object.keys(wReportGen.wReport.locations);
-    console.log("locIds: ", locIds);
     const colorScheme = useColorScheme();
     const router = useRouter();
     const activeColor =
@@ -24,9 +22,6 @@ export default function Tab() {
             ? tailwindColors?.active.dark
             : tailwindColors?.active.DEFAULT;
     
-    useEffect(() => {
-        console.log('Component re-rendered');
-    }, [wReportGen]);
     return (
         <Background>
             {/* Add mb-16 to className to add margin bottom for tab bar */}

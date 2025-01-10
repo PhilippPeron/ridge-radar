@@ -21,7 +21,6 @@ const LocationEditor: React.FC<{
     const locIdStr = useLocalSearchParams().locId;
     let locData: Location;
     const wReportGen = useWeatherStore((state) => state.wReportGen);
-    console.log("wReportGen: ", wReportGen);
     const setWeatherData = useWeatherStore((state) => state.setWeatherData);
 
     async function saveNewLocation(locData: Location) {
@@ -33,7 +32,6 @@ const LocationEditor: React.FC<{
             locData,
         ]);
         wReportGen.wReport.locations[locData.id] = locationReport;
-        console.log("wReportGen after await: ", wReportGen.wReport.locations);
         console.log("Added new location to report");
         const newWReportGen = Object.assign(
             Object.create(Object.getPrototypeOf(wReportGen)),
@@ -55,7 +53,6 @@ const LocationEditor: React.FC<{
             throw new Error(`Location with id ${locData.id} not found`);
         }
         dataStorer.saveToStorage("locations", globalLocations);
-        console.log("wReportGen: ", wReportGen);
         const [locationReport] = await wReportGen.getReportForLocations([
             locData,
         ]);
@@ -65,7 +62,6 @@ const LocationEditor: React.FC<{
             wReportGen
         );
         setWeatherData(newWReportGen);
-        console.log("wReportGen: ", wReportGen);
         console.log("Updated location in report");
         router.back();
     }
