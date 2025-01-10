@@ -5,6 +5,7 @@ import { OpenMeteoAPIWrapper } from "../api/openMeteoAPIWrapper";
 import { activityProcessor } from "./activityProcessor";
 import { globalSettings, globalLocations, globalActivities } from "./globals";
 import { useWeatherStore } from "../lib/store";
+import { tags } from "react-native-svg/lib/typescript/xmlTags";
 
 export class WReportGenerator {
     weatherData: any;
@@ -35,7 +36,6 @@ export class WReportGenerator {
             let locationReport = this.getReportForLocation(location);
             locationReports.push(locationReport);
         }
-        console.log("in report generator: ", this.wReport);
         return locationReports;
     }
 
@@ -49,6 +49,7 @@ export class WReportGenerator {
             latitude: location.latitude,
             longitude: location.longitude,
             timezone: location.timezone,
+            tags: location.tags,
             activities: this.getActivitiesForLocation(location),
             weather: this.getWeatherForLocation(location),
         };

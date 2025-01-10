@@ -8,10 +8,11 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Picker } from "@react-native-picker/picker";
-import { globalLocations, dataStorer } from "../lib/globals";
+import { globalLocations, dataStorer, globalActivities } from "../lib/globals";
 import { Location } from "../types/locations";
 import { useWeatherStore } from "../lib/store";
 import { useEffect, useState } from "react";
+import { getTagList } from "../lib/helpers";
 
 const createEmptyLocation = (): Location => ({
     id: 0,
@@ -37,6 +38,11 @@ const LocationEditor: React.FC<{
     const router = useRouter();
     const locIdStr = useLocalSearchParams().locId;
     const [locData, setLocData] = useState<Location>(createEmptyLocation());
+    const [newTag, setNewTag] = useState<string>("");
+    const [activitiesList] = useState(() =>
+        Object.keys(globalActivities.activities)
+    );
+    const [tagsList] = useState(() => getTagList(globalLocations.locations));
     useEffect(() => {
         if (newLoc) {
             const locDataParts = Array.isArray(locDataStr)
@@ -63,7 +69,9 @@ const LocationEditor: React.FC<{
                 Array.isArray(locIdStr) ? locIdStr[0] : locIdStr,
                 10
             );
-            const loc = globalLocations.locations.find((loc) => loc.id === locId);
+            const loc = globalLocations.locations.find(
+                (loc) => loc.id === locId
+            );
             if (!loc) {
                 throw new Error(`Location with id ${locId} not found`);
             }
@@ -147,65 +155,132 @@ const LocationEditor: React.FC<{
             <View className="mb-4">
                 <Text className="mb-1 mt-2">Location Name</Text>
                 <TextInput
-                    className="border border-gray-300 p-2 rounded text-text/60"
+                    className="border border-gray-300 p-2 rounded-full text-text/60"
                     editable={false}
                     value={locData.name}
                 />
 
                 <Text className="mb-1">Display Name</Text>
                 <TextInput
-                    className="border border-gray-300 p-2 rounded"
+                    className="border border-gray-300 p-2 rounded-full"
                     value={locData.display_name}
                     onChangeText={(val) => {
                         setLocData({ ...locData, display_name: val });
                     }}
                 />
-                <Text className="mb-1 mt-2">Latitude</Text>
-                <TextInput
-                    className="border border-gray-300 p-2 rounded text-text/60"
-                    editable={false}
-                    value={String(locData.latitude)}
-                />
-
-                <Text className="mb-1 mt-2">Longitude</Text>
-                <TextInput
-                    className="border border-gray-300 p-2 rounded text-text/60"
-                    editable={false}
-                    value={String(locData.longitude)}
-                />
+                <View className="flex-row justify-between">
+                    <View className="flex-1 mr-1">
+                        <Text className="mb-1 mt-2">Latitude</Text>
+                        <TextInput
+                            className="border border-gray-300 p-2 rounded-full text-text/60"
+                            editable={false}
+                            value={String(locData.latitude)}
+                        />
+                    </View>
+                    <View className="flex-1 ml-1">
+                        <Text className="mb-1 mt-2">Longitude</Text>
+                        <TextInput
+                            className="border border-gray-300 p-2 rounded-full text-text/60"
+                            editable={false}
+                            value={String(locData.longitude)}
+                        />
+                    </View>
+                </View>
                 <Text className="mb-1 mt-2">Elevation</Text>
                 <TextInput
-                    className="border border-gray-300 p-2 rounded text-text/60"
+                    className="border border-gray-300 p-2 rounded-full text-text/60"
                     editable={false}
                     value={String(locData.elevation + "m")}
                 />
 
                 <Text className="mb-1 mt-2">Weather Model</Text>
-                <Picker
-                    selectedValue={locData.weather_model}
-                    onValueChange={(val) => {
-                        setLocData({ ...locData, weather_model: val });
-                    }}
-                    style={{ borderWidth: 1, borderColor: "#ccc" }}
-                >
-                    <Picker.Item label="Best Match" value="best_match" />
-                </Picker>
+                <View className="border border-gray-300 p-2 rounded-full">
+                    <Picker
+                        selectedValue={locData.weather_model}
+                        onValueChange={(val) => {
+                            setLocData({ ...locData, weather_model: val });
+                        }}
+                        style={{ width: "100%", height: 20 }}
+                        itemStyle={{ fontSize: 4 }}
+                        mode="dropdown"
+                    >
+                        <Picker.Item label="Best Match" value="best_match" />
+                    </Picker>
+                </View>
 
                 <Text className="mb-1 mt-2">Tags</Text>
                 <TextInput
-                    className="border border-gray-300 p-2 rounded"
-                    placeholder="Add tags"
-                    value={(locData.tags || []).join(", ")}
+                    className="border border-gray-300 p-2 pl-3 rounded-full"
+                    placeholder="Add tag"
+                    value={newTag}
                     onChangeText={(val) => {
-                        setLocData({ ...locData, tags: val.split(", ") });
+                        setNewTag(val);
+                    }}
+                    onSubmitEditing={(e) => {
+                        const newTag = e.nativeEvent.text.trim();
+                        if (newTag && !locData.tags.includes(newTag)) {
+                            setLocData({
+                                ...locData,
+                                tags: [...locData.tags, newTag],
+                            });
+                        }
+                        setNewTag("");
                     }}
                 />
+                <View className="flex-row flex-wrap">
+                    {locData.tags
+                        .filter((tag) => !tagsList.includes(tag))
+                        .map((tag, index) => (
+                            <TouchableOpacity
+                                key={`custom-${index}`}
+                                className="p-2 px-3 rounded-full m-1 ml-0 bg-yellow-400"
+                                onPress={() => {
+                                    setLocData({
+                                        ...locData,
+                                        tags: locData.tags.filter(
+                                            (t) => t !== tag
+                                        ),
+                                    });
+                                }}
+                            >
+                                <Text>{tag}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    {tagsList.map((tag, index) => {
+                        const isActive = locData.tags.includes(tag);
+                        return (
+                            <TouchableOpacity
+                                key={index}
+                                className={`p-2 px-3 rounded-full m-1 ml-0 ${
+                                    isActive ? "bg-yellow-400" : "bg-secondary/40"
+                                }`}
+                                onPress={() => {
+                                    if (isActive) {
+                                        setLocData({
+                                            ...locData,
+                                            tags: locData.tags.filter(
+                                                (t) => t !== tag
+                                            ),
+                                        });
+                                    } else {
+                                        setLocData({
+                                            ...locData,
+                                            tags: [...locData.tags, tag],
+                                        });
+                                    }
+                                }}
+                            >
+                                <Text>{tag}</Text>
+                            </TouchableOpacity>
+                        );
+                    })}
+                </View>
 
                 <Text className="mb-1 mt-2">Notes</Text>
                 <TextInput
-                    className="border border-gray-300 p-2 rounded"
+                    className="border border-gray-300 p-2 rounded-3xl"
                     multiline
-                    numberOfLines={4}
+                    numberOfLines={8}
                     value={locData.notes}
                     onChangeText={(val) => {
                         setLocData({ ...locData, notes: val });
@@ -213,18 +288,46 @@ const LocationEditor: React.FC<{
                 />
 
                 <Text className="mb-1 mt-2">Activities</Text>
-
-                <TouchableOpacity
-                    className=" bg-gray-300 p-2 rounded"
-                    onPress={() => {}}
-                >
-                    <Text>Select Activities</Text>
-                </TouchableOpacity>
+                <View className="flex-row flex-wrap">
+                    {activitiesList.map((actitivity, index) => {
+                        const isActive =
+                            locData.activities.includes(actitivity);
+                        return (
+                            <TouchableOpacity
+                                key={index}
+                                className={`p-2 px-3 rounded-full m-1 ml-0 ${
+                                    isActive ? "bg-yellow-400" : "bg-secondary/40"
+                                }`}
+                                onPress={() => {
+                                    if (isActive) {
+                                        setLocData({
+                                            ...locData,
+                                            activities:
+                                                locData.activities.filter(
+                                                    (t) => t !== actitivity
+                                                ),
+                                        });
+                                    } else {
+                                        setLocData({
+                                            ...locData,
+                                            activities: [
+                                                ...locData.activities,
+                                                actitivity,
+                                            ],
+                                        });
+                                    }
+                                }}
+                            >
+                                <Text>{actitivity}</Text>
+                            </TouchableOpacity>
+                        );
+                    })}
+                </View>
             </View>
 
             <View className="space-x-4 mt-4 bottom-5 justify-end items-center">
                 <TouchableOpacity
-                    className="w-full h-14 m-1 rounded-full bg-secondary justify-center items-center"
+                    className="w-full h-14 my-1 rounded-full bg-green-400 justify-center items-center"
                     onPress={() =>
                         newLoc
                             ? saveNewLocation(locData)
@@ -236,14 +339,18 @@ const LocationEditor: React.FC<{
                 <View className="flex-row w-full justify-between">
                     {!newLoc && (
                         <TouchableOpacity
-                            className="flex-1 h-14 m-1 rounded-full bg-red-500 justify-center items-center"
+                            className={`flex-1 h-14 my-1 rounded-full bg-red-500 justify-center items-center ${
+                                !newLoc ? "mr-1" : ""
+                            }`}
                             onPress={() => deleteLocation(locData.id)}
                         >
                             <Text>Delete</Text>
                         </TouchableOpacity>
                     )}
                     <TouchableOpacity
-                        className="flex-1 h-14 m-1 rounded-full bg-secondary justify-center items-center"
+                        className={`flex-1 h-14 my-1 rounded-full bg-secondary/40 justify-center items-center ${
+                            !newLoc ? "ml-1" : ""
+                        }`}
                         onPress={() => router.back()}
                     >
                         <Text className="text-center">Cancel</Text>

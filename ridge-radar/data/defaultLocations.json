@@ -16,7 +16,7 @@
             "notes": "[User can add notes]",
             "tags": [],
             "activities": [
-                "hiking"
+                "Hiking"
             ]
         },
         {
@@ -31,9 +31,12 @@
             "longitude": 11.797613,
             "timezone": "Europe/Berlin",
             "notes": "[User can add notes]",
-            "tags": [],
+            "tags": [
+                "nahe München",
+                "Schön"
+            ],
             "activities": [
-                "hiking"
+                "Hiking"
             ]
         },
         {
@@ -50,7 +53,7 @@
             "notes": "[User can add notes]",
             "tags": [],
             "activities": [
-                "hiking"
+                "Hiking"
             ]
         },
         {
@@ -67,7 +70,7 @@
             "notes": "[User can add notes]",
             "tags": [],
             "activities": [
-                "hiking"
+                "Hiking"
             ]
         },
         {

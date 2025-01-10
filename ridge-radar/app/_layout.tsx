@@ -42,7 +42,6 @@ export default function Layout() {
             const timeout = new Promise((resolve) => setTimeout(resolve, 4000));
             const wReportGen = await Promise.race([loadData(), timeout]);
             if (wReportGen) {
-                console.log("Correct Report: ", wReportGen)
                 setWeatherData(wReportGen);
                 setDataLoaded(true);
                 console.log("Data loaded");

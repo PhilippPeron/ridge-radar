@@ -38,7 +38,7 @@ const LocationSummary: React.FC<LocationSummaryProps> = ({ locId }) => {
                     <EditIcon width={27} height={27} fill={textColor} />
                 </TouchableOpacity>
             </View>
-            <Text className="text-base dark:text-text-dark">{elevation}m</Text>
+            <Text className="text-base dark:text-text-dark mt-1">{elevation}m</Text>
             <FlatList
                 horizontal
                 data={weather.days}
@@ -46,7 +46,7 @@ const LocationSummary: React.FC<LocationSummaryProps> = ({ locId }) => {
                     <LocationSummaryDay dayIndex={index} locId={locId} />
                 )}
                 keyExtractor={(item, index) => index.toString()}
-                className="mt-2"
+                className=""
                 showsHorizontalScrollIndicator={false}
             />
         </Pressable>
