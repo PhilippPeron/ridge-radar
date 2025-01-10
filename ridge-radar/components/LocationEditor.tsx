@@ -11,34 +11,39 @@ import { Picker } from "@react-native-picker/picker";
 import { globalLocations, dataStorer } from "../lib/globals";
 import { Location } from "../types/locations";
 import { useWeatherStore } from "../lib/store";
-
-
+import { useEffect } from "react";
 
 const LocationEditor: React.FC<{
     locDataStr: string;
     newLoc: boolean;
 }> = ({ locDataStr, newLoc }) => {
     const router = useRouter();
+    const locIdStr = useLocalSearchParams().locId;
     let locData: Location;
-    const wReportGen = useWeatherStore(
-        (state) => state.wReportGen
-    );
+    const wReportGen = useWeatherStore((state) => state.wReportGen);
     console.log("wReportGen: ", wReportGen);
     const setWeatherData = useWeatherStore((state) => state.setWeatherData);
 
-
-    function saveNewLocation(locData: Location) {
+    async function saveNewLocation(locData: Location) {
         // Save new location to store
         console.log("Saving new location");
         globalLocations.locations.push(locData);
         dataStorer.saveToStorage("locations", globalLocations);
-        console.log("Added new location to report")
-        wReportGen.getReportForLocations([locData]);
-        setWeatherData({ ...wReportGen });
+        const [locationReport] = await wReportGen.getReportForLocations([
+            locData,
+        ]);
+        wReportGen.wReport.locations[locData.id] = locationReport;
+        console.log("wReportGen after await: ", wReportGen.wReport.locations);
+        console.log("Added new location to report");
+        const newWReportGen = Object.assign(
+            Object.create(Object.getPrototypeOf(wReportGen)),
+            wReportGen
+        );
+        setWeatherData(newWReportGen);
         router.back();
     }
-    
-    function updateLocation(locData: Location) {
+
+    async function updateLocation(locData: Location) {
         // Update location in store
         console.log("Updating location");
         const existingLoc = globalLocations.locations.find(
@@ -50,26 +55,37 @@ const LocationEditor: React.FC<{
             throw new Error(`Location with id ${locData.id} not found`);
         }
         dataStorer.saveToStorage("locations", globalLocations);
-        console.log("wReportGen: ", wReportGen)
-        wReportGen.getReportForLocations([locData]);
-        setWeatherData(wReportGen);
-        console.log("wReportGen: ", wReportGen)
-        console.log("Updated location in report")
+        console.log("wReportGen: ", wReportGen);
+        const [locationReport] = await wReportGen.getReportForLocations([
+            locData,
+        ]);
+        wReportGen.wReport.locations[locData.id] = locationReport;
+        const newWReportGen = Object.assign(
+            Object.create(Object.getPrototypeOf(wReportGen)),
+            wReportGen
+        );
+        setWeatherData(newWReportGen);
+        console.log("wReportGen: ", wReportGen);
+        console.log("Updated location in report");
         router.back();
     }
-    
+
     function deleteLocation(locId: number) {
         // Delete location from store
         globalLocations.locations = globalLocations.locations.filter(
             (loc) => loc.id !== locId
         );
         dataStorer.saveToStorage("locations", globalLocations);
-        delete wReportGen.wReport.locations[locId]
-        setWeatherData(wReportGen);
-        console.log("Removed location")
+        delete wReportGen.wReport.locations[locId];
+        const newWReportGen = Object.assign(
+            Object.create(Object.getPrototypeOf(wReportGen)),
+            wReportGen
+        );
+        setWeatherData(newWReportGen);
+        console.log("Removed location");
         router.back();
     }
-    
+
     function findEmptyLocId() {
         // Find an empty location id
         const locIdList = globalLocations.locations.map((loc) => loc.id);
@@ -100,7 +116,6 @@ const LocationEditor: React.FC<{
             notes: "",
         };
     } else {
-        const locIdStr = useLocalSearchParams().locId;
         const locId = parseInt(
             Array.isArray(locIdStr) ? locIdStr[0] : locIdStr,
             10
@@ -216,7 +231,6 @@ const LocationEditor: React.FC<{
             <View className="h-96"></View>
         </KeyboardAwareScrollView>
     );
-}
+};
 
 export default LocationEditor;
-

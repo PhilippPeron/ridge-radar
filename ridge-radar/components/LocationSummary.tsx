@@ -18,18 +18,18 @@ const LocationSummary: React.FC<LocationSummaryProps> = ({ locId }) => {
         (state) => state.wReportGen.wReport.locations[locId]
     );
     
+    const colorScheme = useColorScheme();
+    const textColor = colorScheme === 'dark' ? tailwindColors?.text.dark : tailwindColors?.text.DEFAULT;
+    
     if (!location) {
         return (
-            <View className="bg-black rounded-full">
+            <View className="bg-red-500 rounded-full">
                 <Text>Location not found</Text>
             </View>
         );
     }
-    const colorScheme = useColorScheme();
-    const textColor = colorScheme === 'dark' ? tailwindColors?.text.dark : tailwindColors?.text.DEFAULT;
-
     const { name, elevation, weather } = location;
-
+    
     return (
         <Pressable className="bg-primary/30 dark:bg-primary-dark/40 rounded-3xl px-5 pt-3 pb-1" onPress={() => router.push(`/day/${locId}?dayIndex=0`)}>
             <View className="flex-row justify-between items-center">
