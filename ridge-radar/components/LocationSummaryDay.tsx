@@ -15,10 +15,10 @@ const LocationSummaryDay: React.FC<{ dayIndex: number, locId: string, isSelected
     const WeatherIcon = getIcon(day.daily.weatherCode, false);
     const isSelectedMods = isSelected ? "bg-primary/30" : "bg-primary/0";
     return (
-        <Pressable className={`mr-1 w-24 px-1 py-3 rounded-3xl ${isSelectedMods}`} onPress={() => router.push(`/day/${locId}?dayIndex=${dayIndex}`)}>
+        <Pressable className={`mr-1 w-24 px-1 py-2 rounded-3xl ${isSelectedMods}`} onPress={() => router.push(`/day/${locId}?dayIndex=${dayIndex}`)}>
             <View className="items-center">
                 <Text className="dark:text-text-dark">{day.title}</Text>
-                <WeatherIcon width={55} height={60}/>
+                <WeatherIcon width={55} height={55}/>
                 <Text className="dark:text-text-dark">{day.daily.temperature.max.toFixed(0)}°/{day.daily.temperature.min.toFixed(0)}°</Text>
                 <SunDurationPill sunDuration={day.daily.sunDuration} sunPercentage={day.daily.sunPercentage} />
                 <SnowRainPill snow={day.daily.snowfall.value} rain={day.daily.precipitation.value} />
@@ -33,7 +33,7 @@ export default LocationSummaryDay;
 const SunDurationPill: React.FC<{ sunDuration: number, sunPercentage: number }> = ({ sunDuration, sunPercentage }) => {
     const backgroundColor = `rgba(255, 255, 0, ${sunPercentage})`; // Calculate the background color based on sunPercentage
     return (
-        <View style={{ backgroundColor }} className="bg- w-full rounded-full px-2 items-center m-1">
+        <View style={{ backgroundColor }} className="rounded-3xl w-full px-2 items-center m-1">
             <Text className="w-full text-center dark:text-gray-100">{sunDuration.toFixed()}h</Text>
         </View>
     );
@@ -53,7 +53,7 @@ const SnowRainPill: React.FC<{ snow: number, rain: number }> = ({ snow, rain }) 
     }
 
     return (
-        <View style={{ backgroundColor }} className="w-full rounded-full px-2 items-center my-1">
+        <View style={{ backgroundColor }} className="w-full rounded-3xl px-2 items-center my-1">
             <Text className="w-full text-center dark:text-gray-700">{text}</Text>
         </View>
     );

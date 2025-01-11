@@ -49,7 +49,7 @@ const TimePill: React.FC<{
     return (
         <View
             style={{ backgroundColor }}
-            className="w-full rounded-full px-1 items-center m-1"
+            className="rounded-full w-full px-1 items-center m-1"
         >
             <View className="flex-row items-center">
                 <Text className="text-black text-center text-sm">

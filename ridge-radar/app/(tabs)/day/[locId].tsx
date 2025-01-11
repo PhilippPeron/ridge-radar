@@ -9,6 +9,7 @@ import { useWeatherStore } from "../../../lib/store"; // Import the Zustand stor
 import LocationSummaryDay from "../../../components/LocationSummaryDay";
 import DetailsHourly from "../../../components/DetailsHourly";
 import DetailsGrid from "../../../components/DetailsGrid";
+import { useColorScheme } from "react-native";
 
 export default function Day() {
     const { locId, dayIndex } = useLocalSearchParams<{
@@ -17,6 +18,7 @@ export default function Day() {
     }>();
     const dayIndexInt = parseInt(dayIndex || "0");
     const navigation = useNavigation();
+    const colorScheme = useColorScheme();
     const router = useRouter();
     const location = useWeatherStore(
         (state) => state.wReportGen.wReport.locations[locId]
@@ -36,7 +38,7 @@ export default function Day() {
                         className="ml-4"
                         name="arrow-back"
                         size={24}
-                        color="black"
+                        color={colorScheme==="dark" ? "white" : "black"}
                     />
                 </TouchableOpacity>
             ),
@@ -45,8 +47,7 @@ export default function Day() {
 
     return (
         <Background>
-            <SafeAreaView style={{ flex: 1, marginTop: 60 }}>
-                <View className="justify-center items-center px-2">
+            <SafeAreaView className="flex-1 bg-transparent mb-16 mt-14">
                     <ScrollView
                         horizontal
                         showsHorizontalScrollIndicator={false}
@@ -63,18 +64,23 @@ export default function Day() {
                     </ScrollView>
                     <ScrollView
                         showsVerticalScrollIndicator={false}
-                        className="mt-4 w-full"
+                        className="mt-4 w-fit m-2"
                     >
                         <View className="mb-4 bg-primary/30 rounded-3xl p-2 items-center">
                             <Text className="text-xl">Hourly</Text>
                             <DetailsHourly locId={locId} dayIndex={dayIndex} />
                         </View>
-                        <View className="mb-4 bg-primary/30 rounded-3xl p-2 items-center">
+                        {location.notes && location.notes.trim() !== "" && (
+                            <View className="mb-4 bg-primary/30 rounded-3xl p-2 items-center">
+                                <Text className="text-xl">Notes</Text>
+                                <Text className="text-sm w-full m-1 ml-3">{location.notes}</Text>
+                            </View>
+                        )}
+                        <View className=" bg-primary/30 rounded-3xl p-2 items-center">
                             <Text className="text-xl mb-1">Details</Text>
                             <DetailsGrid locId={locId} dayIndex={dayIndex} />
                         </View>
                     </ScrollView>
-                </View>
             </SafeAreaView>
         </Background>
     );

@@ -50,6 +50,7 @@ export class WReportGenerator {
             longitude: location.longitude,
             timezone: location.timezone,
             tags: location.tags,
+            notes: location.notes,
             activities: this.getActivitiesForLocation(location),
             weather: this.getWeatherForLocation(location),
         };
