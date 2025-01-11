@@ -36,7 +36,7 @@ const DetailsHourly: React.FC<DetailsHourlyProps> = ({ locId, dayIndex }) => {
     }
 
     return (
-        <View className="bg-primary/30 rounded-3xl px-5 pt-3 pb-1">
+        <View className="w-full">
             <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}

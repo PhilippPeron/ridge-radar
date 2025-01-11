@@ -28,7 +28,10 @@ export default function Day() {
             title: location.name,
             headerTitleAlign: "center",
             headerLeft: () => (
-                <TouchableOpacity onPress={() => router.back()} className="w-16 h-16 justify-center">
+                <TouchableOpacity
+                    onPress={() => router.back()}
+                    className="w-16 h-16 justify-center"
+                >
                     <Ionicons
                         className="ml-4"
                         name="arrow-back"
@@ -44,26 +47,33 @@ export default function Day() {
         <Background>
             <SafeAreaView style={{ flex: 1, marginTop: 60 }}>
                 <View className="justify-center items-center px-2">
-                <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    className="mt-4"
-                >
-                    {location.weather.days.map((_, index: number) => (
-                        <LocationSummaryDay key={index} dayIndex={index} locId={locId} isSelected={index === dayIndexInt} />
-                    ))}
-                </ScrollView>
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    className="mt-4 w-full"
-                >
-                    <View className="mb-4">
-                        <DetailsHourly locId={locId} dayIndex={dayIndex} />
-                    </View>
-                    <View className="mb-4">
-                        <DetailsGrid locId={locId} dayIndex={dayIndex} />
-                    </View>
-                </ScrollView>
+                    <ScrollView
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        className="mt-4"
+                    >
+                        {location.weather.days.map((_, index: number) => (
+                            <LocationSummaryDay
+                                key={index}
+                                dayIndex={index}
+                                locId={locId}
+                                isSelected={index === dayIndexInt}
+                            />
+                        ))}
+                    </ScrollView>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        className="mt-4 w-full"
+                    >
+                        <View className="mb-4 bg-primary/30 rounded-3xl p-2 items-center">
+                            <Text className="text-xl">Hourly</Text>
+                            <DetailsHourly locId={locId} dayIndex={dayIndex} />
+                        </View>
+                        <View className="mb-4 bg-primary/30 rounded-3xl p-2 items-center">
+                            <Text className="text-xl mb-1">Details</Text>
+                            <DetailsGrid locId={locId} dayIndex={dayIndex} />
+                        </View>
+                    </ScrollView>
                 </View>
             </SafeAreaView>
         </Background>
