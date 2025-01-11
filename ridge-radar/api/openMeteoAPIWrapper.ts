@@ -58,12 +58,6 @@ export class OpenMeteoAPIWrapper {
             unit: "cm",
         };
     }
-    getDaySunrise(location: Location, dayIndex: number) {
-        return this.weatherData[location.id].daily.sunrise[dayIndex];
-    }
-    getDaySunset(location: Location, dayIndex: number) {
-        return this.weatherData[location.id].daily.sunset[dayIndex];
-    }
     getDayUVIndex(location: Location, dayIndex: number) {
         return this.weatherData[location.id].daily.uv_index_max[dayIndex];
     }

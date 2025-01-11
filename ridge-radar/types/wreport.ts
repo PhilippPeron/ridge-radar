@@ -14,13 +14,11 @@ export interface dailyData {
         value: number;
         unit: string;
     };
-    sunrise: string;
-    sunset: string;
     uvIndex: number;
     snowdepth: {
         value: number;
         unit: string;
-    }
+    };
     precipitationHours: number;
     maxWindSpeed: {
         value: number;
@@ -32,4 +30,14 @@ export interface dailyData {
     activityWeather: {
         [key: string]: { [key: string]: any };
     };
+    nightEnd: string;
+    sunrise: string;
+    goldenHourEnd: string;
+    solarNoon: string;
+    goldenHourStart: string;
+    sunset: string;
+    nightStart: string;
+    moonrise: string;
+    moonset: string;
+    moonFraction: number;
 }

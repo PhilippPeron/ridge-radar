@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useEffect } from "react";
+import React, { useLayoutEffect, useRef, useEffect, useState } from "react";
 import { Text, TouchableOpacity, ScrollView, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
@@ -38,7 +38,7 @@ export default function Day() {
                         className="ml-4"
                         name="arrow-back"
                         size={24}
-                        color={colorScheme==="dark" ? "white" : "black"}
+                        color={colorScheme === "dark" ? "white" : "black"}
                     />
                 </TouchableOpacity>
             ),
@@ -47,11 +47,12 @@ export default function Day() {
 
     return (
         <Background>
-            <SafeAreaView className="flex-1 bg-transparent mb-16 mt-14">
+            <SafeAreaView className="bg-transparent mb-16 mt-14 flex-1">
+                <View className="">
                     <ScrollView
                         horizontal
                         showsHorizontalScrollIndicator={false}
-                        className="mt-4"
+                        className="mt-4 m-2"
                     >
                         {location.weather.days.map((_, index: number) => (
                             <LocationSummaryDay
@@ -62,26 +63,52 @@ export default function Day() {
                             />
                         ))}
                     </ScrollView>
+                </View>
+                <View className="flex-1">
                     <ScrollView
                         showsVerticalScrollIndicator={false}
-                        className="mt-4 w-fit m-2"
+                        className="mt-4 m-2"
                     >
-                        <View className="mb-4 bg-primary/30 rounded-3xl p-2 items-center">
-                            <Text className="text-xl">Hourly</Text>
+                        <TitleWithChildren title="Stündlich">
                             <DetailsHourly locId={locId} dayIndex={dayIndex} />
-                        </View>
+                        </TitleWithChildren>
                         {location.notes && location.notes.trim() !== "" && (
-                            <View className="mb-4 bg-primary/30 rounded-3xl p-2 items-center">
-                                <Text className="text-xl">Notes</Text>
-                                <Text className="text-sm w-full m-1 ml-3">{location.notes}</Text>
-                            </View>
+                            <TitleWithChildren title="Notes">
+                                <Text className="text-sm w-full m-1 ml-3">
+                                    {location.notes}
+                                </Text>
+                            </TitleWithChildren>
                         )}
-                        <View className=" bg-primary/30 rounded-3xl p-2 items-center">
-                            <Text className="text-xl mb-1">Details</Text>
+                        <TitleWithChildren title="Details">
                             <DetailsGrid locId={locId} dayIndex={dayIndex} />
-                        </View>
+                        </TitleWithChildren>
+                        {/* <View className=" bg-primary/30 rounded-3xl p-2 items-center mb-4">
+                            <Text className="text-xl mb-1">Sun & Moon</Text>
+                            <DetailsSun locId={locId} dayIndex={dayIndex} />
+                        </View> */}
                     </ScrollView>
+                </View>
             </SafeAreaView>
         </Background>
     );
 }
+
+interface TitleWithChildrenProps {
+    title: string;
+    children: any;
+}
+
+const TitleWithChildren: React.FC<TitleWithChildrenProps> = ({
+    title,
+    children,
+}) => {
+    const [show, setShow] = useState(true);
+    return (
+        <View className="mb-4 bg-primary/30 rounded-3xl p-2">
+            <TouchableOpacity className=" p-1" onPress={() => setShow(!show)}>
+                <Text className="text-xl mb-1 text-center">{title}</Text>
+            </TouchableOpacity>
+            {show && children}
+        </View>
+    );
+};

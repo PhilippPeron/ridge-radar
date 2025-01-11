@@ -18,8 +18,6 @@ export class OpenMeteoAPI {
             "weather_code",
             "temperature_2m_max",
             "temperature_2m_min",
-            "sunrise",
-            "sunset",
             "daylight_duration",
             "sunshine_duration",
             "uv_index_max",

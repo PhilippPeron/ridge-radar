@@ -5,24 +5,28 @@ import { OpenMeteoAPIWrapper } from "../api/openMeteoAPIWrapper";
 import { activityProcessor } from "./activityProcessor";
 import { globalSettings, globalLocations, globalActivities } from "./globals";
 import { useWeatherStore } from "../lib/store";
-import { tags } from "react-native-svg/lib/typescript/xmlTags";
+import { sunCalculator } from "./sunCalculator";
 
 export class WReportGenerator {
     weatherData: any;
     wReport: any; // TODO: Create a type/interface for this
     nDays: number;
     weatherAPI: OpenMeteoAPIWrapper;
+    sunCalculator: sunCalculator;
     activityProcessor: activityProcessor;
 
     constructor() {
         this.nDays = globalSettings.nDays;
         this.weatherAPI = new OpenMeteoAPIWrapper();
         this.activityProcessor = new activityProcessor(globalActivities);
+        this.sunCalculator = new sunCalculator();
     }
 
     async generateReport(locations: Locations) {
         this.wReport = this.defaultReport();
-        const locationReports = await this.getReportForLocations(locations.locations);
+        const locationReports = await this.getReportForLocations(
+            locations.locations
+        );
         for (const report of locationReports) {
             this.wReport.locations[report.id] = report;
         }
@@ -62,7 +66,8 @@ export class WReportGenerator {
         for (const activity of location.activities) {
             activities[activity] = {
                 icon: globalActivities.activities[activity].icon,
-                display_name: globalActivities.activities[activity].display_name,
+                display_name:
+                    globalActivities.activities[activity].display_name,
                 description: globalActivities.activities[activity].description,
             };
         }
@@ -127,8 +132,6 @@ export class WReportGenerator {
             dayIndex
         );
         let snowfall = this.weatherAPI.getDaySnowfall(location, dayIndex);
-        let sunrise = this.weatherAPI.getDaySunrise(location, dayIndex);
-        let sunset = this.weatherAPI.getDaySunset(location, dayIndex);
         let uvIndex = this.weatherAPI.getDayUVIndex(location, dayIndex);
         let snowdepth = this.weatherAPI.getDaySnowdepth(location, dayIndex);
         let precipitationHours = this.weatherAPI.getDayPrecipitationHours(
@@ -149,6 +152,43 @@ export class WReportGenerator {
             this.activityProcessor.getActivitiesGood(activityWeather);
         let activitiesAcceptable =
             this.activityProcessor.getActivitiesAcceptable(activityWeather);
+
+        const dayDate = new Date();
+        dayDate.setDate(dayDate.getDate() + dayIndex);
+        dayDate.setHours(0, 0, 0, 0);
+        const sunTimes = this.sunCalculator.getSunTimes(
+            dayDate,
+            location.latitude,
+            location.longitude
+        );
+
+        const nightEnd = sunTimes.nightEnd
+            ? sunTimes.nightEnd.toISOString()
+            : "";
+        const sunrise = sunTimes.sunrise ? sunTimes.sunrise.toISOString() : "";
+        const goldenHourEnd = sunTimes.goldenHourEnd
+            ? sunTimes.goldenHourEnd.toISOString()
+            : "";
+        const solarNoon = sunTimes.solarNoon
+            ? sunTimes.solarNoon.toISOString()
+            : "";
+        const goldenHourStart = sunTimes.goldenHour
+            ? sunTimes.goldenHour.toISOString()
+            : "";
+        const sunset = sunTimes.sunset ? sunTimes.sunset.toISOString() : "";
+        const nightStart = sunTimes.night ? sunTimes.night.toISOString() : "";
+
+        const moonTimes = this.sunCalculator.getMoonTimes(
+            dayDate,
+            location.latitude,
+            location.longitude
+        );
+        const moonrise = moonTimes.rise ? moonTimes.rise.toISOString() : "";
+        const moonset = moonTimes.set ? moonTimes.set.toISOString() : "";
+
+        const moonIllumination =
+            this.sunCalculator.getMoonIllumination(dayDate);
+        const moonFraction = moonIllumination.fraction;
         let daily = {
             weatherCode: weatherCode,
             temperature: temperature,
@@ -156,8 +196,6 @@ export class WReportGenerator {
             sunPercentage: sunPercentage,
             precipitation: precipitation,
             snowfall: snowfall,
-            sunrise: sunrise,
-            sunset: sunset,
             uvIndex: uvIndex,
             snowdepth: snowdepth,
             precipitationHours: precipitationHours,
@@ -166,6 +204,16 @@ export class WReportGenerator {
             activitiesGood: activitiesGood,
             activitiesAcceptable: activitiesAcceptable,
             activityWeather: activityWeather,
+            nightEnd: nightEnd,
+            sunrise: sunrise,
+            goldenHourEnd: goldenHourEnd,
+            solarNoon: solarNoon,
+            goldenHourStart: goldenHourStart,
+            sunset: sunset,
+            nightStart: nightStart,
+            moonrise: moonrise,
+            moonset: moonset,
+            moonFraction: moonFraction,
         };
         return daily;
     }
