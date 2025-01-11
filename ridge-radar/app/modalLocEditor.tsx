@@ -10,7 +10,7 @@ export default function Modal() {
 
     return (
         <SafeAreaView className="flex-1 bg-transparent">
-            <View className="flex-1 bg-primary rounded-3xl">
+            <View className="flex-1 bg-primary rounded-3xl dark:bg-primary-dark">
                 <LocationEditor locDataStr={locDataStr} newLoc={newLoc} />
             </View>
         </SafeAreaView>

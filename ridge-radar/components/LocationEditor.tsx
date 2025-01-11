@@ -153,16 +153,16 @@ const LocationEditor: React.FC<{
     return (
         <KeyboardAwareScrollView className="w-full h-full p-4">
             <View className="mb-4">
-                <Text className="mb-1 mt-2">Location Name</Text>
+                <Text className="mb-1 mt-2 dark:text-text-dark">Location Name</Text>
                 <TextInput
-                    className="border border-gray-300 p-2 rounded-full text-text/60"
+                    className="border border-gray-300 p-2 rounded-full text-text/40 dark:text-text-dark/40"
                     editable={false}
                     value={locData.name}
                 />
 
-                <Text className="mb-1">Display Name</Text>
+                <Text className="mb-1 dark:text-text-dark">Display Name</Text>
                 <TextInput
-                    className="border border-gray-300 p-2 rounded-full"
+                    className="border border-gray-300 p-2 rounded-full dark:text-text-dark/40"
                     value={locData.display_name}
                     onChangeText={(val) => {
                         setLocData({ ...locData, display_name: val });
@@ -170,30 +170,30 @@ const LocationEditor: React.FC<{
                 />
                 <View className="flex-row justify-between">
                     <View className="flex-1 mr-1">
-                        <Text className="mb-1 mt-2">Latitude</Text>
+                        <Text className="mb-1 mt-2 dark:text-text-dark">Latitude</Text>
                         <TextInput
-                            className="border border-gray-300 p-2 rounded-full text-text/60"
+                            className="border border-gray-300 p-2 rounded-full text-text/40 dark:text-text-dark/40"
                             editable={false}
                             value={String(locData.latitude)}
                         />
                     </View>
                     <View className="flex-1 ml-1">
-                        <Text className="mb-1 mt-2">Longitude</Text>
+                        <Text className="mb-1 mt-2 dark:text-text-dark">Longitude</Text>
                         <TextInput
-                            className="border border-gray-300 p-2 rounded-full text-text/60"
+                            className="border border-gray-300 p-2 rounded-full text-text/40 dark:text-text-dark/40"
                             editable={false}
                             value={String(locData.longitude)}
                         />
                     </View>
                 </View>
-                <Text className="mb-1 mt-2">Elevation</Text>
+                <Text className="mb-1 mt-2 dark:text-text-dark">Elevation</Text>
                 <TextInput
-                    className="border border-gray-300 p-2 rounded-full text-text/60"
+                    className="border border-gray-300 p-2 rounded-full text-text/40 dark:text-text-dark/40"
                     editable={false}
                     value={String(locData.elevation + "m")}
                 />
 
-                <Text className="mb-1 mt-2">Weather Model</Text>
+                <Text className="mb-1 mt-2 dark:text-text-dark">Weather Model</Text>
                 <View className="border border-gray-300 p-2 rounded-full">
                     <Picker
                         selectedValue={locData.weather_model}
@@ -208,9 +208,9 @@ const LocationEditor: React.FC<{
                     </Picker>
                 </View>
 
-                <Text className="mb-1 mt-2">Tags</Text>
+                <Text className="mb-1 mt-2 dark:text-text-dark">Tags</Text>
                 <TextInput
-                    className="border border-gray-300 p-2 pl-3 rounded-full"
+                    className="border border-gray-300 p-2 pl-3 rounded-full dark:text-text-dark/40"
                     placeholder="Add tag"
                     value={newTag}
                     onChangeText={(val) => {
@@ -252,7 +252,7 @@ const LocationEditor: React.FC<{
                             <TouchableOpacity
                                 key={index}
                                 className={`p-2 px-3 rounded-full m-1 ml-0 ${
-                                    isActive ? "bg-yellow-400" : "bg-secondary/40"
+                                    isActive ? "bg-yellow-400" : "bg-secondary/40 dark:bg-secondary-dark"
                                 }`}
                                 onPress={() => {
                                     if (isActive) {
@@ -270,15 +270,15 @@ const LocationEditor: React.FC<{
                                     }
                                 }}
                             >
-                                <Text>{tag}</Text>
+                                <Text className="dark:text-text-dark">{tag}</Text>
                             </TouchableOpacity>
                         );
                     })}
                 </View>
 
-                <Text className="mb-1 mt-2">Notes</Text>
+                <Text className="mb-1 mt-2 dark:text-text-dark">Notes</Text>
                 <TextInput
-                    className="border border-gray-300 p-2 rounded-3xl"
+                    className="border border-gray-300 p-2 rounded-3xl dark:text-text-dark"
                     multiline
                     numberOfLines={8}
                     value={locData.notes}
@@ -287,7 +287,7 @@ const LocationEditor: React.FC<{
                     }}
                 />
 
-                <Text className="mb-1 mt-2">Activities</Text>
+                <Text className="mb-1 mt-2 dark:text-text-dark">Activities</Text>
                 <View className="flex-row flex-wrap">
                     {activitiesList.map((actitivity, index) => {
                         const isActive =
@@ -318,7 +318,7 @@ const LocationEditor: React.FC<{
                                     }
                                 }}
                             >
-                                <Text>{actitivity}</Text>
+                                <Text className="dark:text-text-dark">{actitivity}</Text>
                             </TouchableOpacity>
                         );
                     })}
@@ -334,7 +334,7 @@ const LocationEditor: React.FC<{
                             : updateLocation(locData)
                     }
                 >
-                    <Text>Save</Text>
+                    <Text className=" dark:text-text-dark">Save</Text>
                 </TouchableOpacity>
                 <View className="flex-row w-full justify-between">
                     {!newLoc && (
@@ -344,7 +344,7 @@ const LocationEditor: React.FC<{
                             }`}
                             onPress={() => deleteLocation(locData.id)}
                         >
-                            <Text>Delete</Text>
+                            <Text className=" dark:text-text-dark">Delete</Text>
                         </TouchableOpacity>
                     )}
                     <TouchableOpacity
@@ -353,7 +353,7 @@ const LocationEditor: React.FC<{
                         }`}
                         onPress={() => router.back()}
                     >
-                        <Text className="text-center">Cancel</Text>
+                        <Text className="text-center dark:text-text-dark">Cancel</Text>
                     </TouchableOpacity>
                 </View>
             </View>

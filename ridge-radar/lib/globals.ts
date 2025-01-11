@@ -5,9 +5,10 @@ import { Locations } from "../types/locations";
 import { Activities } from "../types/activities";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+let debugFlag = false;
 
 class DataStore {
-    alwaysLoadDefault: boolean = true; // TODO: Set to true for development, false for production
+    alwaysLoadDefault: boolean = debugFlag; // TODO: Set to true for development, false for production
 
     async loadFromStorage(key:string): Promise<{ [key: string]: any }> {
         console.log("DataStore: Loading", key);
@@ -30,11 +31,16 @@ class DataStore {
         await AsyncStorage.setItem(key, JSON.stringify(value));
         return;
     }
+
+    async deleteFromStorage(key:string): Promise<void> {
+        console.log("DataStore: deleting ", key);
+        await AsyncStorage.removeItem(key);
+        return;
+    }
 }
 
 const dataStorer = new DataStore();
 
-let debugFlag = false;
 
 // Use mutable objects so we can update them asynchronously without using `await`.
 let globalSettings: { [key: string]: any } = { ...defaultSettings };

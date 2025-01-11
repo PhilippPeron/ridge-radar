@@ -1,5 +1,5 @@
 import * as NavigationBar from "expo-navigation-bar";
-import { LogBox, Appearance } from "react-native";
+import { LogBox } from "react-native";
 import { Location } from "../types/locations";
 
 LogBox.ignoreLogs([
@@ -12,16 +12,14 @@ export function hideNavBar() {
     NavigationBar.setBackgroundColorAsync("#ffffff01");
 }
 
-
 export function getTagList(locations: Location[]) {
     let tags: string[] = [];
     locations.forEach((location) => {
         location.tags.forEach((tag: string) => {
             if (!tags.includes(tag)) {
-            tags.push(tag);
+                tags.push(tag);
             }
         });
     });
-    console.log("Tags: ", tags);
     return tags;
 }
