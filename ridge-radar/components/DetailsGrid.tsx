@@ -193,7 +193,7 @@ const DetailsGrid: React.FC<DetailsHourlyProps> = ({ locId, dayIndex }) => {
                     value={moonFractionValue}
                 />
             </View>
-            <View className="flex-row justify-between mb-1">
+            <View className="flex-row justify-between">
                 <DetailsGridElement
                     title="Moonrise"
                     Icon={MOON}

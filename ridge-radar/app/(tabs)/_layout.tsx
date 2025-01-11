@@ -7,7 +7,7 @@ import SettingsIcon from "../../assets/icons/settings.svg";
 
 import tailwindConfig from "../../tailwind.config.js";
 const tailwindColors = tailwindConfig?.theme?.extend?.colors;
-const iconSize = 30;
+const iconSize = 28;
 
 import { useColorScheme } from "react-native";
 
@@ -35,8 +35,8 @@ export default function TabsLayout() {
                 tabBarInactiveTintColor: inactiveTintColor,
                 tabBarStyle: {
                     position: "absolute",
-                    height: 80, // !! Uncomment to show tab bar
-                    paddingBottom: 18, // !! Uncomment to show tab bar
+                    height: 72, // !! Uncomment to show tab bar
+                    paddingBottom: 12, // !! Uncomment to show tab bar
                 },
                 tabBarLabelPosition: "beside-icon",
                 tabBarShowLabel: false,

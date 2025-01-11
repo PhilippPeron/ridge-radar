@@ -1,3 +1,4 @@
+import Background from "@/components/Background";
 import { globalSettings, dataStorer } from "@/lib/globals";
 import { Alert } from "react-native";
 import {
@@ -12,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Tab() {
     return (
+        <Background>
         <SafeAreaView className="flex-1 bg-transparent">
             <View className="flex-1 rounded-3xl">
                 <Text className="text-4xl m-5 dark:text-text-dark">Settings</Text>
@@ -35,6 +37,7 @@ export default function Tab() {
                 </ScrollView>
             </View>
         </SafeAreaView>
+        </Background>
     );
 }
 // TODO: Add credit screen for weather icons and openmeteteo and daily icons (Dazzle UI https://www.svgrepo.com/svg/532033/cloud)
@@ -52,7 +55,7 @@ const SettingsElement: React.FC<SettingsElementProps> = ({
 }) => {
     return (
         <TouchableOpacity
-            className="bg-secondary/40 rounded-xl px-4 p-3 m-1"
+            className="bg-secondary/40 rounded-3xl px-4 p-3 m-1"
             {...rest} // Pass additional props to TouchableOpacity
         >
             <Text className="text-2xl dark:text-text-dark">{title}</Text>

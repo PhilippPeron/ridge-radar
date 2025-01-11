@@ -47,7 +47,7 @@ export default function Day() {
 
     return (
         <Background>
-            <SafeAreaView className="bg-transparent mb-16 mt-14 flex-1">
+            <SafeAreaView className="bg-transparent mb-10 mt-14 flex-1">
                 <View className="">
                     <ScrollView
                         horizontal
@@ -67,7 +67,7 @@ export default function Day() {
                 <View className="flex-1">
                     <ScrollView
                         showsVerticalScrollIndicator={false}
-                        className="mt-4 m-2"
+                        className="mt-1 m-2"
                     >
                         <TitleWithChildren title="Stündlich">
                             <DetailsHourly locId={locId} dayIndex={dayIndex} />
@@ -82,7 +82,7 @@ export default function Day() {
                         <TitleWithChildren title="Details">
                             <DetailsGrid locId={locId} dayIndex={dayIndex} />
                         </TitleWithChildren>
-                        {/* <View className=" bg-primary/30 rounded-3xl p-2 items-center mb-4">
+                        {/* <View className=" bg-primary/20 rounded-3xl p-2 items-center mb-4">
                             <Text className="text-xl mb-1">Sun & Moon</Text>
                             <DetailsSun locId={locId} dayIndex={dayIndex} />
                         </View> */}
@@ -104,7 +104,7 @@ const TitleWithChildren: React.FC<TitleWithChildrenProps> = ({
 }) => {
     const [show, setShow] = useState(true);
     return (
-        <View className="mb-4 bg-primary/30 rounded-3xl p-2">
+        <View className="mb-4 bg-primary/15 rounded-3xl p-2">
             <TouchableOpacity className=" p-1" onPress={() => setShow(!show)}>
                 <Text className="text-xl mb-1 text-center">{title}</Text>
             </TouchableOpacity>

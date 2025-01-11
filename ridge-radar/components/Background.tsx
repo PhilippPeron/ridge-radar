@@ -1,15 +1,27 @@
 import React, { ReactNode } from "react";
 import { ImageBackground, StyleSheet, ViewStyle } from "react-native";
+import { useColorScheme } from "react-native";
 
 export default function Background({ children }: BackgroundProps) {
+    const colorScheme = useColorScheme();
     return (
-        <ImageBackground
-            source={require("../assets/images/bg_light_sun.png")}
-            style={styles.background}
-            blurRadius={150}
-        >
-          {children}
-        </ImageBackground>
+        colorScheme === "dark" ? (
+            <ImageBackground
+                source={require("../assets/images/bg_spots_dark.png")}
+                style={styles.background}
+                blurRadius={160}
+            >
+                {children}
+            </ImageBackground>
+        ) : (
+            <ImageBackground
+                source={require("../assets/images/bg_medium_sun_lower.png")}
+                style={styles.background}
+                blurRadius={300}
+            >
+                {children}
+            </ImageBackground>
+        )
     );
 }
 
