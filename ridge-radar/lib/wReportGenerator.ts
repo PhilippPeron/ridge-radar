@@ -55,13 +55,14 @@ export class WReportGenerator {
             timezone: location.timezone,
             tags: location.tags,
             notes: location.notes,
-            activities: this.getActivitiesForLocation(location),
+            activities: null,
             weather: this.getWeatherForLocation(location),
         };
+        locationReport.activities = this.getActivitiesForLocation(location);
         return locationReport;
     }
 
-    private getActivitiesForLocation(location: Location) {
+    private getActivitiesForLocation(location: Location, locationWeather) {
         let activities: any = {};
         for (const activity of location.activities) {
             activities[activity] = {
@@ -106,7 +107,17 @@ export class WReportGenerator {
             icon_path: iconPath,
             title: title,
         };
+        this.calcActivitiesForDay(location, day);
         return day;
+    }
+    private calcActivitiesForDay(location: Location, day: any) {
+        let activityWeather = this.activityProcessor.getDayWeather(
+            location,
+            day
+        );
+        day.activityWeather = activityWeather;
+        [day.activitiesGood, day.activitiesAcceptable] =
+            this.activityProcessor.getActivityStatus(activityWeather);
     }
 
     private getDateForDay(dayIndex: number): Date {
@@ -144,14 +155,6 @@ export class WReportGenerator {
         );
         let precipitationProbability =
             this.weatherAPI.getDayPrecipitationProbability(location, dayIndex);
-        let activityWeather = this.activityProcessor.getDayWeather(
-            location,
-            dayIndex
-        );
-        let activitiesGood =
-            this.activityProcessor.getActivitiesGood(activityWeather);
-        let activitiesAcceptable =
-            this.activityProcessor.getActivitiesAcceptable(activityWeather);
 
         const dayDate = new Date();
         dayDate.setDate(dayDate.getDate() + dayIndex);
@@ -201,9 +204,6 @@ export class WReportGenerator {
             precipitationHours: precipitationHours,
             maxWindSpeed: maxWindSpeed,
             precipitationProbability: precipitationProbability,
-            activitiesGood: activitiesGood,
-            activitiesAcceptable: activitiesAcceptable,
-            activityWeather: activityWeather,
             nightEnd: nightEnd,
             sunrise: sunrise,
             goldenHourEnd: goldenHourEnd,
@@ -214,6 +214,9 @@ export class WReportGenerator {
             moonrise: moonrise,
             moonset: moonset,
             moonFraction: moonFraction,
+            activitiesGood: null,
+            activitiesAcceptable: null,
+            activityWeather: null,
         };
         return daily;
     }

@@ -6,7 +6,7 @@ export interface WeatherCondition {
 }
 
 export interface HourlyWeatherCondition {
-    hours: number[];
+    hours?: number[];
     good: WeatherCondition;
     acceptable: WeatherCondition;
 }
@@ -26,6 +26,7 @@ export interface Activity {
     icon: string;
     display_name: string;
     description: string;
+    default_hours: number[];
     weather: ActivityWeather;
 }
 

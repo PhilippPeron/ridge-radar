@@ -5,12 +5,10 @@
     "activities": {
         "Hiking": {
             "icon": "hiking.svg",
-            "display_name": "Hiking",
             "description": "Hiking in the mountains",
-            "notes": "Hiking in the mountains",
+            "default_hours": [9, 10, 11, 12, 13, 14, 15, 16, 17],
             "weather": {
                 "precipitation_hour": {
-                    "hours": [9, 10, 11, 12, 13, 14, 15, 16, 17],
                     "good": {
                         "min": 0,
                         "max": 0,
@@ -23,14 +21,13 @@
                     }
                 },
                 "windGround_hour": {
-                    "hours": [9, 10, 11, 12, 13, 14, 15, 16, 17],
                     "good": {
                         "min": 0,
-                        "max": 3,
+                        "max": 4,
                         "unit": "m/s"
                     },
                     "acceptable": {
-                        "min": 3,
+                        "min": 4,
                         "max": 10,
                         "unit": "m/s"
                     }
@@ -48,7 +45,74 @@
                     }
                 },
                 "cloudCoverReference_hour": {
-                    "hours": [9, 10, 11, 12, 13, 14],
+                    "good": {
+                        "min": 80,
+                        "max": 100,
+                        "unit": "%",
+                        "and": {"cloud_cover": "good"}
+                    },
+                    "acceptable": {
+                        "min": 0,
+                        "max": 100,
+                        "unit": "%"
+                    }
+                },
+                "visibility": {
+                    "good": {
+                        "min": 10,
+                        "max": 1000,
+                        "unit": "km"
+                    },
+                    "acceptable": {
+                        "min": 2,
+                        "max": 10,
+                        "unit": "km"
+                    }
+                }
+            }
+        },
+        "Sunset Hike": {
+            "icon": "hiking.svg",
+            "description": "Hiking in the mountains around sunset",
+            "default_hours": [15, 16, 17, 18, 19, 20, 21, 22],
+            "weather": {
+                "precipitation_hour": {
+                    "good": {
+                        "min": 0,
+                        "max": 0,
+                        "unit": "mm"
+                    },
+                    "acceptable": {
+                        "min": 0,
+                        "max": 5,
+                        "unit": "mm"
+                    }
+                },
+                "windGround_hour": {
+                    "good": {
+                        "min": 0,
+                        "max": 4,
+                        "unit": "m/s"
+                    },
+                    "acceptable": {
+                        "min": 4,
+                        "max": 10,
+                        "unit": "m/s"
+                    }
+                },
+                "sunPercentage_day": {
+                    "good": {
+                        "min": 80,
+                        "max": 100,
+                        "unit": "%"
+                    },
+                    "acceptable": {
+                        "min": 30,
+                        "max": 80,
+                        "unit": "%"
+                    }
+                },
+                "cloudCoverReference_hour": {
                     "good": {
                         "min": 80,
                         "max": 100,
